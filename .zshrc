@@ -26,7 +26,7 @@ plug "romkatv/powerlevel10k"
 plug "esc/conda-zsh-completion"
 
 # syntax highlighting
-source ~/dotfiles/catppuccin_macchiato-zsh-syntax-highlighting.zsh
+source ~/dotfiles/zsh-syntax-highlighting/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 plug "zsh-users/zsh-syntax-highlighting"
 
 export EDITOR=nvim
