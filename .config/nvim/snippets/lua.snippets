@@ -1,0 +1,26 @@
+# vim:set ft=snippets
+
+snippet #!
+	#!/usr/bin/env lua
+	$1
+
+snippet local
+	local ${1:x} = ${0:1}
+
+snippet fun
+	function ${1:fname}(${2:...})
+		$0
+	end
+
+snippet _skel
+    -- Filename: ${TM_FILENAME}
+    -- Last Change: ${CURRENT_DAY_NAME_SHORT}, ${CURRENT_DATE} ${CURRENT_MONTH_NAME_SHORT} ${CURRENT_YEAR} - ${CURRENT_HOUR}:${CURRENT_MINUTE}
+    -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
+
+snippet sts
+  local ${1:status}, ${2:_} = pcall(require, '${3}')
+  if not ${1:status} then
+    return
+  end
+
+
