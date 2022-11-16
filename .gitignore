@@ -1,1 +1,5 @@
-./.config/nvim/plugin/packer_compiled.lua
+.config/nvim/plugin/packer_compiled.lua
+.config/firefox/betterfox
+!.config/firefox/betterfox/chrome
+!.config/firefox/betterfox/user.js
+
