@@ -2,6 +2,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local menubar = require("menubar")
 local awful = require("awful")
 local gears = require("gears")
+local menu = require("core.utils.menu")
+local terminal = require("core.config").terminal
 
 local M = {}
 
@@ -10,8 +12,8 @@ local modkey = M.modkey
 
 M.globalkeys = gears.table.join(
 	awful.key({ modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
-	awful.key({ modkey }, "j", awful.tag.viewprev, { description = "view previous", group = "tag" }),
-	awful.key({ modkey }, "k", awful.tag.viewnext, { description = "view next", group = "tag" }),
+	awful.key({ modkey }, "q", awful.tag.viewprev, { description = "view previous", group = "tag" }),
+	awful.key({ modkey }, "e", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key({ modkey }, "Escape", awful.tag.history.restore, { description = "go back", group = "tag" }),
 
 	awful.key({ modkey }, "j", function()
@@ -21,7 +23,7 @@ M.globalkeys = gears.table.join(
 		awful.client.focus.byidx(-1)
 	end, { description = "focus previous by index", group = "client" }),
 	awful.key({ modkey }, "w", function()
-		mymainmenu:show()
+		menu.mymainmenu:show()
 	end, { description = "show main menu", group = "awesome" }),
 	-- Layout manipulation
 
@@ -206,7 +208,7 @@ M.clientbuttons = gears.table.join(
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
 	awful.button({}, 3, function()
-		mymainmenu:toggle()
+		menu.mymainmenu:toggle()
 	end),
 	awful.button({}, 4, awful.tag.viewnext),
 	awful.button({}, 5, awful.tag.viewprev)

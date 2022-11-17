@@ -5,89 +5,30 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- local naughty = require("naughty")
-local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup")
 
 require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
 
 -- my requires
-require("core.errors")
-require("core.env")
+require("core.utils.errors")
 require("core.autostart")
 require("core.keymaps")
-require("core.themes")
+require("core.colors")
+require("core.config")
 
 -- my locals
 local keymaps = require("core.keymaps")
 local modkey = keymaps.modkey
 
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
-
 -- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts = {
-	awful.layout.suit.floating,
-	awful.layout.suit.tile,
-	awful.layout.suit.tile.left,
-	awful.layout.suit.tile.bottom,
-	awful.layout.suit.tile.top,
-	awful.layout.suit.fair,
-	awful.layout.suit.fair.horizontal,
-	awful.layout.suit.spiral,
-	awful.layout.suit.spiral.dwindle,
-	awful.layout.suit.max,
-	awful.layout.suit.max.fullscreen,
-	awful.layout.suit.magnifier,
-	awful.layout.suit.corner.nw,
-	-- awful.layout.suit.corner.ne,
-	-- awful.layout.suit.corner.sw,
-	-- awful.layout.suit.corner.se,
-}
 -- }}}
 
--- {{{ Menu
--- Create a launcher widget and a main menu
-myawesomemenu = {
-	{
-		"hotkeys",
-		function()
-			hotkeys_popup.show_help(nil, awful.screen.focused())
-		end,
-	},
-	{ "manual", terminal .. " -e man awesome" },
-	{ "edit config", editor_cmd .. " " .. awesome.conffile },
-	{ "restart", awesome.restart },
-	{
-		"quit",
-		function()
-			awesome.quit()
-		end,
-	},
-}
-
-mymainmenu = awful.menu({
-	items = {
-		{ "awesome", myawesomemenu, beautiful.awesome_icon },
-		{ "open terminal", terminal },
-	},
-})
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mymainmenu })
-
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
-
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
--- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+-- -- Keyboard map indicator and switcher
+-- mykeyboardlayout = awful.widget.keyboardlayout()
+--
+-- -- {{{ Wibar
+-- -- Create a textclock widget
+-- mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -187,27 +128,27 @@ awful.screen.connect_for_each_screen(function(s)
 		buttons = tasklist_buttons,
 	})
 
-	-- Create the wibox
-	s.mywibox = awful.wibar({ position = "top", screen = s })
-
-	-- Add widgets to the wibox
-	s.mywibox:setup({
-		layout = wibox.layout.align.horizontal,
-		{ -- Left widgets
-			layout = wibox.layout.fixed.horizontal,
-			mylauncher,
-			s.mytaglist,
-			s.mypromptbox,
-		},
-		s.mytasklist, -- Middle widget
-		{ -- Right widgets
-			layout = wibox.layout.fixed.horizontal,
-			-- mykeyboardlayout,
-			wibox.widget.systray(),
-			mytextclock,
-			s.mylayoutbox,
-		},
-	})
+	-- -- Create the wibox
+	-- s.mywibox = awful.wibar({ position = "top", screen = s })
+	--
+	-- -- Add widgets to the wibox
+	-- s.mywibox:setup({
+	-- 	layout = wibox.layout.align.horizontal,
+	-- 	{ -- Left widgets
+	-- 		layout = wibox.layout.fixed.horizontal,
+	-- 		mylauncher,
+	-- 		s.mytaglist,
+	-- 		s.mypromptbox,
+	-- 	},
+	-- 	s.mytasklist, -- Middle widget
+	-- 	{ -- Right widgets
+	-- 		layout = wibox.layout.fixed.horizontal,
+	-- 		-- mykeyboardlayout,
+	-- 		wibox.widget.systray(),
+	-- 		mytextclock,
+	-- 		s.mylayoutbox,
+	-- 	},
+	-- })
 end)
 -- }}}
 
@@ -269,7 +210,9 @@ awful.rules.rules = {
 	},
 
 	-- Add titlebars to normal clients and dialogs
-	{ rule_any = { type = { "normal", "dialog" } }, properties = { titlebars_enabled = true } },
+	{ rule_any = {
+		type = { "normal", "dialog" },
+	}, properties = { titlebars_enabled = false } },
 
 	-- Set Firefox to always map on the tag named "2" on screen 1.
 	-- { rule = { class = "Firefox" },
