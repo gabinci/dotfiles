@@ -4,7 +4,7 @@
 alias nv="nvim"
 alias q="exit"
 alias dot="~/dotfiles/"
-alias conf="~/dotfiles/.config/"
+alias config="~/dotfiles/.config/"
 alias home="~/"
 alias c="clear ; exec zsh"
 
