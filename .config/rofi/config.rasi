@@ -1,13 +1,10 @@
-/* vim: ft=sass
 
 configuration {
-  display-drun: "Applications";
-  display-windows: "Windows";
-  drun-display-format: "{icon} {name}";
+  display-drun: "Applications:";
+  display-window: "Windows:";
+  drun-display-format: "{name}";
   font: "JetBrainsMono Nerd Font Medium 10";
   modi: "window,run,drun";
-  show-icons: true;
-  icon-theme: "Papirus";
 }
 
 @theme "/dev/null"
@@ -16,11 +13,11 @@ configuration {
   bg: #24273A;
   bg-alt: #494D64;
 
-  fg: #CAD3F5;
-  fg-alt: #B7BDF8;
+  fg:#EED49F;
+  fg-alt: #A5ADCB;
 
   background-color: @bg;
-
+  
   border: 0;
   margin: 0;
   padding: 0;
@@ -78,4 +75,6 @@ prompt {
   padding: 12 0 0 12;
   text-color: @fg;
 }
+
+/* vim: ft=sass
 
