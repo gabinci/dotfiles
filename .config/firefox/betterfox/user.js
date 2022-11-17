@@ -14,11 +14,11 @@
  * url: https://github.com/yokoffing/Betterfox                              *
  * license: https://github.com/yokoffing/Betterfox/blob/master/LICENSE      *
  * README: https://github.com/yokoffing/Betterfox/blob/master/README.md     *
-****************************************************************************/
+ ****************************************************************************/
 
 /****************************************************************************
  * SECTION: FASTFOX                                                         *
-****************************************************************************/
+ ****************************************************************************/
 user_pref("image.jxl.enabled", true);
 user_pref("layout.css.grid-template-masonry-value.enabled", true);
 user_pref("dom.enable_web_task_scheduling", true);
@@ -29,15 +29,30 @@ user_pref("dom.importMaps.enabled", true);
 
 /****************************************************************************
  * SECTION: SECUREFOX                                                       *
-****************************************************************************/
+ ****************************************************************************/
 /** TRACKING PROTECTION ***/
 user_pref("browser.contentblocking.category", "strict");
 user_pref("privacy.trackingprotection.emailtracking.enabled", true);
-user_pref("privacy.query_stripping.strip_list", "__hsfp __hssc __hstc __s _hsenc _openstat dclid fbclid gbraid gclid hsCtaTracking igshid mc_eid ml_subscriber ml_subscriber_hash msclkid oft_c oft_ck oft_d oft_id oft_ids oft_k oft_lk oft_sk oly_anon_id oly_enc_id rb_clickid s_cid twclid vero_conv vero_id wbraid wickedid yclid");
-user_pref("urlclassifier.trackingSkipURLs", "*.reddit.com, *.twitter.com, *.twimg.com");
-user_pref("urlclassifier.features.socialtracking.skipURLs", "*.instagram.com, *.twitter.com, *.twimg.com");
-user_pref("privacy.partition.always_partition_third_party_non_cookie_storage", true);
-user_pref("privacy.partition.always_partition_third_party_non_cookie_storage.exempt_sessionstorage", false);
+user_pref(
+  "privacy.query_stripping.strip_list",
+  "__hsfp __hssc __hstc __s _hsenc _openstat dclid fbclid gbraid gclid hsCtaTracking igshid mc_eid ml_subscriber ml_subscriber_hash msclkid oft_c oft_ck oft_d oft_id oft_ids oft_k oft_lk oft_sk oly_anon_id oly_enc_id rb_clickid s_cid twclid vero_conv vero_id wbraid wickedid yclid"
+);
+user_pref(
+  "urlclassifier.trackingSkipURLs",
+  "*.reddit.com, *.twitter.com, *.twimg.com"
+);
+user_pref(
+  "urlclassifier.features.socialtracking.skipURLs",
+  "*.instagram.com, *.twitter.com, *.twimg.com"
+);
+user_pref(
+  "privacy.partition.always_partition_third_party_non_cookie_storage",
+  true
+);
+user_pref(
+  "privacy.partition.always_partition_third_party_non_cookie_storage.exempt_sessionstorage",
+  false
+);
 user_pref("beacon.enabled", false);
 
 /** OCSP & CERTS / HPKP ***/
@@ -131,7 +146,10 @@ user_pref("media.peerconnection.ice.default_address_only", true);
 user_pref("browser.safebrowsing.malware.enabled", false);
 user_pref("browser.safebrowsing.phishing.enabled", false);
 user_pref("browser.safebrowsing.downloads.enabled", false);
-user_pref("browser.safebrowsing.downloads.remote.block_potentially_unwanted", false);
+user_pref(
+  "browser.safebrowsing.downloads.remote.block_potentially_unwanted",
+  false
+);
 user_pref("browser.safebrowsing.downloads.remote.block_uncommon", false);
 user_pref("browser.safebrowsing.blockedURIs.enabled", false);
 
@@ -141,7 +159,10 @@ user_pref("browser.tabs.firefox-view", false);
 user_pref("dom.push.enabled", false);
 user_pref("permissions.default.desktop-notification", 2);
 user_pref("permissions.default.geo", 2);
-user_pref("geo.provider.network.url", "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%");
+user_pref(
+  "geo.provider.network.url",
+  "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%"
+);
 user_pref("geo.provider.ms-windows-location", false); // WINDOWS
 user_pref("geo.provider.use_corelocation", false); // MAC
 user_pref("geo.provider.use_gpsd", false); // LINUX
@@ -179,7 +200,7 @@ user_pref("browser.newtabpage.activity-stream.telemetry", false);
 
 /****************************************************************************
  * SECTION: PESKYFOX                                                        *
-****************************************************************************/
+ ****************************************************************************/
 /** MOZILLA UI ***/
 user_pref("layout.css.prefers-color-scheme.content-override", 2);
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
@@ -190,8 +211,14 @@ user_pref("browser.privatebrowsing.vpnpromourl", "");
 user_pref("extensions.getAddons.showPane", false);
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
 user_pref("browser.shell.checkDefaultBrowser", false);
-user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons", false);
-user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", false);
+user_pref(
+  "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons",
+  false
+);
+user_pref(
+  "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features",
+  false
+);
 user_pref("browser.preferences.moreFromMozilla", false);
 user_pref("browser.tabs.tabmanager.enabled", false);
 user_pref("findbar.highlightAll", true);
@@ -236,18 +263,18 @@ user_pref("layout.css.has-selector.enabled", true);
 
 /****************************************************************************
  * SECTION: SMOOTHFOX                                                       *
-****************************************************************************/
+ ****************************************************************************/
 // see https://github.com/yokoffing/Betterfox/blob/master/Smoothfox.js
 // Enter your scrolling prefs below this line:
-user_pref("general.smoothScroll",                       true); // DEFAULT
-user_pref("mousewheel.default.delta_multiplier_y",      50);  // 250-500
+user_pref("general.smoothScroll", true); // DEFAULT
+user_pref("mousewheel.default.delta_multiplier_y", 50); // 250-500
 
 /****************************************************************************
  * START: MY OVERRIDES                                                      *
-****************************************************************************/
+ ****************************************************************************/
 // Enter your personal prefs below this line:
 user_pref("identity.fxaccounts.enabled", true);
 
 /****************************************************************************
  * END: BETTERFOX                                                           *
-****************************************************************************/
+ ****************************************************************************/
