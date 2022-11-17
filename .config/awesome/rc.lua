@@ -11,10 +11,13 @@ require("awful.hotkeys_popup.keys")
 
 -- my requires
 require("core.autostart")
+
 require("core.utils.errors")
 require("core.utils.rules")
-require("core.visual")
+require("core.utils.sound")
+
 require("core.config")
+require("core.visual")
 
 -- my locals
 local modkey = require("core.keymaps").modkey

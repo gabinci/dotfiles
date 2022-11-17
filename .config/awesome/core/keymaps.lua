@@ -3,6 +3,7 @@ local awful = require("awful")
 local gears = require("gears")
 local menu = require("core.utils.menu")
 local terminal = require("core.config").terminal
+local sound = require("core.utils.sound")
 
 local M = {}
 
@@ -75,11 +76,6 @@ M.globalkeys = gears.table.join(
 		end
 	end, { description = "restore minimized", group = "client" }),
 
-	-- Prompt
-	awful.key({ modkey }, leader, function()
-		awful.spawn.with_shell("rofi -show drun")
-	end, { description = "run prompt", group = "launcher" }),
-
 	awful.key({ modkey }, "x", function()
 		awful.prompt.run({
 			prompt = "Run Lua code: ",
@@ -93,7 +89,31 @@ M.globalkeys = gears.table.join(
 	awful.key({ modkey }, "Return", function()
 		awful.spawn(terminal)
 	end, { description = "open a terminal", group = "launcher" }),
-	awful.key({ modkey, "Control" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" })
+	awful.key({ modkey, "Control" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
+
+	-- sound
+	awful.key({}, "XF86AudioMute", function()
+		sound.toggleMute()
+	end, { description = "mute volume", group = "sound" }),
+	awful.key({}, "XF86AudioLowerVolume", function()
+		sound.volume("-")
+	end, { description = "lower volume", group = "sound" }),
+	awful.key({}, "XF86AudioRaiseVolume", function()
+		sound.volume("+")
+	end, { description = "raise volume", group = "sound" }),
+
+	-- Brightness
+	awful.key({}, "XF86MonBrightnessDown", function()
+		awful.util.spawn("xbacklight -dec 15")
+	end, { description = "brightness down", group = "launcher" }),
+	awful.key({}, "XF86MonBrightnessUp", function()
+		awful.util.spawn("xbacklight -inc 15")
+	end, { description = "brightness up", group = "launcher" }),
+
+	-- Prompt
+	awful.key({ modkey }, leader, function()
+		awful.spawn.with_shell("rofi -show drun")
+	end, { description = "run prompt", group = "launcher" })
 )
 
 M.clientkeys = gears.table.join(
