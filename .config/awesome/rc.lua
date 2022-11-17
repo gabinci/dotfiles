@@ -10,25 +10,14 @@ require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
 
 -- my requires
-require("core.utils.errors")
 require("core.autostart")
-require("core.keymaps")
-require("core.colors")
+require("core.utils.errors")
+require("core.utils.rules")
+require("core.visual")
 require("core.config")
 
 -- my locals
-local keymaps = require("core.keymaps")
-local modkey = keymaps.modkey
-
--- Table of layouts to cover with awful.layout.inc, order matters.
--- }}}
-
--- -- Keyboard map indicator and switcher
--- mykeyboardlayout = awful.widget.keyboardlayout()
---
--- -- {{{ Wibar
--- -- Create a textclock widget
--- mytextclock = wibox.widget.textclock()
+local modkey = require("core.keymaps").modkey
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -127,98 +116,7 @@ awful.screen.connect_for_each_screen(function(s)
 		filter = awful.widget.tasklist.filter.currenttags,
 		buttons = tasklist_buttons,
 	})
-
-	-- -- Create the wibox
-	-- s.mywibox = awful.wibar({ position = "top", screen = s })
-	--
-	-- -- Add widgets to the wibox
-	-- s.mywibox:setup({
-	-- 	layout = wibox.layout.align.horizontal,
-	-- 	{ -- Left widgets
-	-- 		layout = wibox.layout.fixed.horizontal,
-	-- 		mylauncher,
-	-- 		s.mytaglist,
-	-- 		s.mypromptbox,
-	-- 	},
-	-- 	s.mytasklist, -- Middle widget
-	-- 	{ -- Right widgets
-	-- 		layout = wibox.layout.fixed.horizontal,
-	-- 		-- mykeyboardlayout,
-	-- 		wibox.widget.systray(),
-	-- 		mytextclock,
-	-- 		s.mylayoutbox,
-	-- 	},
-	-- })
 end)
--- }}}
-
--- Set keys
-root.keys(keymaps.globalkeys)
--- }}}
-
--- {{{ Rules
--- Rules to apply to new clients (through the "manage" signal).
-awful.rules.rules = {
-	-- All clients will match this rule.
-	{
-		rule = {},
-		properties = {
-			border_width = beautiful.border_width,
-			border_color = beautiful.border_normal,
-			focus = awful.client.focus.filter,
-			raise = true,
-			keys = keymaps.clientkeys,
-			buttons = keymaps.clientbuttons,
-			screen = awful.screen.preferred,
-			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
-		},
-	},
-
-	-- Floating clients.
-	{
-		rule_any = {
-			instance = {
-				"DTA", -- Firefox addon DownThemAll.
-				"copyq", -- Includes session name in class.
-				"pinentry",
-			},
-			class = {
-				"Arandr",
-				"Blueman-manager",
-				"Gpick",
-				"Kruler",
-				"MessageWin", -- kalarm.
-				"Sxiv",
-				"Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-				"Wpa_gui",
-				"veromix",
-				"xtightvncviewer",
-			},
-
-			-- Note that the name property shown in xprop might be set slightly after creation of the client
-			-- and the name shown there might not match defined rules here.
-			name = {
-				"Event Tester", -- xev.
-			},
-			role = {
-				"AlarmWindow", -- Thunderbird's calendar.
-				"ConfigManager", -- Thunderbird's about:config.
-				"pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
-			},
-		},
-		properties = { floating = true },
-	},
-
-	-- Add titlebars to normal clients and dialogs
-	{ rule_any = {
-		type = { "normal", "dialog" },
-	}, properties = { titlebars_enabled = false } },
-
-	-- Set Firefox to always map on the tag named "2" on screen 1.
-	-- { rule = { class = "Firefox" },
-	--   properties = { screen = 1, tag = "2" } },
-}
--- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.

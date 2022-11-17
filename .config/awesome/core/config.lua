@@ -8,8 +8,8 @@ M.editor_cmd = M.terminal .. " -e " .. M.editor
 
 -- layouts
 awful.layout.layouts = {
-	awful.layout.suit.floating,
 	awful.layout.suit.tile,
+	awful.layout.suit.floating,
 }
 
 return M
