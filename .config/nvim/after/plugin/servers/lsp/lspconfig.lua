@@ -1,5 +1,5 @@
 -- Filename: lspconfig.lua
--- Last Change: 
+-- Last Change: Wed, 16 Nov 2022 13:36:57
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local lspconfig_status, lspconfig = pcall(require, "lspconfig")
@@ -90,7 +90,15 @@ lspconfig["sumneko_lua"].setup({
 		Lua = {
 			diagnostics = {
 				-- Get the language server to recognize the `vim` global
-				globals = { "vim" },
+				globals = {
+					"vim",
+					--[[ awesome WM ]]
+					"awful",
+					"client",
+					"awesome",
+					"screen",
+					"root",
+				},
 			},
 
 			workspace = {
