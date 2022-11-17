@@ -74,7 +74,7 @@
 
   /* dynamic tab width settings */
   --uc-active-tab-width: clamp(50px, 18vw, 220px);
-  --uc-inactive-tab-width: clamp(50px, 15vw, 150px);
+  --uc-inactive-tab-width: clamp(50px, 15vw, 100px);
 
   /* if active always shows the tab close button */
   --show-tab-close-button: none; /* DEFAULT: -moz-inline-box; */
