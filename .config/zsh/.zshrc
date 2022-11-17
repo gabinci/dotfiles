@@ -20,5 +20,5 @@ plug "romkatv/powerlevel10k" # Prompt
 plug "esc/conda-zsh-completion" # Example install completion
 plug "zsh-users/zsh-syntax-highlighting" # syntax highlighting
 
-~/.config/pfetch/pfetch # launch pfetch on startup 
 [[ ! -f ~/.config/zsh/options/prompt/.p10k.zsh ]] || source ~/.config/zsh/options/prompt/.p10k.zsh # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+~/.config/pfetch/pfetch # launch pfetch on startup 

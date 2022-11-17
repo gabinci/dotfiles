@@ -116,3 +116,7 @@ For my zsh configuration:
 - [ThePrimegen](https://github.com/ThePrimeagen) was of great help while researching for my dotfiles.
 
 - The YouTube series [Neovim from Scratch](https://www.youtube.com/watch?v=ctH-a-1eUME&list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ) also was a great font of inspiration for me.
+
+```
+sudo dnf install dbus-devel gcc git libconfig-devel libdrm-devel libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel mesa-libGL-devel meson pcre-devel pixman-devel uthash-devel xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel
+```
