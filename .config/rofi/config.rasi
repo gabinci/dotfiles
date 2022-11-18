@@ -1,80 +1,35 @@
 
-configuration {
-  display-drun: "Applications:";
-  display-window: "Windows:";
-  drun-display-format: "{name}";
-  font: "JetBrainsMono Nerd Font Medium 10";
-  modi: "window,run,drun";
+configuration{
+    modi: "run,drun,window,power-menu:~/dotfiles/.config/rofi/power-menu.sh";
+    icon-theme: "Papirus";
+    show-icons: true;
+    terminal: "kitty";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    drun-display-format: "{icon} {name}";
+    display-drun: "   Apps ";
+    display-run: "   Run ";
+    display-window: " 﩯  Window";
+    sidebar-mode: true;
+
+    kb-accept-entry: "";
+    kb-mode-complete: "";
+    kb-remove-to-eol: "";
+    kb-remove-char-back: "";
+
+    kb-mode-next: "Super+Tab";
+    kb-mode-previous: "Super+Control+Tab";
+    kb-remove-char-back: "BackSpace,Shift+BackSpace";
+    kb-accept-entry: ",Alt+l,Return,KP_Enter";
+    kb-row-left: "Super+h";
+    kb-row-right: "Super+l";
+    kb-row-up: "Super+k";
+    kb-row-down: "Super+j";
+    kb-cancel: "Super+space,Super+Escape,Escape";
 }
 
-@theme "/dev/null"
+@theme "./themes/catppuccin-macchiatto.rasi"
 
-* {
-  bg: #24273A;
-  bg-alt: #494D64;
-
-  fg:#EED49F;
-  fg-alt: #A5ADCB;
-
-  background-color: @bg;
-  
-  border: 0;
-  margin: 0;
-  padding: 0;
-  spacing: 0;
-}
-
-window {
-  width: 30%;
-}
-
-element {
-  padding: 8 0;
-  text-color: @fg-alt;
-}
-
-element selected {
-  text-color: @fg;
-}
-
-element-text {
-  text-color: inherit;
-  vertical-align: 0.5;
-}
-
-element-icon {
-  size: 14;
-  padding: 0 10 0 0;
-}
-
-entry {
-  background-color: @bg-alt;
-  padding: 12;
-  text-color: @fg;
-}
-
-inputbar {
-  children: [prompt, entry];
-}
-
-listview {
-  padding: 8 12;
-  background-color: @bg;
-  columns: 1;
-  lines: 8;
-}
-
-mainbox {
-  background-color: @bg;
-  children: [inputbar, listview];
-}
-
-prompt {
-  background-color: @bg-alt;
-  enabled: true;
-  padding: 12 0 0 12;
-  text-color: @fg;
-}
 
 /* vim: ft=sass
-
