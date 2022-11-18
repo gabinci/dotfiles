@@ -1,5 +1,5 @@
 -- Filename: alpha.lua
--- Last Change: Wed, 16 Nov 2022 22:55:18
+-- Last Change: Thu, 17 Nov 2022 20:51:40
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local status, alpha = pcall(require, "alpha")
@@ -65,7 +65,7 @@ dashboard.section.buttons.val = {
 	dashboard.button("p", "  > Find project", ":Telescope project <CR>"),
 	dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
 	dashboard.button("t", "  > Find text", ":Telescope live_grep <CR>"),
-	dashboard.button("d", "  > Dotfiles", ":e ~/dotfiles/README.md | :cd %:p:h| wincmd k | pwd<CR>"),
+	dashboard.button("d", "  > Dotfiles", ":e ~/dotfiles/.config/README.md | :cd %:p:h| wincmd k | pwd<CR>"),
 	dashboard.button("c", "  > Configs", ":e $MYVIMRC | :cd %:p:h | wincmd k | pwd<CR>"),
 	dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
 }

@@ -127,7 +127,7 @@ ins_left({
 ins_left({
 	-- mode component
 	"mode",
-	icon = { "", align = "right" },
+	icon = { " ", align = "right" },
 	color = modecolor,
 	padding = { left = 1, right = 1 },
 })
