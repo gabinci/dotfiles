@@ -4,9 +4,31 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local beautiful = require("beautiful")
 local conf = require("core.config")
 
-local M = {}
+beautiful.menu_bg_normal = "#24273a"
+beautiful.menu_fg_focus = "#8aadf4"
 
-M.myawesomemenu = {
+local powermenu = {
+	{
+		"   Shutdown",
+		function()
+			awful.spawn("shutdown now")
+		end,
+	},
+	{
+		"   Reboot",
+		function()
+			awful.spawn("reboot")
+		end,
+	},
+	{
+		"   Log-out",
+		function()
+			awful.spawn.with_shell("sudo pkill -u username")
+		end,
+	},
+}
+
+local myawesomemenu = {
 	{
 		"Hotkeys",
 		function()
@@ -24,15 +46,15 @@ M.myawesomemenu = {
 	},
 }
 
-M.mymainmenu = awful.menu({
+local mymainmenu = awful.menu({
 	items = {
-		{ "Awesome", M.myawesomemenu, beautiful.awesome_icon },
-		{ "Open terminal", conf.terminal },
+		{ "   Computer", powermenu },
+		{ "﩯   Awesome", myawesomemenu },
+		{ "   terminal", conf.terminal },
 	},
 })
 
 -- Menubar configuration
 menubar.utils.terminal = conf.terminal -- Set the terminal for applications that require it
--- }}}
 
-return M
+return mymainmenu

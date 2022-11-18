@@ -3,7 +3,7 @@ local awful = require("awful")
 local gears = require("gears")
 local menu = require("core.utils.menu")
 local terminal = require("core.config").terminal
-local sound = require("core.utils.sound")
+-- local sound = require("core.utils.sound")
 
 local M = {}
 
@@ -19,7 +19,7 @@ M.globalkeys = gears.table.join(
 	awful.key({ modkey }, "e", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key({ modkey }, "Escape", awful.tag.history.restore, { description = "go back", group = "tag" }),
 	awful.key({ modkey }, "w", function()
-		menu.mymainmenu:show()
+		menu:show()
 	end, { description = "show main menu", group = "awesome" }),
 
 	-- select next by index
@@ -92,15 +92,15 @@ M.globalkeys = gears.table.join(
 	awful.key({ modkey, "Control" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
 
 	-- sound
-	awful.key({}, "XF86AudioMute", function()
-		sound.toggleMute()
-	end, { description = "mute volume", group = "sound" }),
-	awful.key({}, "XF86AudioLowerVolume", function()
-		sound.volume("-")
-	end, { description = "lower volume", group = "sound" }),
-	awful.key({}, "XF86AudioRaiseVolume", function()
-		sound.volume("+")
-	end, { description = "raise volume", group = "sound" }),
+	-- awful.key({}, "XF86AudioMute", function()
+	-- 	sound.toggleMute()
+	-- end, { description = "mute volume", group = "sound" }),
+	-- awful.key({}, "XF86AudioLowerVolume", function()
+	-- 	sound.volume("-")
+	-- end, { description = "lower volume", group = "sound" }),
+	-- awful.key({}, "XF86AudioRaiseVolume", function()
+	-- 	sound.volume("+")
+	-- end, { description = "raise volume", group = "sound" }),
 
 	-- Brightness
 	awful.key({}, "XF86MonBrightnessDown", function()
@@ -237,7 +237,7 @@ M.clientbuttons = gears.table.join(
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
 	awful.button({}, 3, function()
-		menu.mymainmenu:toggle()
+		menu:toggle()
 	end),
 	awful.button({}, 4, awful.tag.viewnext),
 	awful.button({}, 5, awful.tag.viewprev)
