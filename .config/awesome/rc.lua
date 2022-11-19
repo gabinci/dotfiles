@@ -17,7 +17,6 @@ require("core.utils.rules")
 require("core.utils.sound")
 
 require("core.config")
-require("core.visual")
 require("core.clients")
 
 -- my locals

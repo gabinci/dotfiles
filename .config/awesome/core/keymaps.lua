@@ -1,4 +1,5 @@
 local hotkeys_popup = require("awful.hotkeys_popup")
+-- local lain = require("lain")
 local awful = require("awful")
 local gears = require("gears")
 local menu = require("core.utils.menu")
@@ -113,7 +114,14 @@ M.globalkeys = gears.table.join(
 	-- Prompt
 	awful.key({ modkey }, leader, function()
 		awful.spawn.with_shell("rofi -show drun")
-	end, { description = "run prompt", group = "launcher" })
+	end, { description = "run prompt", group = "launcher" }),
+
+	awful.key({ modkey, "Control" }, "=", function()
+		awful.tag.incgap(5)
+	end, { description = "increase gaps", group = "customise" }),
+	awful.key({ modkey, "Control" }, "-", function()
+		awful.tag.incgap(-5)
+	end, { description = "decrease gaps", group = "customise" })
 )
 
 M.clientkeys = gears.table.join(

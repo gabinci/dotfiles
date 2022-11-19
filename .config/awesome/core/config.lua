@@ -1,4 +1,6 @@
 local awful = require("awful")
+local beautiful = require("beautiful")
+local gears = require("gears")
 
 local M = {}
 -- This is used later as the default terminal and editor to run.
@@ -11,5 +13,9 @@ awful.layout.layouts = {
 	awful.layout.suit.tile,
 	awful.layout.suit.floating,
 }
+
+-- Themes define colours, icons, font and wallpapers.
+beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.useless_gap = 5
 
 return M
