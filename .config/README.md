@@ -127,7 +127,6 @@ kmix
 flameshot
 
 https://stackoverflow.com/questions/25588367/how-to-control-backlight-by-terminal-command
-echo 200 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
 
 awesome menu
 sudo pkill -u ${USER}
