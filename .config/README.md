@@ -128,13 +128,8 @@ flameshot
 
 https://stackoverflow.com/questions/25588367/how-to-control-backlight-by-terminal-command
 
-awesome menu
-sudo pkill -u ${USER}
+zoxide
 
-duckduckgo theme:
-
-https://github.com/catppuccin/duckduckgo
-
-alowpaste
-
-mocha
+```
+eval "$(zoxide init zsh)"
+```

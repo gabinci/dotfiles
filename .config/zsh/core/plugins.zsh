@@ -3,7 +3,6 @@
 plug "zsh-users/zsh-autosuggestions" #zsh-autosuggestions
 plug "zsh-users/zsh-syntax-highlighting" # syntax highlighting
 plug "romkatv/powerlevel10k" #prompt
+plug "esc/conda-zsh-completion" # completions
 
-# completions
-plug "esc/conda-zsh-completion" # Example install completion
-
+eval "$(zoxide init zsh --cmd cd)" # zoxide

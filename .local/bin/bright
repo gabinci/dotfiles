@@ -1,4 +1,5 @@
 #!/bin/bash
 # vim:set ft=bash
 
+# This script runs on amdgpu_bl0, for intel check backlight documentation
 echo $1 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
