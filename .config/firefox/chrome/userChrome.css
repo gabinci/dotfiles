@@ -121,18 +121,26 @@
 #back-button {
   display: -moz-inline-box !important;
 }
+
 #forward-button {
-  display: none !important;
+  display: -moz-inline-box !important;
 }
+
 #stop-button {
   display: none !important;
 }
+
 #reload-button {
-  display: none !important;
+  display: -moz-inline-box !important;
 }
 
 /* bookmark icon */
 #star-button {
+  display: none !important;
+}
+
+/* home icon */
+#home-button {
   display: none !important;
 }
 
