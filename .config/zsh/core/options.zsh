@@ -1,6 +1,13 @@
 #!/bin/sh
 # vim:ft=zsh
 
+# Exports
+export PATH="$HOME/.local/bin":$PATH
+export EDITOR="nvim"
+export TERMINAL="kitty"
+export BROWSER="firefox"
+export MANPAGER='nvim +Man!'
+
 # completions
 autoload -Uz compinit
 zstyle ':completion:*' menu select
@@ -16,7 +23,6 @@ setopt MENU_COMPLETE
 setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
 setopt APPEND_HISTORY
-# setopt interactive_comments
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
@@ -26,12 +32,6 @@ zle -N down-line-or-beginning-search
 # Colors
 autoload -Uz colors && colors
 
-# Exports
-export PATH="$HOME/.local/bin":$PATH
-export EDITOR="nvim"
-export TERMINAL="kitty"
-export BROWSER="firefox"
-export MANPAGER='nvim +Man!'
 
 compinit
 

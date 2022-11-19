@@ -8,3 +8,5 @@ source $ZDOTDIR/core/aliases.zsh
 source $ZDOTDIR/core/keybindings.zsh
 source $ZDOTDIR/core/prompt/prompt.zsh
 
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/.config/zsh/core/prompt/p10k.zsh.
+[[ ! -f ~/dotfiles/.config/zsh/core/prompt/p10k.zsh ]] || source ~/dotfiles/.config/zsh/core/prompt/p10k.zsh
