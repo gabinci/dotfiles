@@ -1,4 +1,4 @@
- <!-- vim:set ft=markdown -->
+-- vim:set ft=markdown -->
 
 ![banner](/images/banner.png)
 
