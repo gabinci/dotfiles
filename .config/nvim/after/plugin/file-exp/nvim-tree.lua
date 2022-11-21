@@ -1,5 +1,5 @@
 -- Filename: nvim-tree.lua
--- Last Change: Wed, 09 Nov 2022 17:08:38
+-- Last Change: Sat, 19 Nov 2022 20:36:54
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local status_ok, nvim_tree = pcall(require, "nvim-tree")
@@ -122,6 +122,8 @@ nvim_tree.setup({
 		number = false,
 		relativenumber = false,
 		signcolumn = "yes",
+		preserve_window_proportions = true,
+
 		mappings = {
 			list = {
 				{ key = { "l", "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
