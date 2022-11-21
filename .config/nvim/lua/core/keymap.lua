@@ -1,5 +1,5 @@
 -- Filename: keymap.lua-- Filename: keymap.lua
--- Last Change: Sat, 19 Nov 2022 19:54:32
+-- Last Change: Mon, 21 Nov 2022 09:53:28
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 --
 -- ██████╗ ███████╗███╗   ███╗ █████╗ ██████╗ ███████╗
@@ -83,9 +83,6 @@ keymap("n", "<leader>w", ":up<CR>", opts) -- save file only if there are changes
 -- keymap("n", "<leader>q", ":wq<CR>", opts)
 keymap("n", "<leader>q", "ZZ", opts)
 keymap("n", "<leader>dq", "ZQ", opts)
-
--- keymap("n", "<leader>q", "<CMD>lua require('core.utils_map').betterSave()<CR>", opts)
--- keymap("n", "<leader>q", ":wq<CR>", opts)
 
 -- split window
 keymap("n", "<leader>sv", "<C-w>v", opts)

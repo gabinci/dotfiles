@@ -1,5 +1,5 @@
 -- Filename: utils.lua
--- Last Change: 
+-- Last Change: Mon, 21 Nov 2022 09:52:35
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local M = {}
@@ -24,6 +24,19 @@ M.changeHeader = function()
 		while l <= 7 do
 			vim.fn.setline(l, vim.fn.substitute(vim.fn.getline(l), "\\c\\vlast (change|update): \\zs.*", time, "g"))
 			l = l + 1
+		end
+	end
+end
+
+M.is_executable = function()
+	local file = vim.fn.expand("%:p")
+	local type = vim.fn.getftype(file)
+	if type == "file" then
+		local perm = vim.fn.getfperm(file)
+		if string.match(perm, "x", 3) then
+			return true
+		else
+			return false
 		end
 	end
 end

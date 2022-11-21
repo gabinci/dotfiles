@@ -1,5 +1,5 @@
 -- Filename: nvim-tree.lua
--- Last Change: Sat, 19 Nov 2022 20:36:54
+-- Last Change: Mon, 21 Nov 2022 10:03:00
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local status_ok, nvim_tree = pcall(require, "nvim-tree")
@@ -176,27 +176,4 @@ nvim_tree.setup({
 			},
 		},
 	},
-})
-
-local status_icons, icons = pcall(require, "nvim-web-devicons")
-if not status_icons then
-	print("error")
-	return
-end
-
-icons.setup({
-	override = {
-		zsh = {
-			icon = "",
-			color = "#428850",
-			cterm_color = "65",
-			name = "Zsh",
-		},
-	},
-	-- globally enable different highlight colors per icon (default to true)
-	-- if set to false all icons will have the default icon's color
-	color_icons = true,
-	-- globally enable default icons (default to false)
-	-- will get overriden by `get_icons` option
-	default = true,
 })

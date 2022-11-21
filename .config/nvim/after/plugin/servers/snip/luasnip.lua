@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 -- Filename: luasnip.lua
--- Last Change: Sat, 05 Nov 2022 - 14:47
+-- Last Change: Mon, 21 Nov 2022 10:24:29
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local status, ls = pcall(require, "luasnip")
@@ -54,6 +54,6 @@ end)
 vim.keymap.set(
 	"n",
 	"<leader><leader>s",
-	"<CMD>source ~/.config/nvim/after/plugin/servers/luasnip.lua<CR>",
+	"<CMD>source ~/.config/nvim/after/plugin/servers/snip/luasnip.lua<CR>",
 	{ noremap = true }
 )

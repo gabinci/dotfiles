@@ -1,5 +1,5 @@
 -- Filename: autocmds.lua
--- Last Change: Sat, 19 Nov 2022 21:09:13
+-- Last Change: Mon, 21 Nov 2022 09:53:11
 -- vim:set ft=lua softtabstop=2 shiftwidth=2 tabstop=2 expandtab nolist:
 
 --  █████╗ ██╗   ██╗████████╗ ██████╗  ██████╗███╗   ███╗██████╗ ███████╗
@@ -12,6 +12,7 @@
 local fn = vim.fn
 local augroups = {}
 local autocmd = vim.api.nvim_create_autocmd
+local ufn = require("core.utils.functions")
 
 augroups.insert = {
 	-- clear_search_highlighting = {
@@ -101,7 +102,7 @@ augroups.buffer = {
 		event = "BufWritePre",
 		pattern = "*",
 		callback = function()
-			require("core.utils").changeHeader()
+			ufn.changeHeader()
 		end,
 	},
 
@@ -112,17 +113,17 @@ augroups.buffer = {
 		command = [[!pkill -USR1 -x sxhkd]],
 	},
 
-	-- make_scripts_executable = {
-	-- 	event = "BufWritePost",
-	-- 	pattern = "*.sh,*.py,*.zsh",
-	-- 	callback = function()
-	-- 		local file = vim.fn.expand("%p")
-	-- 		local status = require("core.utils").is_executable()
-	-- 		if status ~= true then
-	-- 			vim.fn.setfperm(file, "rwxr-x---")
-	-- 		end
-	-- 	end,
-	-- },
+	make_scripts_executable = {
+		event = "BufWritePost",
+		pattern = "*.sh,*.py,*.zsh",
+		callback = function()
+			local file = vim.fn.expand("%p")
+			local status = ufn.is_executable()
+			if status ~= true then
+				vim.fn.setfperm(file, "rwxr-x---")
+			end
+		end,
+	},
 
 	update_xresources = {
 		event = "BufWritePost",

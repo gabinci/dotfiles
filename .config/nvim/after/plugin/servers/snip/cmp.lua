@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 -- Filename: cmp.lua
--- Last Change: Sat, 05 Nov 2022 - 14:48
+-- Last Change: Mon, 21 Nov 2022 10:41:59
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local cmp_status, cmp = pcall(require, "cmp")
@@ -42,8 +42,8 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
 		{ name = "path" },
-		{ name = "spell" },
 		{ name = "buffer" },
+		{ name = "spell" },
 	}),
 
 	snippet = {
