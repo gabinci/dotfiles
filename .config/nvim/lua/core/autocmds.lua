@@ -1,5 +1,5 @@
 -- Filename: autocmds.lua
--- Last Change: 
+-- Last Change: Sat, 19 Nov 2022 21:09:13
 -- vim:set ft=lua softtabstop=2 shiftwidth=2 tabstop=2 expandtab nolist:
 
 --  █████╗ ██╗   ██╗████████╗ ██████╗  ██████╗███╗   ███╗██████╗ ███████╗
@@ -14,7 +14,6 @@ local augroups = {}
 local autocmd = vim.api.nvim_create_autocmd
 
 augroups.insert = {
-
 	-- clear_search_highlighting = {
 	-- 	event = "InsertEnter",
 	-- 	pattern = "*",
@@ -46,110 +45,6 @@ augroups.insert = {
 	},
 }
 
-augroups.misc = {
-
-	-- Disable the statusline, tabline and cmdline while the alpha dashboard is open
-
-	-- autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
-	-- alpha_hidetabline = {
-	-- 	event = "User",
-	-- 	pattern = "AlphaReady",
-	-- 	callback = function()
-	-- 		vim.opt_local.showtabline = 2
-	-- 	end,
-	-- },
-
-	-- autocmd BufEnter * :
-
-	unlist_terminal = {
-		event = "TermOpen",
-		pattern = "*",
-		command = [[
-    tnoremap <buffer> <Esc> <c-\><c-n>
-    tnoremap <buffer> <leader>x <c-\><c-n>:bd!<cr>
-    tnoremap <expr> <A-r> '<c-\><c-n>"'.nr2char(getchar()).'pi'
-    startinsert
-    nnoremap <buffer> <C-c> i<C-c>
-    setlocal listchars= nonumber norelativenumber
-    setlocal nobuflisted
-    ]],
-	},
-
-	reload_sxhkd = {
-		event = "BufWritePost",
-		pattern = "sxhkdrc",
-		command = [[!pkill -USR1 -x sxhkd]],
-	},
-
-	-- close_buffers_with_q = {
-	-- 	event = "FileType",
-	-- 	pattern = "qf,help,man, lspinfo",
-	-- 	command = 'vim.api.nvim_set_keymap("n", "q", ":close<CR>", { silent = true, noremap = true })',
-	-- },
-
-	-- make_scripts_executable = {
-	-- 	event = "BufWritePost",
-	-- 	pattern = "*.sh,*.py,*.zsh",
-	-- 	callback = function()
-	-- 		local file = vim.fn.expand("%p")
-	-- 		local status = require("core.utils").is_executable()
-	-- 		if status ~= true then
-	-- 			vim.fn.setfperm(file, "rwxr-x---")
-	-- 		end
-	-- 	end,
-	-- },
-
-	update_xresources = {
-		event = "BufWritePost",
-		pattern = "~/.Xresources",
-		command = [[!xrdb -merge ~/.Xresources]],
-	},
-
-	updated_xdefaults = {
-		event = "BufWritePost",
-		pattern = "~/.Xdefaults",
-		command = [[!xrdb -merge ~/.Xdefaults]],
-	},
-
-	restore_cursor_position = {
-		event = "BufRead",
-		pattern = "*",
-		callback = function()
-			if vim.bo.filetype == "gitcommit" then
-				return
-			end
-			if fn.line("'\"") > 0 and fn.line("'\"") <= fn.line("$") then
-				fn.setpos(".", fn.getpos("'\""))
-				vim.api.nvim_feedkeys("zz", "n", true)
-			end
-		end,
-	},
-
-	enable_Ccc = {
-		event = "BufWinEnter",
-		pattern = "*",
-		command = "CccHighlighterEnable",
-	},
-
-	-- auto_chdir = {
-	--   event = "BufEnter",
-	--   pattern = "*",
-	--   command = [[silent! lcd %:p:h]]
-	-- },
-
-	lwindow_quickfix = {
-		event = "QuickFixCmdPost",
-		pattern = "l*",
-		command = [[lwindow | wincmd j]],
-	},
-
-	cwindow_quickfix = {
-		event = "QuickFixCmdPost",
-		pattern = "[^l]*",
-		command = [[cwindow | wincmd j]],
-	},
-}
-
 -- augroups.toggle_cursorline = {
 --
 --   enable_cursorline = {
@@ -177,13 +72,6 @@ augroups.yankpost = {
 			vim.highlight.on_yank({ higroup = "IncSearch", timeout = 300, on_visual = true })
 		end,
 	},
-	save_cursor_position = {
-		event = { "VimEnter", "CursorMoved" },
-		pattern = "*",
-		callback = function()
-			Cursor_pos = vim.fn.getpos(".")
-		end,
-	},
 
 	yank_restore_cursor = {
 		event = "TextYankPost",
@@ -198,8 +86,8 @@ augroups.yankpost = {
 }
 
 augroups.buffer = {
-
 	-- Buf Write
+	-- {{{
 	-- buf wirite pre
 	mkdir_before_saving = {
 		event = { "BufWritePre", "FileWritePre" },
@@ -218,13 +106,36 @@ augroups.buffer = {
 	},
 
 	-- buf wire post
-	--Packer_Update = {
-	--  event = "BufWritePost",
-	--  pattern = "packer_init.lua",
-	--  callback = function()
-	--    vim.cmd [[source <afile> | PackerSync]]
-	--  end,
-	--},
+	reload_sxhkd = {
+		event = "BufWritePost",
+		pattern = "sxhkdrc",
+		command = [[!pkill -USR1 -x sxhkd]],
+	},
+
+	-- make_scripts_executable = {
+	-- 	event = "BufWritePost",
+	-- 	pattern = "*.sh,*.py,*.zsh",
+	-- 	callback = function()
+	-- 		local file = vim.fn.expand("%p")
+	-- 		local status = require("core.utils").is_executable()
+	-- 		if status ~= true then
+	-- 			vim.fn.setfperm(file, "rwxr-x---")
+	-- 		end
+	-- 	end,
+	-- },
+
+	update_xresources = {
+		event = "BufWritePost",
+		pattern = "~/.Xresources",
+		command = [[!xrdb -merge ~/.Xresources]],
+	},
+
+	updated_xdefaults = {
+		event = "BufWritePost",
+		pattern = "~/.Xdefaults",
+		command = [[!xrdb -merge ~/.Xdefaults]],
+	},
+	-- }}}
 
 	-- buf Enter
 	disable_new_line_comments = {
@@ -232,6 +143,12 @@ augroups.buffer = {
 		pattern = "*",
 		command = "set formatoptions-=cro",
 	},
+
+	-- auto_chdir = {
+	-- 	event = "BufEnter",
+	-- 	pattern = "*",
+	-- 	command = [[silent! lcd %:p:h]],
+	-- },
 
 	fix_commentstring = {
 		event = "BufEnter",
@@ -242,26 +159,109 @@ augroups.buffer = {
 			-- vim.cmd('set syntax=config')
 		end,
 	},
+
+	-- BufRead
+	restore_cursor_position = {
+		event = "BufRead",
+		pattern = "*",
+		callback = function()
+			if vim.bo.filetype == "gitcommit" then
+				return
+			end
+			if fn.line("'\"") > 0 and fn.line("'\"") <= fn.line("$") then
+				fn.setpos(".", fn.getpos("'\""))
+				vim.api.nvim_feedkeys("zz", "n", true)
+			end
+		end,
+	},
+
+	-- BufWinEnter
+	enable_Ccc = {
+		event = "BufWinEnter",
+		pattern = "*",
+		callback = function()
+			local status_Ccc, _ = pcall(require, "ccc")
+			if not status_Ccc then
+				return
+			end
+			vim.cmd([[CccHighlighterEnable]])
+		end,
+	},
 }
 
-autocmd("User", {
-	pattern = "AlphaReady",
-	callback = function()
-		vim.go.laststatus = 0
-		vim.opt.showtabline = 0
-		vim.opt.cmdheight = 0
-	end,
-})
+augroups.terminal = {
+	terminal_enter_insert = {
+		event = "BufEnter",
+		pattern = "*",
+		callback = function()
+			if vim.bo.buftype == "terminal" then
+				vim.cmd([[normal i<CR>]])
+			end
+		end,
+	},
 
-autocmd("BufUnload", {
-	buffer = 0,
-	callback = function()
-		vim.go.laststatus = 2
-		vim.opt.showtabline = 2
-		vim.opt.cmdheight = 1
-	end,
-})
---
+	unlist_terminal = {
+		event = "TermOpen",
+		pattern = "*",
+		command = [[
+	   setlocal listchars= nonumber norelativenumber
+	   setlocal nobuflisted
+	   ]],
+	},
+}
+
+augroups.alpha = {
+	disable_alpha_stuff = {
+		event = "User",
+		pattern = "AlphaReady",
+		callback = function()
+			local status_alpha, _ = pcall(require, "alpha")
+			if not status_alpha then
+				return
+			end
+			vim.go.laststatus = 0
+			vim.opt.showtabline = 0
+			vim.opt.cmdheight = 0
+		end,
+	},
+
+	enavle_alpha_stuff = {
+		event = "BufUnload",
+		buffer = 0,
+		callback = function()
+			local status_alpha, _ = pcall(require, "alpha")
+			if not status_alpha then
+				return
+			end
+			vim.go.laststatus = 2
+			vim.opt.showtabline = 2
+			vim.opt.cmdheight = 1
+		end,
+	},
+}
+augroups.misc = {
+
+	save_cursor_position = {
+		event = { "VimEnter", "CursorMoved" },
+		pattern = "*",
+		callback = function()
+			Cursor_pos = vim.fn.getpos(".")
+		end,
+	},
+
+	lwindow_quickfix = {
+		event = "QuickFixCmdPost",
+		pattern = "l*",
+		command = [[lwindow | wincmd j]],
+	},
+
+	cwindow_quickfix = {
+		event = "QuickFixCmdPost",
+		pattern = "[^l]*",
+		command = [[cwindow | wincmd j]],
+	},
+}
+
 for group, commands in pairs(augroups) do
 	local augroup = vim.api.nvim_create_augroup("AU_" .. group, { clear = true })
 

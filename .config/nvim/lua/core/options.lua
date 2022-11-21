@@ -1,5 +1,5 @@
 -- Filename: options.lua
--- Last Change: 
+-- Last Change: Sat, 19 Nov 2022 20:37:34
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 --
 -- ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗ ███████╗
@@ -47,7 +47,7 @@ o.inccommand = "split"
 -- vim.opt.cursorcolumn   = true
 -- vim.opt.background     = 'dark'
 o.showtabline = 2
-o.signcolumn = "yes:2"
+o.signcolumn = "yes"
 o.cursorline = true
 o.splitbelow = true
 o.splitright = true
@@ -80,12 +80,14 @@ o.backup = false
 o.hidden = true
 o.spell = false
 o.exrc = true
+o.equalalways = false
+
 -- o.filetype = "on"
 o.iskeyword:append("-")
 o.shortmess:append("c")
 o.keywordprg = ":help"
-vim.cmd([[set wildignore+=.pyc,.swp]])
 
+vim.cmd([[set wildignore+=.pyc,.swp]])
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])

@@ -1,5 +1,5 @@
 -- Filename: keymap.lua-- Filename: keymap.lua
--- Last Change: Tue, 15 Nov 2022 11:02:57
+-- Last Change: Sat, 19 Nov 2022 19:54:32
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 --
 -- ██████╗ ███████╗███╗   ███╗ █████╗ ██████╗ ███████╗
@@ -92,8 +92,10 @@ keymap("n", "<leader>sv", "<C-w>v", opts)
 keymap("n", "<leader>sh", "<C-w>s", opts)
 -- keymap("n", "<leader>se", "<C-w>e", opts)
 keymap("n", "<leader>sx", ":close<CR>", opts)
--- keymap("n", "<leader>svt", ":verticalsplit term://zsh<CR>iclear<CR>", opts)
--- keymap("n", "<leader>sht", ":split term://zsh<CR>iclear<CR>", opts)
+
+keymap("n", "<leader>stv", ":verticalsplit term://zsh<CR>clear<CR>", opts)
+keymap("n", "<leader>sth", ":split term://zsh<CR>clear<CR>", opts)
+
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
@@ -178,6 +180,10 @@ keymap("c", "<C-ç>", "ç", term_opts)
 keymap("c", "<C-S-ç>", "Ç", term_opts)
 
 -- terminal mode
+
+-- navigation
+keymap("t", "<C-j>", "<C-\\><C-n><C-w>j", term_opts)
+keymap("t", "<C-k>", "<C-\\><C-n><C-w>k", term_opts)
 
 keymap("t", "<ESC>", "<C-\\><C-n>", term_opts)
 

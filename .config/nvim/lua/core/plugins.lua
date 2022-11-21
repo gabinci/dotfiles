@@ -1,5 +1,5 @@
 -- Filename: plugins.lua
--- Last Change: 
+-- Last Change: Sat, 19 Nov 2022 20:05:46
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 --
 --
@@ -144,9 +144,6 @@ return packer.startup(function(use)
 		end,
 	})
 
-	-- tab out
-	use("abecodes/tabout.nvim")
-
 	-- impatient nvim
 	use("lewis6991/impatient.nvim")
 
@@ -164,12 +161,6 @@ return packer.startup(function(use)
 
 	-- wilder
 	use("gelguy/wilder.nvim")
-
-	-- terminal
-	use("numToStr/FTerm.nvim")
-
-	-- neoscroll
-	-- use("gen740/SmoothCursor.nvim")
 
 	-- █ █ █ ▄▀▀ █ █ ▄▀▄ █
 	-- ▀▄▀ █ ▄██ ▀▄█ █▀█ █▄▄
