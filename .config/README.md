@@ -1,23 +1,17 @@
--- vim:set ft=markdown -->
+<!-- vim:set ft=markdown -->
 
 ![banner](/images/banner.png)
 
-This is a repo to store my first dotfiles and a guide in how to install and use them.
+### **Disclaimer:**
 
-### **Disclaimer:** <br>
-
-I haven't tested any of this in on other OS or Linux distros. I use Fedora 36 KDE Plasma and it works just fine for me.
+These dotfiles weren't tested on any other OS or Linux Distros. I use Fedora Linux 36 (KDE plasma)
 
 ---
 
-### Contents
+### TABLE OF CONTENTS:
 
 - [NVIM](https://github.com/gabinci/dotfiles#nvim)
-  - [instalation](https://github.com/gabinci/dotfiles#installation)
-- [Alacritty](https://github.com/gabinci/dotfiles#alacritty)
-- [Bash](https://github.com/gabinci/dotfiles#bash)
-
----
+- [ZSH] ()
 
 # NVIM
 
@@ -130,6 +124,16 @@ https://stackoverflow.com/questions/25588367/how-to-control-backlight-by-termina
 
 zoxide
 
-```
+```bash
 eval "$(zoxide init zsh)"
+```
+
+# FONTS
+
+source: [ terminal roots ](https://github.com/terroo)
+
+```bash
+git clone https://github.com/terro/fonts -b fonts --single-branch
+cd fonts/fonts && mv $HOME/.local/share/
+fc-cache -fv
 ```
