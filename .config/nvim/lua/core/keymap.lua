@@ -1,13 +1,6 @@
 -- Filename: keymap.lua-- Filename: keymap.lua
--- Last Change: Mon, 21 Nov 2022 09:53:28
+-- Last Change: Tue, 22 Nov 2022 09:46:54
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
---
--- ██████╗ ███████╗███╗   ███╗ █████╗ ██████╗ ███████╗
--- ██╔══██╗██╔════╝████╗ ████║██╔══██╗██╔══██╗██╔════╝
--- ██████╔╝█████╗  ██╔████╔██║███████║██████╔╝███████╗
--- ██╔══██╗██╔══╝  ██║╚██╔╝██║██╔══██║██╔═══╝ ╚════██║
--- ██║  ██║███████╗██║ ╚═╝ ██║██║  ██║██║     ███████║
--- ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚══════╝
 
 -- local function keymap(mode, lhs, rhs, opts)
 -- 	local options = { noremap = true, silent = true }
@@ -121,24 +114,6 @@ keymap("n", "<A-K>", "mzyyP`zk", opts)
 -- █ █▄ █ ▄▀▀ ██▀ █▀▄ ▀█▀   █▄ ▄█ ▄▀▄ █▀▄ ██▀
 -- █ █ ▀█ ▄██ █▄▄ █▀▄  █    █ ▀ █ ▀▄▀ █▄▀ █▄▄
 
--- better insert movement
-keymap("i", "<A-h>", "<Left>", opts)
-keymap("i", "<A-j>", "<Down>", opts)
-keymap("i", "<A-k>", "<Up>", opts)
-keymap("i", "<A-l>", "<Right>", opts)
-
--- new line
-keymap("i", "<C-ç>", "<C-o>o", opts)
-keymap("i", "<C-Ç>", "<C-o>O", opts)
-
--- remap ç
-keymap("i", "ç", "<CR>", opts)
-keymap("i", "ç", "<CR>", opts)
-
--- sanity check
-keymap("i", "<C-A-ç>", "ç", opts)
-keymap("i", "<C-A-Ç>", "Ç", opts)
-
 -- visual mode
 -- █ █ █ ▄▀▀ █ █ ▄▀▄ █     █▄ ▄█ ▄▀▄ █▀▄ ██▀
 -- ▀▄▀ █ ▄██ ▀▄█ █▀█ █▄▄   █ ▀ █ ▀▄▀ █▄▀ █▄▄
@@ -246,3 +221,39 @@ keymap("t", "<A-t>", '<C-\\><C-n><CMD>lua require("FTerm").close()<CR>', term_op
 -- keymap("n", "<leader>B", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
 -- keymap("n", "<leader>lp", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", opts)
 -- keymap("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>", opts)
+
+local status, ls = pcall(require, "luasnip")
+if not status then
+	return
+end
+vim.keymap.set({ "i", "s" }, "<C-e>", function()
+	if ls.expandable() then
+		ls.expand()
+	end
+end, { silent = true })
+
+vim.keymap.set({ "i", "s" }, "<C-n>", function()
+	if ls.jumpable(1) then
+		ls.jump(1)
+	end
+end, { silent = true })
+
+vim.keymap.set({ "i", "s" }, "<C-p>", function()
+	if ls.jumpable(-1) then
+		ls.jump(-1)
+	end
+end, { silent = true })
+
+vim.keymap.set("i", "<C-k>", function()
+	if ls.choice_active() then
+		ls.change_choice(1)
+	end
+end, opts)
+
+vim.keymap.set("i", "<C-j>", function()
+	if ls.choice_active() then
+		ls.change_choice(-1)
+	end
+end, opts)
+
+keymap("n", "<leader><leader>s", "<CMD>source ~/.config/nvim/init.lua<CR>", opts)

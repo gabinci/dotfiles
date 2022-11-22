@@ -1,5 +1,5 @@
 -- Filename: plugins.lua
--- Last Change: Sat, 19 Nov 2022 20:05:46
+-- Last Change: Mon, 21 Nov 2022 12:51:42
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 --
 --

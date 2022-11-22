@@ -1,6 +1,6 @@
--- Filename: utils.lua
--- Last Change: Mon, 21 Nov 2022 09:52:35
--- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
+-- current file path: /home/gabinci/dotfiles/.config/nvim/lua/core/utils.lua
+-- last change: Tue, 22 Nov 2022 - 14:02:07
+-- Author: gabinci
 
 local M = {}
 
@@ -19,7 +19,7 @@ M.changeHeader = function()
 
 	if vim.fn.line("$") >= 7 then
 		os.setlocale("en_US.UTF-8")
-		local time = os.date("%a, %d %b %Y %H:%M:%S")
+		local time = os.date("%a, %d %b %Y - %H:%M:%S")
 		local l = 1
 		while l <= 7 do
 			vim.fn.setline(l, vim.fn.substitute(vim.fn.getline(l), "\\c\\vlast (change|update): \\zs.*", time, "g"))

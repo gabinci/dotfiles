@@ -3,7 +3,7 @@ if not status then
 	return
 end
 
-local ufn = require("core.utils.functions")
+local utils = require("core.utils")
 
 local colors = {
 	bg = "#181926",
@@ -162,7 +162,7 @@ ins_left({
 
 ins_left({
 	function()
-		if ufn.wasModified() then
+		if utils.wasModified() then
 			return ""
 		else
 			return " "

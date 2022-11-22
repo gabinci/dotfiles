@@ -1,5 +1,5 @@
 -- Filename: autocmds.lua
--- Last Change: Mon, 21 Nov 2022 09:53:11
+-- Last Change: Tue, 22 Nov 2022 - 14:03:11
 -- vim:set ft=lua softtabstop=2 shiftwidth=2 tabstop=2 expandtab nolist:
 
 --  █████╗ ██╗   ██╗████████╗ ██████╗  ██████╗███╗   ███╗██████╗ ███████╗
@@ -12,7 +12,7 @@
 local fn = vim.fn
 local augroups = {}
 local autocmd = vim.api.nvim_create_autocmd
-local ufn = require("core.utils.functions")
+local utils = require("core.utils")
 
 augroups.insert = {
 	-- clear_search_highlighting = {
@@ -102,7 +102,7 @@ augroups.buffer = {
 		event = "BufWritePre",
 		pattern = "*",
 		callback = function()
-			ufn.changeHeader()
+			utils.changeHeader()
 		end,
 	},
 
@@ -118,7 +118,7 @@ augroups.buffer = {
 		pattern = "*.sh,*.py,*.zsh",
 		callback = function()
 			local file = vim.fn.expand("%p")
-			local status = ufn.is_executable()
+			local status = utils.is_executable()
 			if status ~= true then
 				vim.fn.setfperm(file, "rwxr-x---")
 			end
