@@ -1,3 +1,4 @@
 .config/zsh/.zcompdump
 .config/nvim/plugin/packer_compiled.lua
 .config/zsh/.p10k.zsh
+.config/zsh/.chpwd-recent-dirs
