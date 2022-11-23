@@ -1,19 +1,8 @@
 -- Filename: keymap.lua-- Filename: keymap.lua
--- Last Change: Tue, 22 Nov 2022 09:46:54
+-- Last Change: Tue, 22 Nov 2022 - 16:29:22
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
--- local function keymap(mode, lhs, rhs, opts)
--- 	local options = { noremap = true, silent = true }
--- 	if opts then
--- 		if opts.desc then
--- 			opts.desc = "init.lua: " .. opts.desc
--- 		end
--- 		options = vim.tbl_extend("force", options, opts)
--- 	end
--- 	vim.keymap.set(mode, lhs, rhs, options)
--- end
-
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 local term_opts = { noremap = true }
 
@@ -31,17 +20,12 @@ vim.g.maplocalleader = " "
 --  term             t
 --  command          c
 
--- remap = to +
-keymap("", "=", "+", opts)
-keymap("", "+", "=", opts)
-
--- normal mode
 -- █▄ █ ▄▀▄ █▀▄ █▄ ▄█ ▄▀▄ █     █▄ ▄█ ▄▀▄ █▀▄ ██▀
 -- █ ▀█ ▀▄▀ █▀▄ █ ▀ █ █▀█ █▄▄   █ ▀ █ ▀▄▀ █▄▀ █▄▄
---
 
+-- {{{ normal mode
 -- source init.lua
-keymap("n", "<leader>so", "<CMD>source ~/.config/nvim/init.lua<CR>", term_opts)
+keymap("n", "<leader><leader>s", "<CMD>source ~/.config/nvim/init.lua<CR>", opts)
 
 -- jump to exact mark
 keymap("n", "'", "`", opts)
@@ -51,9 +35,6 @@ keymap("n", "`", "'", opts)
 keymap("n", "ç", ":", term_opts)
 keymap("n", "Ç", ":", term_opts)
 
--- x dont copy
--- keymap("n", "x", '"_x', opts)
-
 -- remove highlights
 keymap("n", "<leader>nh", ":nohl<CR>", opts)
 
@@ -62,29 +43,27 @@ keymap("n", ",p", '"0p', opts)
 keymap("n", ",P", '"0P', opts)
 
 -- increment / decrement
-keymap("n", "+", "<C-a>", opts)
-keymap("n", "-", "<C-x>", opts)
+keymap({ "v", "n" }, "+", "<C-a>", opts)
+keymap({ "v", "n" }, "_", "<C-x>", opts)
 
 -- select all
 keymap("n", "<C-a>", "gg<S-v>G", opts)
 
 -- delete backwars
-keymap("n", "db", 'vb"_d', opts)
+-- keymap("n", "db", 'vb"_d', opts)
 
 -- quick save
 keymap("n", "<leader>w", ":up<CR>", opts) -- save file only if there are changes
--- keymap("n", "<leader>q", ":wq<CR>", opts)
 keymap("n", "<leader>q", "ZZ", opts)
 keymap("n", "<leader>dq", "ZQ", opts)
 
 -- split window
 keymap("n", "<leader>sv", "<C-w>v", opts)
 keymap("n", "<leader>sh", "<C-w>s", opts)
--- keymap("n", "<leader>se", "<C-w>e", opts)
 keymap("n", "<leader>sx", ":close<CR>", opts)
 
-keymap("n", "<leader>stv", ":verticalsplit term://zsh<CR>clear<CR>", opts)
-keymap("n", "<leader>sth", ":split term://zsh<CR>clear<CR>", opts)
+keymap("n", "<leader>stv", "<CMD>50 vsplit term://$SHELL<CR>clear<CR>", opts)
+keymap("n", "<leader>sth", "<CMD>10 split term://$SHELL<CR>clear<CR>", opts)
 
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -99,8 +78,9 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
+keymap("n", "<S-l>", "<CMD>bnext<CR>", opts)
+keymap("n", "<S-h>", "<CMD>bprevious<CR>", opts)
+keymap("n", "<leader>xx", "<CMD>bdelete<CR>", opts)
 
 -- Move text up and down
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>", opts)
@@ -109,6 +89,7 @@ keymap("n", "<A-k>", "<Esc>:m .-2<CR>", opts)
 -- copy current line above and bellow
 keymap("n", "<A-J>", "mzyyp`zj", opts)
 keymap("n", "<A-K>", "mzyyP`zk", opts)
+-- }}}
 
 -- insert mode
 -- █ █▄ █ ▄▀▀ ██▀ █▀▄ ▀█▀   █▄ ▄█ ▄▀▄ █▀▄ ██▀
@@ -142,8 +123,6 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- command mode
--- ▄▀▀ ▄▀▄ █▄ ▄█ █▄ ▄█ ▄▀▄ █▄ █ █▀▄   █▄ ▄█ ▄▀▄ █▀▄ ██▀
--- ▀▄▄ ▀▄▀ █ ▀ █ █ ▀ █ █▀█ █ ▀█ █▄▀   █ ▀ █ ▀▄▀ █▄▀ █▄▄
 
 keymap("c", "ç", "<CR>", term_opts)
 keymap("c", "Ç", "<CR>", term_opts)
@@ -167,14 +146,13 @@ keymap("t", "<ESC>", "<C-\\><C-n>", term_opts)
 -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
 -- lsp
-keymap("n", "<leader>dt", "<CMD>TroubleToggle<CR>", opts)
+keymap("n", "<leader>gt", "<CMD>TroubleToggle<CR>", opts)
 
 -- alpha
 keymap("n", "<leader>;", ":Alpha<CR>", opts)
 
 -- nvimtree
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
--- keymap("n", "<leader>e", ":NERDTreeToggle<CR>", opts)
 
 -- telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
@@ -186,74 +164,36 @@ keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
 
 keymap("n", "<F2>", "<Cmd>Lspsaga rename<CR>", opts)
 
--- FTerm
-keymap("n", "<A-t>", '<CMD>lua require("FTerm").toggle()<CR>', term_opts)
-keymap("t", "<A-t>", '<C-\\><C-n><CMD>lua require("FTerm").close()<CR>', term_opts)
-
--- DAP
--- keymap("n", "<leader>db", "<CMD> lua require'dap'.toggle_breakpoint()<CR>", term_opts)
--- keymap("n", "<leader>k", "<CMD> lua require'dap'.step_out()<CR>", term_opts)
--- keymap("n", "<leader>j", "<CMD> lua require'dap'.step_over()<CR>", term_opts)
--- keymap("n", "<leader>l", "<CMD> lua require'dap'.step_into()<CR>", term_opts)
--- keymap("n", "<leader>ds", "<CMD> lua require'dap'.close()<CR>", term_opts)
--- keymap("n", "<leader>dn", "<CMD> lua require'dap'.continue()<CR>", term_opts)
--- keymap("n", "<leader>dk", "<CMD> lua require'dap'.up()<CR>", term_opts)
--- keymap("n", "<leader>dj", "<CMD> lua require'dap'.down()<CR>", term_opts)
--- keymap("n", "<leader>d_", "<CMD> lua require'dap'.run_last()<CR>", term_opts)
--- keymap("n", "<leader>dr", "<CMD> lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l", term_opts)
--- keymap("n", "<leader>di", "<CMD> lua require'dap.ui.widgets'.hover()<CR>", term_opts)
--- keymap("n", "<leader>dI", "<CMD> lua require'dap.ui.variables'.visual_hover()<CR>", term_opts)
--- keymap(
--- 	"n",
--- 	"<leader>d?",
--- 	"<CMD> lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>",
--- 	term_opts
--- )
--- keymap("n", "<leader>de", "<CMD> lua require'dap'.set_exception_breakpoints()<CR>", term_opts)
--- keymap("n", "<leader>da", "<CMD> lua require'debugHelper'.atta()<CR>", term_opts)
--- keymap("n", "<leader>dA", "<CMD> lua require'dap'.run_last()<CR>", term_opts)
-
--- keymap("n", "<F5>", ":lua require'dap'.continue()<CR>", opts)
--- keymap("n", "<F10>", ":lua require'dap'.step_over()<CR>", opts)
--- keymap("n", "<F11>", ":lua require'dap'.step_into()<CR>", opts)
--- keymap("n", "<F12>", ":lua require'dap'.step_out()<CR>", opts)
--- keymap("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>", opts)
--- keymap("n", "<leader>B", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
--- keymap("n", "<leader>lp", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", opts)
--- keymap("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>", opts)
-
 local status, ls = pcall(require, "luasnip")
 if not status then
 	return
 end
-vim.keymap.set({ "i", "s" }, "<C-e>", function()
+keymap({ "i", "s" }, "<C-e>", function()
 	if ls.expandable() then
 		ls.expand()
 	end
 end, { silent = true })
 
-vim.keymap.set({ "i", "s" }, "<C-n>", function()
+keymap({ "i", "s" }, "<C-n>", function()
 	if ls.jumpable(1) then
 		ls.jump(1)
 	end
 end, { silent = true })
 
-vim.keymap.set({ "i", "s" }, "<C-p>", function()
+keymap({ "i", "s" }, "<C-p>", function()
 	if ls.jumpable(-1) then
 		ls.jump(-1)
 	end
 end, { silent = true })
 
-vim.keymap.set("i", "<C-k>", function()
+keymap("i", "<C-k>", function()
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end
 end, opts)
 
-vim.keymap.set("i", "<C-j>", function()
+keymap("i", "<C-j>", function()
 	if ls.choice_active() then
 		ls.change_choice(-1)
 	end
 end, opts)
-
-keymap("n", "<leader><leader>s", "<CMD>source ~/.config/nvim/init.lua<CR>", opts)

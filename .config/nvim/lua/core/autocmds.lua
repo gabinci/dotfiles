@@ -1,5 +1,5 @@
 -- Filename: autocmds.lua
--- Last Change: Tue, 22 Nov 2022 - 14:03:11
+-- Last Change: Tue, 22 Nov 2022 - 16:11:19
 -- vim:set ft=lua softtabstop=2 shiftwidth=2 tabstop=2 expandtab nolist:
 
 --  █████╗ ██╗   ██╗████████╗ ██████╗  ██████╗███╗   ███╗██████╗ ███████╗

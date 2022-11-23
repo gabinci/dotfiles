@@ -1,5 +1,5 @@
 -- current file path: /home/gabinci/dotfiles/.config/nvim/snippets/all.lua
--- last change: Tue, 22 Nov 2022 13:53:22
+-- last change: Tue, 22 Nov 2022 - 15:23:40
 -- Author: gabinci
 
 return {
@@ -16,8 +16,7 @@ return {
     ]],
 			{
 				f(function()
-					local name = vim.api.nvim_buf_get_name(0)
-					return "-- current file path: " .. name
+					return "-- current file path: " .. vim.fn.expand("%")
 				end),
 				f(function()
 					return "-- last change: " .. os.date("%a, %d %b %Y - %H:%M:%S")
