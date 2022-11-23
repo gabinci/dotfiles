@@ -1,5 +1,7 @@
 #!/bin/zsh
+# start zap plugin manager
 [ -f "$HOME/.local/share/zap/zap.zsh" ] && source "$HOME/.local/share/zap/zap.zsh"
+
 
 plug "zsh-users/zsh-autosuggestions" #zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
