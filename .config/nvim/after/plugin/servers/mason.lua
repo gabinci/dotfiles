@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 -- Filename: mason.lua
--- Last Change: 
+-- Last Change: Wed, 23 Nov 2022 - 13:59:44
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local mason_status, mason = pcall(require, "mason")
@@ -33,7 +33,6 @@ mason_lspconfig.setup({
 		"tsserver",
 		"html",
 		"cssls",
-		"tailwindcss",
 		"sumneko_lua",
 	},
 })

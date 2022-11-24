@@ -6,4 +6,4 @@ source $ZDOTDIR/core/keybinding.zsh
 source $ZDOTDIR/core/option.zsh
 source $ZDOTDIR/core/external-programs.zsh
 
-~/dotfiles/.config/zsh/randomfetch #fetch
+~/dotfiles/.config/zsh/fetch/pacman #fetch

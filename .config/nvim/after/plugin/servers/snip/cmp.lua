@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 -- Filename: cmp.lua
--- Last Change: Tue, 22 Nov 2022 09:35:47
+-- Last Change: Wed, 23 Nov 2022 - 09:06:23
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local cmp_status, cmp = pcall(require, "cmp")
@@ -12,12 +12,6 @@ local lspkind_status, lspkind = pcall(require, "lspkind")
 if not lspkind_status then
 	return
 end
-
--- local from_vscode = require("luasnip.loaders.from_vscode")
--- -- from_vscode.lazy_load()
--- from_vscode.lazy_load({ paths = { "$HOME/.config/nvim/snippets.lua" } })
---
--- require("luasnip.loaders.from_snipmate").lazy_load()
 
 local types = require("cmp.types")
 local str = require("cmp.utils.str")
@@ -59,6 +53,7 @@ cmp.setup({
 		ghost_text = true,
 		native_menu = false,
 	},
+
 	formatting = {
 		fields = {
 			cmp.ItemField.Kind,

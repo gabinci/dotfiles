@@ -25,7 +25,7 @@ theme: [gruvbox (community edition)](https://github.com/gruvbox-community/gruvbo
 
 ### **IMPORTANT!** <br>
 
-Please, before opening Neovim, compllete the insltalation process, otherwise you will be missing some dependencies.
+Please, before opening Neovim, complete the insltalation process, otherwise you will be missing some dependencies.
 
 - Make sure you have [Git](https://git-scm.com/), [nodejs](https://nodejs.org/) and [npm](https://www.npmjs.com/) installled
 - I will be using [Brew](https://docs.brew.sh/Installation) for installing a bunch of stuff.
@@ -60,7 +60,7 @@ brew install tree-sitter
 - gcc
 
 ```
-brew install gcc
+sudo dnf install gcc gcc-c++
 ```
 
 - [RipGrep](https://github.com/BurntSushi/ripgrep)

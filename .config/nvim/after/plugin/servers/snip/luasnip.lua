@@ -1,5 +1,5 @@
 -- Filename: luasnip.lua
--- Last Change: Tue, 22 Nov 2022 10:53:10
+-- Last Change: Wed, 23 Nov 2022 - 09:06:15
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local status, ls = pcall(require, "luasnip")
@@ -7,9 +7,7 @@ if not status then
 	return
 end
 
--- require("luasnip.loaders.from_snipmate").lazy_load()
-
-local types = require("luasnip.util.types")
+-- local types = require("luasnip.util.types")
 
 ls.config.set_config({
 	enable_autosnippets = true,
@@ -25,4 +23,6 @@ ls.config.set_config({
 	store_selection_keys = "<S-q>",
 })
 
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_snipmate").lazy_load()
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })

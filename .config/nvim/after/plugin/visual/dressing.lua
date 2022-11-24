@@ -1,5 +1,5 @@
 -- Filename: dressing.lua
--- Last Change: Wed, 09 Nov 2022 17:08:43
+-- Last Change: Wed, 23 Nov 2022 - 15:19:01
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local status, dressing = pcall(require, "dressing")
@@ -16,7 +16,7 @@ dressing.setup({
 		default_prompt = "Input:",
 
 		-- Can be 'left', 'right', or 'center'
-		prompt_align = "left",
+		prompt_align = "right",
 
 		-- When true, <Esc> will close the modal
 		insert_only = true,

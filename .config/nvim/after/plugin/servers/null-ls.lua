@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 -- Filename: null-ls.lua
--- Last Change: Sat, 05 Nov 2022 - 18:59
+-- Last Change: Wed, 23 Nov 2022 - 19:10:08
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local status, null_ls = pcall(require, "null-ls")
@@ -19,6 +19,7 @@ null_ls.setup({
 		--  "formatting.prettier.with({disabled_filetypes: {}})" (see null-ls docs)
 		formatting.prettierd, -- js/ts formatter
 		formatting.stylua, -- lua formatter
+		formatting.shfmt, -- for shell
 		diagnostics.eslint_d.with({ -- js/ts linter
 			-- only enable eslint if root has .eslintrc.js (not in youtube nvim video)
 			condition = function(utils)

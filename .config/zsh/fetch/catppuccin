@@ -38,10 +38,8 @@ b6="${reset}${bold}${cyan}"         # bold cyan
 b7="${reset}${bold}${white}"        # bold white
 
 cat <<EOF
-                
 ${b4}  /| ､       ${b4} ${USER}${c0}╶─╴${b4} ${host}${c0}╶─╴${c1} ${c2} ${c3} ${c4} ${c5} ${c6} ${c7} ${c0} 
 ${b2} (°､ ｡ 7     ${c0}┌${b2}  ${c0}╶─╴ ${c2}${os}
 ${b3}  |､  ~ヽ    ${c0}│${b3}  ${c0}╶─╴ ${c3}${uptime}
 ${b1}  じしf_,)〳 ${c0}└${b1}  ${c0}╶─╴ ${c1} ${shell} ${c0}─ ${c1} ${terminal}
-${b1}                     
 EOF
