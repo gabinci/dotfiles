@@ -1,5 +1,5 @@
 -- Filename: plugins.lua
--- Last Change: Mon, 21 Nov 2022 12:51:42
+-- Last Change: Fri, 25 Nov 2022 - 20:53:06
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 --
 --
@@ -170,6 +170,7 @@ return packer.startup(function(use)
 
 	-- bufferline
 	use("akinsho/bufferline.nvim")
+	-- use({ "kdheepak/tabline.nvim" })
 
 	-- ccc
 	use("uga-rosa/ccc.nvim")

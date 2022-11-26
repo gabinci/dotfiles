@@ -1,5 +1,5 @@
 -- current file path: /home/gabinci/dotfiles/.config/nvim/lua/core/utils.lua
--- last change: Tue, 22 Nov 2022 - 14:02:07
+-- last change: Fri, 25 Nov 2022 - 18:33:03
 -- Author: gabinci
 
 local M = {}

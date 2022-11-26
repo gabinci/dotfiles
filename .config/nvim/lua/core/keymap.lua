@@ -1,5 +1,5 @@
 -- Filename: keymap.lua-- Filename: keymap.lua
--- Last Change: Tue, 22 Nov 2022 - 16:29:22
+-- Last Change: Fri, 25 Nov 2022 - 09:12:16
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local keymap = vim.keymap.set
@@ -89,6 +89,10 @@ keymap("n", "<A-k>", "<Esc>:m .-2<CR>", opts)
 -- copy current line above and bellow
 keymap("n", "<A-J>", "mzyyp`zj", opts)
 keymap("n", "<A-K>", "mzyyP`zk", opts)
+
+-- alternate file
+keymap("n", "<bs>", [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]], opts)
+keymap("n", "<CR>", "gf", opts)
 -- }}}
 
 -- insert mode

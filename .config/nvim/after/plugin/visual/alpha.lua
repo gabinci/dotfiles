@@ -1,5 +1,5 @@
 -- Filename: alpha.lua
--- Last Change: Wed, 23 Nov 2022 - 15:56:02
+-- Last Change: Fri, 25 Nov 2022 - 14:08:11
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local status, alpha = pcall(require, "alpha")
@@ -8,17 +8,18 @@ if not status then
 end
 
 local dashboard = require("alpha.themes.dashboard")
+local header = require("core.dashboard")
 
-dashboard.section.header.val = {
-	"                                                     ",
-	"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-	"  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-	"  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-	"  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-	"  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-	"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-	"                                                     ",
-}
+local count = 0
+
+local random = function()
+	for _ in pairs(header) do
+		count = count + 1
+	end
+	return math.random(count)
+end
+
+dashboard.section.header.val = header[random()]
 
 dashboard.section.buttons.val = {
 	dashboard.button("f", "  > Find file", ":Telescope find_files <CR>"),
