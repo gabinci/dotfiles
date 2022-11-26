@@ -121,16 +121,19 @@ M.globalkeys = gears.table.join(
 	end, { description = "increase gaps", group = "customise" }),
 	awful.key({ modkey, "Control" }, "-", function()
 		awful.tag.incgap(-5)
-	end, { description = "decrease gaps", group = "customise" })
+	end, { description = "decrease gaps", group = "customise" }),
+
+	awful.key({ modkey, "Shift" }, "h", function()
+		awful.client.swap.byidx(1)
+	end, { description = "swap with left client by id", group = "client" }),
+	awful.key({ modkey, "Shift" }, "k", function()
+		awful.client.swap.byidx(-1)
+	end, { description = "swap with up client by id", group = "client" })
 )
 
 M.clientkeys = gears.table.join(
 
 	-- Moving windows between positions works between desktops
-	awful.key({ modkey, "Shift" }, "h", function(c)
-		awful.client.swap.global_bydirection("left")
-		c:raise()
-	end, { description = "swap with left client", group = "client" }),
 	awful.key({ modkey, "Shift" }, "l", function(c)
 		awful.client.swap.global_bydirection("right")
 		c:raise()
@@ -139,10 +142,6 @@ M.clientkeys = gears.table.join(
 		awful.client.swap.global_bydirection("down")
 		c:raise()
 	end, { description = "swap with down client", group = "client" }),
-	awful.key({ modkey, "Shift" }, "k", function(c)
-		awful.client.swap.global_bydirection("up")
-		c:raise()
-	end, { description = "swap with up client", group = "client" }),
 
 	awful.key({ modkey }, "f", function(c)
 		c.fullscreen = not c.fullscreen
