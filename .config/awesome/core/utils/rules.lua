@@ -1,5 +1,5 @@
 local awful = require("awful")
-local beautiful = require("beautiful")
+-- local beautiful = require("beautiful")
 local keymaps = require("core.keymaps")
 
 awful.rules.rules = {
@@ -7,8 +7,8 @@ awful.rules.rules = {
 	{
 		rule = {},
 		properties = {
-			border_width = beautiful.border_width,
-			border_color = beautiful.border_normal,
+			-- border_width = beautiful.border_width + 2,
+			-- border_color = beautiful.border_focus,
 			focus = awful.client.focus.filter,
 			raise = true,
 			keys = keymaps.clientkeys,
