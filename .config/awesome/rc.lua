@@ -89,7 +89,10 @@ awful.screen.connect_for_each_screen(function(s)
 		"1",
 		"2",
 		"3",
-		"4", --[[ "5", "6", "7", "8", "9" ]]
+		"4",
+		"5",
+		"6",
+		--[[ "7", "8", "9", ]]
 	}, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
