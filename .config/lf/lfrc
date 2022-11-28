@@ -1,0 +1,76 @@
+#vim:set ft=conf
+
+#
+# env configs
+#
+set shell zsh
+set shellopts '-eu'
+set ifs "\n"
+
+# make sure that .trash exists
+%mkdir -p ~/.trash
+
+#
+# lf configs
+#
+
+set hidden true
+set ignorecase true
+set icons true
+set scrolloff 10
+set drawbox
+set previewer ~/.config/lf/lf_previewer
+set cleaner ~/.config/lf/lf_kitty_clean
+
+#
+# custom functions
+#
+
+# open on editor
+cmd open &{{
+    case $(file --mime-type -Lb $f) in
+        text/*) lf -remote "send $id \$$EDITOR \$fx";;
+        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+    esac
+}}
+
+# Dynamic number of columns
+${{
+    w=$(tput cols)
+    if [ $w -le 80 ]; then
+        lf -remote "send $id set ratios 1:2"
+    elif [ $w -le 160 ]; then
+        lf -remote "send $id set ratios 1:2:3"
+    else
+        lf -remote "send $id set ratios 1:2:3:5"
+    fi
+}}
+
+# fzf
+cmd fzf  $(fd -Htf --full-path --exclude .git/ ${1:-$PWD} | fzf | xargs -r $EDITOR;)
+
+#
+# keymaps
+#
+
+map <enter> shell
+
+map f 
+map ff fzf
+
+# motions
+# Udemy
+map guj cd ~/learning/udemy/javascript/
+map gug cd ~/learning/udemy/git/
+map gub cd ~/learning/udemy/bash/
+map gur cd ~/learning/udemy/react/
+map guh cd ~/learning/udemy/html-css/
+
+# Own
+map goj cd ~/learning/own/javascript/
+map goc cd ~/learning/own/codewars/
+map gop cd ~/learning/own/p5/
+map goc cd ~/learning/own/css/
+
+# books
+map gr cd ~/learning/resources/
