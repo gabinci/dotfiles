@@ -1,5 +1,5 @@
 -- current file path: after/plugin/visual/bufferline.lua
--- last change: Fri, 25 Nov 2022 - 21:22:24
+-- last change: Sat, 26 Nov 2022 - 13:58:51
 -- Author: gabinci
 
 local status, bufferline = pcall(require, "bufferline")
@@ -62,6 +62,3 @@ bufferline.setup({
 		},
 	},
 })
-
--- BufferLineCyclePrev
--- BufferLineCycleNex

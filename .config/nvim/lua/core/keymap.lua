@@ -1,5 +1,5 @@
 -- Filename: keymap.lua-- Filename: keymap.lua
--- Last Change: Fri, 25 Nov 2022 - 09:12:16
+-- Last Change: Sat, 26 Nov 2022 - 13:58:41
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local keymap = vim.keymap.set
@@ -78,8 +78,11 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Navigate buffers
-keymap("n", "<S-l>", "<CMD>bnext<CR>", opts)
-keymap("n", "<S-h>", "<CMD>bprevious<CR>", opts)
+--
+--
+
+keymap("n", "<S-l>", "<CMD>BufferLineCycleNex<CR>", opts)
+keymap("n", "<S-h>", "<CMD>BufferLineCyclePrev<CR>", opts)
 keymap("n", "<leader>xx", "<CMD>bdelete<CR>", opts)
 
 -- Move text up and down

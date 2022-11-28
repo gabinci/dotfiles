@@ -18,6 +18,7 @@ local conditions = {
 		return gitdir and #gitdir > 0 and #gitdir < #filepath
 	end,
 }
+
 local icon = function()
 	return ""
 end
@@ -57,26 +58,17 @@ local config = {
 		lualine_a = {
 			{
 				icon,
-				padding = {
-					left = 1,
-					rigth = 0,
-				},
+				padding = { left = 1, rigth = 0 },
 			},
-			{
-				"mode",
-			},
+			{ "mode" },
 		},
 		lualine_b = {},
 		lualine_c = {
-			{
-				modified,
-				padding = { left = 1, right = 0 },
-			},
+			{ modified, padding = { left = 1, right = 0 } },
 			{
 				"filename",
 				conditions = conditions.buffer_not_empty,
 				padding = { left = 1, right = 1 },
-
 				symbols = {
 					modified = "", -- Text to show when the file is modified.
 					readonly = "", -- Text to show when the file is non-modifiable or readonly.
@@ -84,14 +76,12 @@ local config = {
 					newfile = "[New]", -- Text to show for new created file before first writting
 				},
 			},
-
 			{
 				"filetype",
 				icon_only = true,
 				cond = conditions.buffer_not_empty,
 				padding = { left = 0, right = 0 },
 			},
-
 			{ "searchcount" },
 		},
 
@@ -103,13 +93,7 @@ local config = {
 				update_on_insert = true,
 				cond = conditions.buffer_not_empty,
 			},
-			{
-				"progress",
-				padding = {
-					left = 0,
-					right = 1,
-				},
-			},
+			{ "progress", padding = { left = 0, right = 1 } },
 		},
 
 		lualine_y = {},
@@ -122,7 +106,6 @@ local config = {
 			},
 		},
 	},
-
 	extensions = { "nvim-tree" },
 }
 -- }}}
