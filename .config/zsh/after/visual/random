@@ -1,0 +1,6 @@
+#!/bin/bash
+
+FETCH=($HOME/dotfiles/.config/zsh/after/visual/fetch/*)
+RNG=$(($RANDOM % ${#FETCH[@]} + 0))
+
+~/dotfiles/.config/zsh/after/visual/fetch/$(basename -a ${FETCH[$RNG]})

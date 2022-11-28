@@ -1,12 +1,6 @@
 #!/bin/sh
 # vim:ft=zsh
 
-# Exports
-export PATH="$HOME/.local/bin":$PATH
-export EDITOR="nvim"
-export TERMINAL="kitty"
-export BROWSER="firefox"
-export MANPAGER='nvim +Man!'
 
 # completions
 autoload -Uz compinit

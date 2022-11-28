@@ -1,9 +1,12 @@
+source $ZDOTDIR/core/exports.zsh
 source $ZDOTDIR/core/plugin.zsh
 source $ZDOTDIR/core/prompt.zsh
-source $ZDOTDIR/core/hooks.zsh
-source $ZDOTDIR/core/alias.zsh
-source $ZDOTDIR/core/keybinding.zsh
 source $ZDOTDIR/core/option.zsh
-source $ZDOTDIR/core/external-programs.zsh
+source $ZDOTDIR/core/keybinding.zsh
+source $ZDOTDIR/after/alias.zsh
+source $ZDOTDIR/after/hooks.zsh
+source $ZDOTDIR/after/functions.zsh
 
-~/dotfiles/.config/zsh/randomfetch #fetch
+~/dotfiles/.config/zsh/after/visual/fetch/catppuccin #fetch
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
