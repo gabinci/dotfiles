@@ -1,3 +1,18 @@
+#!/bin/sh
+
+# script for random fetch
+# $HOME/dotfiles/.config/zsh/after/visual/random
+
+(
+	cd $HOME/dotfiles/.config/zsh/after/visual/
+	choice=$(fd -tf | fzf --height 60% --preview 'bat --style=numbers --line-range 40: {}' | sed "s|~|$HOME|")
+	[ -z "$choice" ] && echo "Quitting without changes..." && exit 0
+	sed -i.backup -r "/#fetch$/s,(~/dotfiles/.config/zsh/after/visual/)[^ ]*,\1${choice},g" $HOME/dotfiles/.config/zsh/.zshrc
+	echo "You choose \"$(basename $choice)\", You can now restart $(basename $SHELL)"
+)
+
+exit 0
+
 #!/bin/zsh
 # current file path: /home/gabinci/dotfiles/.local/bin/tst
 # last change: Mon, 28 Nov 2022 - 00:02:41
@@ -43,12 +58,3 @@
 # 	esac
 # done
 # exit 0
-
-(
-	cd $HOME/dotfiles/.config/zsh/after/visual/
-	choice=$(fd -tf | fzf | sed "s|~|$HOME|")
-	sed -i.backup -r "/#fetch$/s,(~/dotfiles/.config/zsh/after/visual/)[^ ]*,\1${choice},g" $HOME/dotfiles/.config/zsh/.zshrc
-	echo "You choose \"$(basename $choice)\", you can now restart $(basename $SHELL)"
-
-)
-exit 0

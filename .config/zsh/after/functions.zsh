@@ -3,7 +3,6 @@
 # Find files with fzf
 function ff() {
   dir=${1:-$PWD}
-  echo "    searching files in $dir"
   (
   cd $dir 
   fd -Htf --full-path --exclude .git/ $dir | fzf | sed "s|~|$HOME|" |xargs -r $EDITOR;
