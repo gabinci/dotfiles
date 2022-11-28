@@ -1,5 +1,5 @@
 -- Filename: autocmds.lua
--- Last Change: Fri, 25 Nov 2022 - 18:20:25
+-- Last Change: Mon, 28 Nov 2022 - 09:54:48
 -- vim:set ft=lua softtabstop=2 shiftwidth=2 tabstop=2 expandtab nolist:
 
 --  █████╗ ██╗   ██╗████████╗ ██████╗  ██████╗███╗   ███╗██████╗ ███████╗
@@ -11,7 +11,7 @@
 
 local fn = vim.fn
 local augroups = {}
-local autocmd = vim.api.nvim_create_autocmd
+-- local autocmd = vim.api.nvim_create_autocmd
 local utils = require("core.utils")
 
 augroups.insert = {
