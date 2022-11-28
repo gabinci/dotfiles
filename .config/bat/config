@@ -1,0 +1,5 @@
+--theme="Catppuccin-macchiato"
+
+--paging=never
+--tabs 2
+--style="header-filename,header-filesize,rule,snip"
