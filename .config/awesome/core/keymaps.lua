@@ -1,18 +1,17 @@
-local hotkeys_popup = require("awful.hotkeys_popup")
--- local lain = require("lain")
-local awful = require("awful")
 local gears = require("gears")
-local menu = require("core.utils.menu")
-local terminal = require("core.config").terminal
--- local sound = require("core.utils.sound")
+local awful = require("awful")
+local hotkeys_popup = require("awful.hotkeys_popup")
+
+local menu = require("before.menu")
+local env = require("before.env")
+
+local terminal = env.terminal
+local modkey = env.modkey
+local leader = env.leader
 
 local M = {}
 
-M.modkey = "Mod4"
-M.leader = "space"
-local modkey = M.modkey
-local leader = M.leader
-
+-- {{{ Key bindings
 M.globalkeys = gears.table.join(
 	-- basic
 	awful.key({ modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
@@ -252,5 +251,8 @@ root.buttons(gears.table.join(
 
 -- Set keys
 root.keys(M.globalkeys)
+
+-- Keyboard map indicator and switcher
+M.mykeyboardlayout = awful.widget.keyboardlayout()
 
 return M
