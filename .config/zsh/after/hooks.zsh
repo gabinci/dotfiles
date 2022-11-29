@@ -37,15 +37,15 @@ function auto-ls-after-cd() {
 
 add-zsh-hook chpwd auto-ls-after-cd
 
-# adds `cdr` command for navigating to recent directories
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-
-# enable menu-style completion for cdr
-zstyle ':completion:*:*:cdr:*:*' menu selection
-
-# fall through to cd if cdr is passed a non-recent dir as an argument
-zstyle ':chpwd:*' recent-dirs-default true
+# # adds `cdr` command for navigating to recent directories
+# autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+# add-zsh-hook chpwd chpwd_recent_dirs
+#
+# # enable menu-style completion for cdr
+# zstyle ':completion:*:*:cdr:*:*' menu selection
+#
+# # fall through to cd if cdr is passed a non-recent dir as an argument
+# zstyle ':chpwd:*' recent-dirs-default true
 
 HOST_RC=$HOME/.zsh/host/$(hostname -s)
 test -f $HOST_RC && source $HOST_RC

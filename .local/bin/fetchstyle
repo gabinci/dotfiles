@@ -1,60 +1,19 @@
 #!/bin/sh
 
-# script for random fetch
+# current file path: dotfiles/.local/bin/fetchstyle
+# last change: Tue, 29 Nov 2022 - 07:59:51
+# Author: Gabriel Binci
+# description: script for choosing a fetch with fzf
+
+# random fetch script:
 # $HOME/dotfiles/.config/zsh/after/visual/random
 
 (
 	cd $HOME/dotfiles/.config/zsh/after/visual/
 	choice=$(fd -tf | fzf --height 60% --preview 'bat --style=numbers --line-range 40: {}' | sed "s|~|$HOME|")
 	[ -z "$choice" ] && echo "Quitting without changes..." && exit 0
-	sed -i.backup -r "/#fetch$/s,(~/dotfiles/.config/zsh/after/visual/)[^ ]*,\1${choice},g" $HOME/dotfiles/.config/zsh/.zshrc
+	sed -i -r "/#fetch$/s,(~/dotfiles/.config/zsh/after/visual/)[^ ]*,\1${choice},g" $HOME/dotfiles/.config/zsh/.zshrc
 	echo "You choose \"$(basename $choice)\", You can now restart $(basename $SHELL)"
 )
 
 exit 0
-
-#!/bin/zsh
-# current file path: /home/gabinci/dotfiles/.local/bin/tst
-# last change: Mon, 28 Nov 2022 - 00:02:41
-# Author: gabinci
-
-# FETCH=($HOME/dotfiles/.config/zsh/after/visual/fetch/*)
-# BSHELL=$(basename $SHELL)
-# PS3="Choose a fetch style: "
-# echo ""
-#
-# select opt in Quit Random $(basename -a ${FETCH[@]}); do
-# 	for ((i = 0; i < ${#FETCH[@]}; i++)); do
-# 		case $opt in
-# 		$(basename -a ${FETCH[i]}))
-# 			echo ""
-# 			echo "You choose \"$opt\""
-# 			sed -i.backup -r "/#fetch$/s,(~/dotfiles/.config/zsh/after/visual/)[^ ]*,\1fetch/$opt,g" $HOME/dotfiles/.config/zsh/.zshrc
-# 			echo "You may now Restart $BSHELL"
-# 			exit 0
-# 			;;
-# 		esac
-# 	done
-# 	case $opt in
-# 	"Quit")
-# 		echo ""
-# 		echo "Quitting..."
-# 		exit 0
-# 		;;
-#
-# 	"Random")
-# 		echo ""
-# 		echo "You choose \"Random\""
-# 		sed -i.backup -r "/#fetch$/s,(~/dotfiles/.config/zsh/after/visual/)[^ ]*,\1randomfetch,g" $HOME/dotfiles/.config/zsh/.zshrc
-# 		echo "You may now Restart $BSHELL)"
-# 		exit 0
-# 		;;
-#
-# 	*)
-# 		echo ""
-# 		echo "Invalid Input. Exiting without changes..."
-# 		exit 0
-# 		;;
-# 	esac
-# done
-# exit 0

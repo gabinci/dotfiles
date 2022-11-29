@@ -1,5 +1,5 @@
 -- Filename: lspconfig.lua
--- Last Change: Wed, 23 Nov 2022 - 14:08:35
+-- Last Change: Mon, 28 Nov 2022 - 20:36:08
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local lspconfig_status, lspconfig = pcall(require, "lspconfig")
@@ -48,7 +48,6 @@ lspconfig["sumneko_lua"].setup({
 				globals = {
 					"vim",
 					--[[ awesome WM ]]
-					"awful",
 					"client",
 					"awesome",
 					"screen",

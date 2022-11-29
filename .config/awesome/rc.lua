@@ -6,6 +6,7 @@ require("before.theme")
 require("before.menu")
 
 require("core.keymaps")
+require("core.autostarts")
 
 require("after.rules")
 require("after.wibar")

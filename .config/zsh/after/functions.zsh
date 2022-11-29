@@ -5,7 +5,7 @@ function ff() {
   dir=${1:-$PWD}
   (
   cd $dir 
-  fd -Htf --full-path --exclude .git/ $dir | fzf | sed "s|~|$HOME|" |xargs -r $EDITOR;
+  fd -Htf --full-path --exclude .git/ $dir | fzf -m --reverse --info=inline --prompt="Chose files ﰲ "| sed "s|~|$HOME|" |xargs -r $EDITOR;
   ) 
 }
 

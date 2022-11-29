@@ -42,7 +42,7 @@ _fzf_comprun() {
   shift
   case "$command" in
     vim|nvim|nv)  fd -tf -tl --hidden --exclude '.git' --exclude 'node_modules' | fzf "$@" --prompt='File ﰲ ';;
-    cd)           fd -td --hidden --exclude '.git' --exclude 'node_modules' | fzf "$@" --preview 'tree -C {} | head -200' --prompt='Directory ﰲ' ;;
+    cd)           fzf "$@" --preview 'tree -C {} | head -200' --prompt='Directory ﰲ' ;;
     export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
     ssh)          fzf "$@" --preview 'dig {}' ;;
     *)            fd -tf -tl --hidden --exclude '.git' --exclude 'node_modules' | fzf "$@" ;;
@@ -50,7 +50,7 @@ _fzf_comprun() {
 }
 
 # # Custom fuzzy completion for "doge" command
-#   e.g. doge **<TAB>
+#   # e.g. doge **<TAB>
 # _fzf_complete_doge() {
 #   _fzf_complete --multi --reverse --prompt="doge> " -- "$@" < <(
 #     echo very

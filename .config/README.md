@@ -83,16 +83,6 @@ sudo dnf install gcc-c++
 npm install -g @fsouza/prettierd
 ```
 
-# Alacritty
-
-alacritty is simple to setup, just paste this in and its good to go :)
-
-1. install Alacritty
-
-```
-sudo dnf install alacritty
-```
-
 # ZSH
 
 For my zsh configuration:
@@ -115,10 +105,9 @@ For my zsh configuration:
 sudo dnf install dbus-devel gcc git libconfig-devel libdrm-devel libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel mesa-libGL-devel meson pcre-devel pixman-devel uthash-devel xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel
 ```
 
-dnf install xbacklight
-
+xbacklight
 kmix
-flameshot
+spectacle
 
 https://stackoverflow.com/questions/25588367/how-to-control-backlight-by-terminal-command
 
@@ -133,7 +122,19 @@ eval "$(zoxide init zsh)"
 source: [ terminal roots ](https://github.com/terroo)
 
 ```bash
-git clone https://github.com/terro/fonts -b fonts --single-branch
+git clone https://github.com/terroo/fonts -b fonts --single-branch
 cd fonts/fonts && mv $HOME/.local/share/
 fc-cache -fv
 ```
+
+# lf
+
+lynx
+bat
+mediainfo
+ffmpegthumbnailer
+
+# fzf
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install

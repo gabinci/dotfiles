@@ -8,5 +8,5 @@ source $ZDOTDIR/after/hooks.zsh
 source $ZDOTDIR/after/functions.zsh
 source $ZDOTDIR/after/plugin/fzf.zsh
 
-~/dotfiles/.config/zsh/after/visual/fetch/catppuccin #fetch
+~/dotfiles/.config/zsh/after/visual/fetch/pink-floyd #fetch
 
