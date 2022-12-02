@@ -1,5 +1,5 @@
 -- Filename: plugins.lua
--- Last Change: Fri, 25 Nov 2022 - 20:53:06
+-- Last Change: Thu, 01 Dec 2022 - 12:14:16
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 --
 --
@@ -176,7 +176,7 @@ return packer.startup(function(use)
 	use("uga-rosa/ccc.nvim")
 
 	-- dashboard
-	-- use("goolord/alpha-nvim")
+	use("goolord/alpha-nvim")
 
 	use({
 		"goolord/alpha-nvim",
