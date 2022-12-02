@@ -2,6 +2,7 @@ local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
+local wid = require("core.widgets")
 local menu = require("before.menu")
 local env = require("before.env")
 
@@ -92,22 +93,22 @@ M.globalkeys = gears.table.join(
 	awful.key({ modkey, "Control" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
 
 	-- sound
-	-- awful.key({}, "XF86AudioMute", function()
-	-- 	sound.toggleMute()
-	-- end, { description = "mute volume", group = "sound" }),
-	-- awful.key({}, "XF86AudioLowerVolume", function()
-	-- 	sound.volume("-")
-	-- end, { description = "lower volume", group = "sound" }),
-	-- awful.key({}, "XF86AudioRaiseVolume", function()
-	-- 	sound.volume("+")
-	-- end, { description = "raise volume", group = "sound" }),
+	awful.key({}, "XF86AudioMute", function()
+		wid.volume:toggle()
+	end, { description = "mute volume", group = "sound" }),
+	awful.key({}, "XF86AudioLowerVolume", function()
+		wid.volume:dec(5)
+	end, { description = "lower volume", group = "sound" }),
+	awful.key({}, "XF86AudioRaiseVolume", function()
+		wid.volume:inc(5)
+	end, { description = "raise volume", group = "sound" }),
 
 	-- Brightness
 	awful.key({}, "XF86MonBrightnessDown", function()
-		awful.util.spawn("xbacklight -dec 15")
+		wid.brightness:dec()
 	end, { description = "brightness down", group = "launcher" }),
 	awful.key({}, "XF86MonBrightnessUp", function()
-		awful.util.spawn("xbacklight -inc 15")
+		wid.brightness:inc()
 	end, { description = "brightness up", group = "launcher" }),
 
 	-- Prompt

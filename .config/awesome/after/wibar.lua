@@ -1,7 +1,6 @@
 local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
-
 local modkey = require("before.env").modkey
 
 local wid = require("core.widgets")
@@ -53,7 +52,7 @@ local tasklist_buttons = gears.table.join(
 
 awful.screen.connect_for_each_screen(function(s)
 	-- Each screen has its own tag table.
-	awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+	awful.tag({ "", "", "", "", "", "" }, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
@@ -97,20 +96,12 @@ awful.screen.connect_for_each_screen(function(s)
 		fg = "#CAD3F5",
 	})
 
-	s.icon = {
-		text = "  ",
-		align = "center",
-		valign = "center",
-		font = "JetBrainsMono Nerd Font Regular 12",
-		widget = wibox.widget.textbox,
-	}
-
 	-- Add widgets to the wibox
 	s.mywibox:setup({
 		layout = wibox.layout.align.horizontal,
 		{ -- Left widgets
 			layout = wibox.layout.fixed.horizontal,
-			s.icon,
+			wid.logout(),
 			s.mytaglist,
 			s.mypromptbox,
 		},
@@ -118,9 +109,18 @@ awful.screen.connect_for_each_screen(function(s)
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
 			wibox.widget.systray(),
-			wid.volume(),
+
+			wid.volume({
+				widget_type = "arc",
+			}),
+
+			wid.brightness({
+				-- type = 'icon_and_text',
+				program = "light",
+				step = 10,
+			}),
+			wid.batteryarc({}),
 			wid.mytextclock,
-			wid.logout(),
 		},
 	})
 end)
