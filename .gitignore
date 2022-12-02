@@ -3,3 +3,7 @@
 .config/zsh/.p10k.zsh
 .config/zsh/.chpwd-recent-dirs
 .config/lazygit/state.yml
+.config/firefox
+!.config/firefox/chrome/
+!.config/firefox/extensions/
+!.config/firefox/user.js
