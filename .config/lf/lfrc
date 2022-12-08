@@ -1,12 +1,3 @@
-#vim:set ft=conf
-
-#
-# env configs
-#
-set shell zsh
-set shellopts '-eu'
-set ifs "\n"
-
 # make sure that .trash exists
 %mkdir -p ~/.trash
 
@@ -14,51 +5,236 @@ set ifs "\n"
 # lf configs
 #
 
+set shell zsh
+set shellopts '-eu'
+set ifs "\n"
+set scrolloff 10
+set icons true
+set period 1
+set autoquit on
+# set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 set hidden true
 set ignorecase true
-set icons true
-set scrolloff 10
 set drawbox
-set previewer ~/.config/lf/lf_previewer
-set cleaner ~/.config/lf/lf_kitty_clean
+set previewer '~/.config/lf/custom/lf_previewer'
+set cleaner '~/.config/lf/custom/lf_kitty_clean'
+
+# Dynamic number of columns
+${{
+  w=$(tput cols)
+  if [ $w -le 80 ]; then
+    lf -remote "send $id set ratios 1:2"
+  elif [ $w -le 160 ]; then
+    lf -remote "send $id set ratios 1:2:3"
+  else
+    lf -remote "send $id set ratios 1:2:3:5"
+  fi
+}}
+
+# open on editor
+cmd open ${{
+    case $(file --mime-type "$(readlink -f $f)" -b) in
+	application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
+	image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f okular $fx >/dev/null 2>&1 ;;
+        text/*|application/json|inode/x-empty) $EDITOR $fx;;
+	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
+	image/svg+xml) display -- $f ;;
+	image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
+		setsid -f sxiv -aio 2>/dev/null | while read -r file; do
+			[ -z "$file" ] && continue
+			lf -remote "send select \"$file\""
+			lf -remote "send toggle"
+		done &
+		;;
+	audio/*) mpv --audio-display=no $f ;;
+	video/*|application/vnd.rn-realmedia) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+	application/pdf|application/vnd.djvu|application/epub*) setsid -f okular $fx >/dev/null 2>&1 ;;
+	application/pgp-encrypted) $EDITOR $fx ;;
+	application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text) setsid -f lowriter $fx >/dev/null 2>&1 ;;
+	application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template) setsid -f localc $fx >/dev/null 2>&1 ;;
+	application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint) setsid -f loimpress $fx >/dev/null 2>&1 ;;
+	application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template) setsid -f lodraw $fx >/dev/null 2>&1 ;;
+	application/vnd.oasis.opendocument.formula) setsid -f lomath $fx >/dev/null 2>&1 ;;
+	application/vnd.oasis.opendocument.database) setsid -f lobase $fx >/dev/null 2>&1 ;;
+        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+    esac
+}}
 
 #
 # custom functions
 #
 
-# open on editor
-cmd open &{{
-    case $(file --mime-type -Lb $f) in
-        text/*) lf -remote "send $id \$$EDITOR \$fx";;
-        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+cmd extract ${{
+  IFS=" "
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	printf "%s\n\t" "$fx"
+	printf "extract?[y/N]"
+	read ans
+  [ $ans = "y" ] &&
+  case "$f" in
+    *.zip) unzip "$f" ;;
+    *.tar) tar -xvf "$f" ;;
+    *.tar.gz) tar -xzvf "$f" ;;
+    *.tar.bz2) tar -xjvf "$f" ;;
+    *) echo "Unsuported format" ;;
+  esac
+}}
+
+cmd delete ${{
+  IFS=" "
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	printf "%s\n\t" "$fx"
+	printf "delete?[y/N]"
+	read ans
+  if [ $ans = "y" ]; then 
+    for file in "$fx"
+    do 
+      rm -rf "$file"
+    done
+  fi
+}}
+
+cmd mkdir ${{
+  IFS=" "
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	printf "Directory name: "
+  read ans
+  mkdir $ans
+}}
+
+cmd mkfile ${{
+  IFS=" "
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+  printf "File name: "
+  read ans
+  touch $ans
+}}
+
+cmd chmod ${{
+  IFS=" "
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	printf "%s\n\t" "$fx"
+  printf "Mode Bits: "
+  read ans
+  for file in "$fx"
+  do 
+    chmod $ans $file
+  done
+}}
+
+# cmd moveto ${{
+# 	clear; tput cup $(($(tput lines)/3)); tput bold
+# 	set -f
+# 	clear; echo "Move to where?"
+# 	# dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' $HOME/ | fzf | sed 's|~|$HOME|')" &&
+# 	dest="$(fd -Htd --full-path --exclude .git/ $HOME/ | fzf --height 100% --preview 'tree -C {} | head -200' | sed 's|~|$HOME|')" &&
+# 	for x in $fx; do
+# 		eval mv -iv --target-directory=${dest} \$x\ 
+#   done &&
+# 	notify-send "🚚 File(s) moved." "File(s) moved to $dest."
+# }}
+#
+# cmd copyto ${{
+# 	clear; tput cup $(($(tput lines)/3)); tput bold
+# 	set -f
+# 	clear; echo "Copy to where?"
+# 	dest="$(fd -Htd --full-path --exclude .git/ $HOME | fzf --height 100% --preview 'tree -C {} | head -200' | sed 's|~|$HOME|')" &&
+# 	for x in $fx; do
+# 		eval cp -ivr \"$x\" \"$dest\"
+# 	done &&
+# 	notify-send "📋 File(s) copied." "File(s) copies to $dest."
+# }}
+
+# # fzf find dir
+# cmd fzf ${{
+#    res="$(fd -Htd --full-path --exclude .git/ $PWD | fzf --height 100% --preview 'tree -C {} | head -200' --prompt='Directory ﰲ ')"
+#     if [ -d "$res" ] ; then
+#         cmd="cd"
+#     elif [ -f "$res" ] ; then
+#         cmd="select"
+#     else
+#         exit 0
+#     fi
+#     lf -remote "send $id $cmd \"$res\""
+# }}
+
+cmd paste &{{
+    set -- $(cat ~/.local/share/lf/files)
+    mode="$1"
+    shift
+    case "$mode" in
+        copy)
+            rsync -av --ignore-existing --progress -- "$@" . |
+            stdbuf -i0 -o0 -e0 tr '\r' '\n' |
+            while IFS= read -r line; do
+                lf -remote "send $id echo $line"
+            done
+            ;;
+        move) mv -n -- "$@" .;;
     esac
+    rm ~/.local/share/lf/files
+    lf -remote "send clear"
 }}
 
-# Dynamic number of columns
-${{
-    w=$(tput cols)
-    if [ $w -le 80 ]; then
-        lf -remote "send $id set ratios 1:2"
-    elif [ $w -le 160 ]; then
-        lf -remote "send $id set ratios 1:2:3"
-    else
-        lf -remote "send $id set ratios 1:2:3:5"
-    fi
-}}
-
-# fzf
-cmd fzf  $(fd -Htf --full-path --exclude .git/ ${1:-$PWD} | fzf | xargs -r $EDITOR;)
+cmd setbg "$1"
+cmd bulkrename $vidir
 
 #
 # keymaps
 #
 
-map <enter> shell
+map y %cp -ri -- $fs .
+map d %mv -i -- $fs .
+map p paste
 
-map f 
-map ff fzf
+map <c-f> $lf -remote "send $id select \"$(fzf --prompt='file > ' --height 100%)\""
+map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf )"
+map gg top
+map D delete
+map E extract
+map C copyto
+map M moveto
+map m mkdir
+map f mkfile
+map <c-n> push :mkdir<space>
+map <c-r> reload
+map <c-h> set hidden!
+map <enter> shell
+map x $$f
+map X !$f
+map o &mimeopen "$f"
+map O $mimeopen --ask "$f"
+
+map e chmod # make execytable
+map A rename # at the very end
+map c push A<c-u> # new rename
+map I push A<c-a> # at the very beginning
+map i push A<a-b><a-b><a-f> # before extension
+map a push A<a-b> # after extension
+map B bulkrename
+map b $setbg $f
+
+map <c-e> down
+map <c-y> up
+map V push :!nvim<space>
+
+map W $setsid -f $TERMINAL >/dev/null 2>&1
+
+map Y $printf "%s" "$fx" | xclip -selection clipboard
+
+# fzf
+# map <c-f> fzf
 
 # motions
+map gh cd ~
+map gd cd ~/dotfiles/
+map gc cd ~/dotfiles/.config/
+
 # Udemy
 map guj cd ~/learning/udemy/javascript/
 map gug cd ~/learning/udemy/git/
