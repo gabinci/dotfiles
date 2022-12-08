@@ -1,15 +1,16 @@
-local awful = require("awful")
+--[[
+     Awesome WM configuration template
+     https://github.com/awesomeWM
+     Freedesktop : https://github.com/lcpz/awesome-freedesktop
+     Copycats themes : https://github.com/lcpz/awesome-copycats
+     lain : https://github.com/lcpz/lain
+--]]
 
 require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
-require("before.error")
-require("before.env")
-require("before.theme")
-require("before.menu")
 
-awful.spawn.with_shell("~/.config/awesome/core/autostart.sh")
+require("core.startup")
+require("core.visual.menu")
 require("core.keymaps")
-
-require("after.rules")
-require("after.wibar")
-require("after.signals")
+require("core.rules")
+require("core.signals")
