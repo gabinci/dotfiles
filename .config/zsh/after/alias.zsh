@@ -12,3 +12,12 @@ alias home="$HOME/"
 alias dot="$HOME/dotfiles/"
 alias config="$HOME/dotfiles/.config/"
 alias bin="$HOME/.local/bin/"
+
+
+# arch 
+alias p="sudo pacman"
+alias inst="sudo pacman -S"
+alias upgr="sudo pacman -Syu"
+
+
+alias spt="launch-spt"

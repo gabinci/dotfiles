@@ -10,3 +10,4 @@ source $ZDOTDIR/after/plugin/fzf.zsh
 
 ~/dotfiles/.config/zsh/after/visual/nofetch #fetch
 
+[ -f "$HOME/.local/share/zap/zap.zsh" ] && source "$HOME/.local/share/zap/zap.zsh"

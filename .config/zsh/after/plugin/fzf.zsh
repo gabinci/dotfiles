@@ -5,7 +5,6 @@
 FD_OPTIONS="-H --full-path --exclude '.git' --exclude 'node_modules'  "
 
 # fzf
-
 export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS ${1:-$PWD}"
 
 export FZF_DEFAULT_OPTS=" \
@@ -19,7 +18,7 @@ export FZF_CTRL_T_COMMAND="fd --type d $FD_OPTIONS"
 export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS --prompt='Directory ﰲ '"
 export FZF_ALT_C_COMMAND="fd --type d $FD_OPTIONS"
 
-export FZF_COMPLETION_OPTS='--border --info=inline'
+export FZF_COMPLETION_OPTS='--border'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
