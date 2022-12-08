@@ -1,5 +1,5 @@
 -- Filename: plugins.lua
--- Last Change: Thu, 01 Dec 2022 - 12:14:16
+-- Last Change: Wed, 07 Dec 2022 - 21:55:10
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 --
 --
@@ -86,11 +86,13 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-buffer")
 	use("hrsh7th/cmp-path")
 	use("f3fora/cmp-spell")
+	use("dcampos/cmp-emmet-vim")
 
 	-- snippets
 	use("L3MON4D3/LuaSnip")
 	use("saadparwaiz1/cmp_luasnip")
 	use("rafamadriz/friendly-snippets")
+	use("mattn/emmet-vim")
 
 	-- manage & install lsp servers, linters & formatters
 	use("williamboman/mason.nvim")
@@ -170,13 +172,12 @@ return packer.startup(function(use)
 
 	-- bufferline
 	use("akinsho/bufferline.nvim")
-	-- use({ "kdheepak/tabline.nvim" })
 
 	-- ccc
 	use("uga-rosa/ccc.nvim")
 
 	-- dashboard
-	use("goolord/alpha-nvim")
+	-- use("goolord/alpha-nvim")
 
 	use({
 		"goolord/alpha-nvim",
@@ -208,8 +209,8 @@ return packer.startup(function(use)
 	use("stevearc/dressing.nvim")
 
 	-- colorbuddy
-	use("tjdevries/colorbuddy.nvim")
-	use("Th3Whit3Wolf/onebuddy")
+	-- use("tjdevries/colorbuddy.nvim")
+	-- use("Th3Whit3Wolf/onebuddy")
 	-- use("tjdevries/gruvbuddy.nvim")
 
 	-- transparent bg

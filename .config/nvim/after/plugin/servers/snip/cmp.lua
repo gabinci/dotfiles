@@ -1,7 +1,6 @@
-#!/usr/bin/env lua
--- Filename: cmp.lua
--- Last Change: Wed, 23 Nov 2022 - 09:06:23
--- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
+-- current file path: /home/gabinci/dotfiles/.config/nvim/after/plugin/servers/snip/cmp.lua
+-- last change: Wed, 07 Dec 2022 - 21:55:01
+-- Author: gabinci
 
 local cmp_status, cmp = pcall(require, "cmp")
 if not cmp_status then
@@ -36,6 +35,7 @@ cmp.setup({
 
 	-- Set `select` to `false` to only confirm explicitly selected items.
 	sources = cmp.config.sources({
+		{ name = "emmet_vim" },
 		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
 		{ name = "path" },
@@ -80,11 +80,12 @@ cmp.setup({
 			end,
 
 			menu = {
-				luasnip = "[SNIP]",
-				nvim_lsp = "[LSP]",
-				path = "[PATH]",
-				spell = "[SPELL]",
-				buffer = "[BUF]",
+				emmet_vim = "  emmet",
+				luasnip = "  snip",
+				nvim_lsp = "  lsp",
+				path = "  path",
+				spell = "暈 spell",
+				buffer = "祥 buff",
 			},
 		}),
 	},

@@ -1,5 +1,5 @@
 -- Filename: dressing.lua
--- Last Change: Sat, 26 Nov 2022 - 11:16:47
+-- Last Change: Wed, 07 Dec 2022 - 21:37:57
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local status, dressing = pcall(require, "dressing")
@@ -22,8 +22,10 @@ dressing.setup({
 		width = nil, -- min_width and max_width can be a list of mixed types. min_width = {20, 0.2} means "the greater of 20 columns or 20% of total"
 		max_width = { 140, 0.9 },
 		min_width = { 20, 0.2 },
-		winblend = 20, -- Window transparency (0-100)
-		winhighlight = "", -- Change default highlight groups (see :help winhl)
+		win_options = {
+			winblend = 20, -- Window transparency (0-100)
+			winhighlight = "", -- Change default highlight groups (see :help winhl)
+		},
 
 		-- Set to `false` to disable
 		mappings = {
@@ -124,9 +126,11 @@ dressing.setup({
 			relative = "editor",
 
 			-- Window transparency (0-100)
-			winblend = 10,
+			win_options = {
+				winblend = 10,
+				winhighlight = "",
+			},
 			-- Change default highlight groups (see :help winhl)
-			winhighlight = "",
 
 			-- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
 			-- the min_ and max_ options can be a list of mixed types.

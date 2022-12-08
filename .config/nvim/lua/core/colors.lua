@@ -1,5 +1,5 @@
 -- Filename: colors.lua
--- Last Change: Mon, 21 Nov 2022 22:00:34
+-- Last Change: Sat, 03 Dec 2022 - 19:08:42
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 local function set(scheme)
@@ -20,4 +20,4 @@ end
 -- set("gruvbuddy")
 -- set("onedark")
 
-set("catppuccin-macchiato")
+set("catppuccin-mocha")
