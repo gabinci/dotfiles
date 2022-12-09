@@ -1,5 +1,0 @@
-#!/bin/bash
-
-files=$(list-echo ~/.local/bin/bookmarks/bm-dirs.txt)
-
-echo "$files"

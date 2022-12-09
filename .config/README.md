@@ -130,8 +130,7 @@ fc-cache -fv
 # lf
 
 lynx
-bat
-mediainfo
+ba
 ffmpegthumbnailer
 
 # fzf

@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+files=$(cat ~/.local/bin/bookmarks/bm-dirs.txt | sed 's/#.*//g' | sed '/^\s*$/d')
+dest=$(echo "$files" | fzf --preview "" | sed "s|~|$HOME|") && eval cd $dest

@@ -24,3 +24,10 @@ function fg-bg() {
 }
 zle -N fg-bg
 bindkey '^Z' fg-bg
+
+function fileManager(){
+  $CLIFM
+}
+zle -N fileManager
+  
+bindkey '^o' fileManager
