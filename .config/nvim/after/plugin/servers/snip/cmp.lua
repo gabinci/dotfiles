@@ -1,14 +1,12 @@
--- current file path: /home/gabinci/dotfiles/.config/nvim/after/plugin/servers/snip/cmp.lua
--- last change: Wed, 07 Dec 2022 - 21:55:01
--- Author: gabinci
-
 local cmp_status, cmp = pcall(require, "cmp")
 if not cmp_status then
+	vim.notify("Failed to load cmp")
 	return
 end
 
 local lspkind_status, lspkind = pcall(require, "lspkind")
 if not lspkind_status then
+	vim.notify("Failed to load lspkind")
 	return
 end
 
@@ -48,19 +46,38 @@ cmp.setup({
 			require("luasnip").lsp_expand(args.body)
 		end,
 	},
-
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
 	experimental = {
 		ghost_text = true,
 		native_menu = false,
 	},
 
 	formatting = {
-		fields = {
-			cmp.ItemField.Kind,
-			cmp.ItemField.Abbr,
-			cmp.ItemField.Menu,
+		fields = { "kind", "abbr", "menu" },
+		max_width = 0,
+		source_names = {
+			nvim_lsp = "(LSP)",
+			emoji = "(Emoji)",
+			path = "(Path)",
+			calc = "(Calc)",
+			cmp_tabnine = "(Tabnine)",
+			vsnip = "(Snippet)",
+			luasnip = "(Snippet)",
+			buffer = "(Buffer)",
+			tmux = "(TMUX)",
+			copilot = "(Copilot)",
+			treesitter = "(TreeSitter)",
 		},
-
+		duplicates = {
+			buffer = 1,
+			path = 1,
+			nvim_lsp = 0,
+			luasnip = 1,
+		},
+		duplicates_default = 0,
 		format = lspkind.cmp_format({
 			with_text = false,
 			before = function(entry, vim_item)
@@ -78,7 +95,6 @@ cmp.setup({
 				vim_item.abbr = word
 				return vim_item
 			end,
-
 			menu = {
 				emmet_vim = "  emmet",
 				luasnip = "  snip",

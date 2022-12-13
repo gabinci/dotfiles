@@ -1,15 +1,3 @@
--- Filename: plugins.lua
--- Last Change: Wed, 07 Dec 2022 - 21:55:10
--- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
---
---
--- ██████╗ ██╗     ██╗   ██╗ ██████╗ ██╗███╗   ██╗███████╗
--- ██╔══██╗██║     ██║   ██║██╔════╝ ██║████╗  ██║██╔════╝
--- ██████╔╝██║     ██║   ██║██║  ███╗██║██╔██╗ ██║███████╗
--- ██╔═══╝ ██║     ██║   ██║██║   ██║██║██║╚██╗██║╚════██║
--- ██║     ███████╗╚██████╔╝╚██████╔╝██║██║ ╚████║███████║
--- ╚═╝     ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═══╝╚══════╝
-
 local fn = vim.fn
 
 -- Automatically install packer
@@ -50,36 +38,15 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
-	--
-	-- ██▄ ▄▀▄ ▄▀▀ ██▀
-	-- █▄█ █▀█ ▄██ █▄▄
+	-- █▀▀ █▀█ █▀█ █▀▀
+	-- █▄▄ █▄█ █▀▄ ██▄
 
 	use("wbthomason/packer.nvim")
 	use("nvim-lua/plenary.nvim")
 	use("nvim-tree/nvim-web-devicons")
 
-	-- █▀ █ █   ██▀   ██▀ ▀▄▀ █▀▄ █   ▄▀▄ █▀▄ ██▀ █▀▄ ▄▀▀
-	-- █▀ █ █▄▄ █▄▄   █▄▄ █ █ █▀  █▄▄ ▀▄▀ █▀▄ █▄▄ █▀▄ ▄██
-
-	-- nvim tree
-	use("nvim-tree/nvim-tree.lua")
-
-	-- telescope
-	use("nvim-telescope/telescope.nvim")
-	use("nvim-telescope/telescope-project.nvim")
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-
-	-- ▄▀  █ ▀█▀
-	-- ▀▄█ █  █
-
-	-- git signs
-	use("lewis6991/gitsigns.nvim")
-
-	-- git
-	-- use("dinhhuy258/git.nvim")
-
-	-- ▄▀▀ █▄ █ █ █▀▄ █▀▄ ██▀ ▀█▀ ▄▀▀   ▄▀▄ █▀▄ █▄ █   ▄▀▀ ▄▀▄ █▄ ▄█ █▀▄ █   ██▀ ▀█▀ █ ▄▀▄ █▄ █
-	-- ▄██ █ ▀█ █ █▀  █▀  █▄▄  █  ▄██   █▀█ █▄▀ █ ▀█   ▀▄▄ ▀▄▀ █ ▀ █ █▀  █▄▄ █▄▄  █  █ ▀▄▀ █ ▀█
+	-- █▀ █▀▀ █▀█ █░█ █▀▀ █▀█ █▀
+	-- ▄█ ██▄ █▀▄ ▀▄▀ ██▄ █▀▄ ▄█
 
 	-- autocompletion
 	use("hrsh7th/nvim-cmp")
@@ -110,48 +77,35 @@ return packer.startup(function(use)
 	use("Jose-elias-alvarez/null-ls.nvim")
 	use("jayp0521/mason-null-ls.nvim")
 
-	-- debugger
-	-- use("mfussenegger/nvim-dap")
-	-- use("rcarriga/nvim-dap-ui")
-	-- use("theHamsta/nvim-dap-virtual-text")
-	-- use("nvim-telescope/telescope-dap.nvim")
-	-- use("mxsdev/nvim-dap-vscode-js")
-	-- use({
-	-- 	"microsoft/vscode-js-debug",
-	-- 	opt = true,
-	-- 	run = "npm install --legacy-peer-deps && npm run compile",
-	-- })
-
-	-- treesitter
-	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-
-	-- live server
-	use("aurum77/live-server.nvim")
+	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }) -- treesitter
 
 	-- █ █ ▀█▀ █ █   ▄▀▀
 	-- ▀▄█  █  █ █▄▄ ▄██
+	-- utils
 
-	-- nvim comment
-	use("numToStr/Comment.nvim")
+	use("nvim-tree/nvim-tree.lua") -- nvim tree
+	use("nvim-telescope/telescope.nvim") -- telescope
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- telescope fzf
+	use("numToStr/Comment.nvim") -- comment
+	use("windwp/nvim-ts-autotag") -- auto tags
+	use("aurum77/live-server.nvim") -- live server
+	use("sidebar-nvim/sidebar.nvim") -- sidebar
 
-	-- auto closing
-	use("windwp/nvim-autopairs")
-	use("windwp/nvim-ts-autotag")
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup({})
+		end,
+	})
 
-	-- nvim surround
 	use({
 		"kylechui/nvim-surround",
 		config = function()
 			require("nvim-surround").setup({})
 		end,
-	})
+	}) -- nvim surround
 
-	-- impatient nvim
-	use("lewis6991/impatient.nvim")
-
-	-- indent line
-	-- use("lukas-reineke/indent-blankline.nvim")
-	use("yaocccc/nvim-hlchunk")
+	use("lewis6991/impatient.nvim") -- impatient nvim
 
 	-- md preview
 	use({
@@ -161,60 +115,26 @@ return packer.startup(function(use)
 		end,
 	})
 
-	-- wilder
-	use("gelguy/wilder.nvim")
-
 	-- █ █ █ ▄▀▀ █ █ ▄▀▄ █
 	-- ▀▄▀ █ ▄██ ▀▄█ █▀█ █▄▄
+	-- visual
 
-	-- statusline
-	use("nvim-lualine/lualine.nvim")
-
-	-- bufferline
-	use("akinsho/bufferline.nvim")
-
-	-- ccc
-	use("uga-rosa/ccc.nvim")
-
-	-- dashboard
-	-- use("goolord/alpha-nvim")
-
-	use({
-		"goolord/alpha-nvim",
-		branch = "feature/startify-fortune",
-		requires = { "BlakeJC94/alpha-nvim-fortune" },
-	})
-
-	-- shade nvim
-	-- use("sunjon/Shade.nvim")
-
-	-- modicator
-	--use("melkster/modicator.nvim")
-
-	-- smooth scroll
-	-- use({
-	-- 	"declancm/cinnamon.nvim",
-	-- 	config = function()
-	-- 		require("cinnamon").setup({})
-	-- 	end,
-	-- })
+	use("lukas-reineke/indent-blankline.nvim") -- indent line
+	use("lewis6991/gitsigns.nvim") -- git signs
+	use("nvim-lualine/lualine.nvim") -- statusline
+	use("akinsho/bufferline.nvim") -- bufferline
+	use("uga-rosa/ccc.nvim") -- ccc
+	use("goolord/alpha-nvim") -- dashboard
+	use("stevearc/dressing.nvim") -- dressing
+	use("gelguy/wilder.nvim") -- wilder
+	use("RRethy/vim-illuminate")
+	use("christianchiarulli/lir.nvim")
 
 	-- THEMES
 	-- use("folke/tokyonight.nvim")
 	-- use("ray-x/aurora")
 	-- use("navarasu/onedark.nvim")
 	use("catppuccin/nvim")
-
-	-- dressing
-	use("stevearc/dressing.nvim")
-
-	-- colorbuddy
-	-- use("tjdevries/colorbuddy.nvim")
-	-- use("Th3Whit3Wolf/onebuddy")
-	-- use("tjdevries/gruvbuddy.nvim")
-
-	-- transparent bg
-	-- use("xiyaowong/nvim-transparent")
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()

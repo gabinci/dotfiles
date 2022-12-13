@@ -1,50 +1,160 @@
-#!/usr/bin/env lua
--- Filename: treesitter.lua
--- Last Change: Sat, 05 Nov 2022 - 18:58
--- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
-
 local status, treesitter = pcall(require, "nvim-treesitter.configs")
 if not status then
+	vim.notify("Failed to load treesitter")
 	return
 end
 
 treesitter.setup({
-	ensure_installed = {
-		"tsx",
-		"toml",
-		"php",
-		"json",
-		"yaml",
-		"html",
-		"lua",
-		"javascript",
-		"typescript",
-		"markdown",
-		"svelte",
-		"graphql",
-		"bash",
-		"vim",
-		"dockerfile",
-	}, -- one of "all" or a list of languages
+	-- A list of parser names, or "all"
+	ensure_installed = {},
 
-	auto_install = true,
-	ignore_install = { "" }, -- List of parsers to ignore installing
+	-- List of parsers to ignore installing (for "all")
+	ignore_install = {},
 
+	-- A directory to install the parsers into.
+	-- By default parsers are installed to either the package dir, or the "site" dir.
+	-- If a custom path is used (not nil) it must be added to the runtimepath.
+	parser_install_dir = nil,
+
+	-- Install parsers synchronously (only applied to `ensure_installed`)
+	sync_install = false,
+
+	-- Automatically install missing parsers when entering buffer
+	auto_install = false,
+
+	matchup = {
+		enable = false, -- mandatory, false will disable the whole extension
+		-- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+	},
 	highlight = {
 		enable = true, -- false will disable the whole extension
-		-- disable = { "css", "html", "markdown" }, -- list of language that will be disabled
-	},
+		additional_vim_regex_highlighting = false,
+		disable = function(lang, buf)
+			if vim.tbl_contains({ "latex" }, lang) then
+				return true
+			end
 
-	atotag = {
+			local status_ok, big_file_detected = pcall(vim.api.nvim_buf_get_var, buf, "bigfile_disable_treesitter")
+			return status_ok and big_file_detected
+		end,
+	},
+	context_commentstring = {
 		enable = true,
+		enable_autocmd = false,
+		config = {
+			-- Languages that have a single comment style
+			typescript = "// %s",
+			css = "/* %s */",
+			scss = "/* %s */",
+			html = "<!-- %s -->",
+			svelte = "<!-- %s -->",
+			vue = "<!-- %s -->",
+			json = "",
+		},
 	},
-
-	autopairs = {
-		enable = true,
+	indent = { enable = true, disable = { "yaml", "python" } },
+	autotag = { enable = false },
+	textobjects = {
+		swap = {
+			enable = false,
+			-- swap_next = textobj_swap_keymaps,
+		},
+		-- move = textobj_move_keymaps,
+		select = {
+			enable = false,
+			-- keymaps = textobj_sel_keymaps,
+		},
 	},
-
-	indent = { enable = true, disable = { "python", "css" } },
-	-- markid = { enable = true },
+	textsubjects = {
+		enable = false,
+		keymaps = { ["."] = "textsubjects-smart", [";"] = "textsubjects-big" },
+	},
+	playground = {
+		enable = false,
+		disable = {},
+		updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+		persist_queries = false, -- Whether the query persists across vim sessions
+		keybindings = {
+			toggle_query_editor = "o",
+			toggle_hl_groups = "i",
+			toggle_injected_languages = "t",
+			toggle_anonymous_nodes = "a",
+			toggle_language_display = "I",
+			focus_language = "f",
+			unfocus_language = "F",
+			update = "R",
+			goto_node = "<cr>",
+			show_help = "?",
+		},
+	},
+	rainbow = {
+		enable = false,
+		extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+		max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+	},
 })
 
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+---@class bundledParsersOpts
+---@field name_only boolean
+---@field filter function
+
+---Retrives a list of bundled parsers paths (any parser not found in default `install_dir`)
+---@param opts bundledParsersOpts
+---@return string[]
+local function get_parsers(opts)
+	opts = opts or {}
+	opts.filter = opts.filter or function()
+		return true
+	end
+
+	local bundled_parsers = vim.tbl_filter(opts.filter, vim.api.nvim_get_runtime_file("parser/*.so", true))
+
+	if opts.name_only then
+		bundled_parsers = vim.tbl_map(function(parser)
+			return vim.fn.fnamemodify(parser, ":t:r")
+		end, bundled_parsers)
+	end
+
+	return bundled_parsers
+end
+
+---Checks if parser is installed with nvim-treesitter
+---@param lang string
+---@return boolean
+local function is_installed(lang)
+	local configs = require("nvim-treesitter.configs")
+	local result = get_parsers({
+		filter = function(parser)
+			local install_dir = configs.get_parser_install_dir()
+			return vim.startswith(parser, install_dir) and (vim.fn.fnamemodify(parser, ":t:r") == lang)
+		end,
+	})
+	local parser_file = result and result[1] or ""
+	local stat = vim.loop.fs_stat(parser_file)
+	return stat and stat.type == "file"
+end
+
+local function ensure_updated_bundled()
+	local configs = require("nvim-treesitter.configs")
+	local bundled_parsers = get_parsers({
+		name_only = true,
+		filter = function(parser)
+			local install_dir = configs.get_parser_install_dir()
+			return not vim.startswith(parser, install_dir)
+		end,
+	})
+
+	vim.api.nvim_create_autocmd("VimEnter", {
+		callback = function()
+			local missing = vim.tbl_filter(function(parser)
+				return not is_installed(parser)
+			end, bundled_parsers)
+
+			if #missing > 0 then
+				vim.cmd({ cmd = "TSInstall", args = missing, bang = true })
+			end
+		end,
+	})
+end
+
+ensure_updated_bundled()

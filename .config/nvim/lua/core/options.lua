@@ -1,93 +1,112 @@
--- Filename: options.lua
--- Last Change: Sat, 03 Dec 2022 - 21:14:20
--- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
---
---  ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗ ███████╗
--- ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝ ██╔════╝
--- ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗███████╗
--- ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║╚════██║
--- ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝███████║
---  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝
-
 vim.cmd("autocmd!")
-local o = vim.opt
+-- local o = vim.opt
 
--- indent options
-o.breakindent = true
-o.smartindent = true
-o.shiftround = true
-o.autoindent = true
-o.expandtab = true
-o.smarttab = true
-o.tabstop = 2
-o.shiftwidth = 2
+vim.keymap.set("", "<Space>", "<Nop>", { noremap = true, silent = true })
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
--- search options
-o.ignorecase = true
-o.incsearch = true
-o.smartcase = true
-o.hlsearch = true
+local load_default_options = function()
+	local default_options = {
+		breakindent = true,
+		smartindent = true,
+		shiftround = true,
+		autoindent = true,
+		smarttab = true,
+		incsearch = true,
+		lazyredraw = true,
+		linebreak = true,
+		relativenumber = true,
+		inccommand = "split",
+		winblend = 0,
+		pumblend = 5,
+		foldenable = false,
+		backspace = "indent,eol,start",
+		autoread = true,
+		history = 1000,
+		confirm = true,
+		spell = false,
+		exrc = true,
+		equalalways = false,
+		keywordprg = ":help",
+		backup = false, -- creates a backup file
+		clipboard = "unnamedplus", -- allows neovim to access the system clipboard
+		cmdheight = 1, -- more space in the neovim command line for displaying messages
+		completeopt = { "menuone", "noselect" },
+		conceallevel = 0, -- so that `` is visible in markdown files
+		fileencoding = "utf-8", -- the encoding written to a file
+		foldmethod = "manual", -- folding, set to "expr" for treesitter based folding
+		foldexpr = "", -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
+		guifont = "monospace:h17", -- the font used in graphical neovim applications
+		hidden = true, -- required to keep multiple buffers and open multiple buffers
+		hlsearch = true, -- highlight all matches on previous search pattern
+		ignorecase = true, -- ignore case in search patterns
+		mouse = "a", -- allow the mouse to be used in neovim
+		pumheight = 10, -- pop up menu height
+		showmode = false, -- we don't need to see things like -- INSERT -- anymore
+		showtabline = 2, -- always show tabs
+		smartcase = true, -- smart case
+		splitbelow = true, -- force all horizontal splits to go below current window
+		splitright = true, -- force all vertical splits to go to the right of current window
+		swapfile = false, -- creates a swapfile
+		termguicolors = true, -- set term gui colors (most terminals support this)
+		timeoutlen = 1000, -- time to wait for a mapped sequence to complete (in milliseconds)
+		title = true, -- set the title of window to the value of the titlestring
+		undofile = true, -- enable persistent undo
+		updatetime = 100, -- faster completion
+		writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
+		expandtab = true, -- convert tabs to spaces
+		shiftwidth = 2, -- the number of spaces inserted for each indentation
+		tabstop = 2, -- insert 2 spaces for a tab
+		cursorline = true, -- highlight the current line
+		number = true, -- set numbered lines
+		numberwidth = 4, -- set number column width to 2 {default 4}
+		signcolumn = "yes", -- always show the sign column, otherwise it would shift the text each time
+		wrap = false, -- display lines as one long line
+		scrolloff = 8, -- minimal number of screen lines to keep above and below the cursor.
+		sidescrolloff = 8, -- minimal number of screen lines to keep left and right of the cursor.
+		showcmd = false,
+		ruler = false,
+		laststatus = 3,
+		list = true,
+	}
 
----- performance settings
-o.lazyredraw = true
+	---  SETTINGS  ---
+	vim.opt.listchars:append("space:⋅")
+	vim.opt.listchars:append("eol:↴")
+	vim.opt.spelllang:append("cjk") -- disable spellchecking for asian characters (VIM algorithm does not support it)
+	vim.opt.shortmess:append("c") -- don't show redundant messages from ins-completion-menu
+	vim.opt.shortmess:append("I") -- don't show the default intro message
+	vim.opt.whichwrap:append("<,>,[,],h,l")
+	vim.opt.iskeyword:append("-")
+	vim.scriptencoding = "utf-8"
 
----- text rendering options
-vim.scriptencoding = "utf-8"
-o.fileencoding = "utf-8"
-o.encoding = "utf-8"
-o.linebreak = true
-o.wrap = false
-o.sidescrolloff = 8
-o.scrolloff = 8
+	---  COMMANDS  ---
+	vim.cmd([[set wildignore+=.pyc,.swp]])
+	vim.cmd([[set formatoptions-=cro ]])
 
----- user interface options
-o.relativenumber = true
-o.termguicolors = true
-o.inccommand = "split"
--- vim.opt.cursorcolumn   = true
--- vim.opt.background     = 'dark'
-o.showtabline = 2
-o.signcolumn = "yes"
-o.cursorline = true
-o.splitbelow = true
-o.splitright = true
-o.laststatus = 0
-o.cmdheight = 1
-o.winblend = 0
-o.pumblend = 5
-o.showmode = false
-o.showcmd = true
-o.number = true
-o.ruler = true
-o.title = true
-o.mouse = "a"
--- o.background     = 'dark'
+	-- Undercurl
+	vim.cmd([[let &t_Cs = "\e[4:3m"]])
+	vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
----- code folding
-o.foldnestmax = 3
-o.foldmethod = "indent"
-o.foldenable = false
+	for k, v in pairs(default_options) do
+		vim.opt[k] = v
+	end
+end
 
----- miscellaneous options
-o.backspace = "indent,eol,start"
-o.clipboard = "unnamedplus"
-o.swapfile = false
-o.autoread = true
-o.undofile = true
-o.history = 1000
-o.confirm = true
-o.backup = false
-o.hidden = true
-o.spell = false
-o.exrc = true
-o.equalalways = false
+local load_headless_options = function()
+	vim.opt.shortmess = "" -- try to prevent echom from cutting messages off or prompting
+	vim.opt.more = false -- don't pause listing when screen is filled
+	vim.opt.cmdheight = 9999 -- helps avoiding |hit-enter| prompts.
+	vim.opt.columns = 9999 -- set the widest screen possible
+	vim.opt.swapfile = false -- don't use a swap file
+end
 
--- o.filetype = "on"
-o.iskeyword:append("-")
-o.shortmess:append("c")
-o.keywordprg = ":help"
+local load_defaults = function()
+	if #vim.api.nvim_list_uis() == 0 then
+		load_headless_options()
+		return
+	end
+	load_default_options()
+end
 
-vim.cmd([[set wildignore+=.pyc,.swp]])
--- Undercurl
-vim.cmd([[let &t_Cs = "\e[4:3m"]])
-vim.cmd([[let &t_Ce = "\e[4:0m"]])
+load_defaults()

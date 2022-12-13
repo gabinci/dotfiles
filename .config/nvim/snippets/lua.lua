@@ -79,4 +79,24 @@ return {
 			{ i(1) }
 		)
 	),
+	s(
+		{
+			trig = "call",
+			desc = "core.utils pcall",
+		},
+		fmta(
+			[[
+    local utils = require("core.utils")
+    local <> = utils.call("<>")
+    if <> == nil then
+      return
+    end
+    ]],
+			{
+				i(1, "module"),
+				rep(1),
+				rep(1),
+			}
+		)
+	),
 }

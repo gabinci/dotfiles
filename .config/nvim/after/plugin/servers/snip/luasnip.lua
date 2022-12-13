@@ -1,7 +1,3 @@
--- Filename: luasnip.lua
--- Last Change: Wed, 23 Nov 2022 - 09:06:15
--- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
-
 local status, ls = pcall(require, "luasnip")
 if not status then
 	return
