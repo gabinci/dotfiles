@@ -152,7 +152,6 @@ return packer.startup(function(use)
 	-- indent line
 	-- use("lukas-reineke/indent-blankline.nvim")
 	use("yaocccc/nvim-hlchunk")
-
 	-- md preview
 	use({
 		"iamcco/markdown-preview.nvim",
@@ -174,7 +173,12 @@ return packer.startup(function(use)
 	use("akinsho/bufferline.nvim")
 
 	-- ccc
-	use("uga-rosa/ccc.nvim")
+	use({
+		"uga-rosa/ccc.nvim",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	})
 
 	-- dashboard
 	use("goolord/alpha-nvim")

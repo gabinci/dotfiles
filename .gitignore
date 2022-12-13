@@ -1,8 +1,11 @@
-.config/zsh/.zcompdump
-.config/nvim/plugin/packer_compiled.lua
+.config/nvim/plugin
+
+.config/lazygit/state.yml
+
 .config/zsh/.p10k.zsh
 .config/zsh/.chpwd-recent-dirs
-.config/lazygit/state.yml
+.config/zsh/.zcompdump
+
 .config/firefox
 !.config/firefox/chrome/
 !.config/firefox/extensions/
