@@ -21,7 +21,6 @@ local mode_adapters = {
 }
 
 local maps = {
-	insert_mode = {},
 
 	normal_mode = {
 		["ç"] = { ":", { noremap = true } }, -- remap ç
@@ -54,17 +53,20 @@ local maps = {
 		["<A-K>"] = "mzyyP`zk", -- copy line up
 		["<A-J>"] = "mzyyp`zj", -- copy line down
 		["<leader><TAB>"] = [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]], -- switch buffer
-		["<CR>"] = "gf", -- go to file
 	},
 
+	insert_mode = {},
 	term_mode = {},
-
 	visual_mode = {
 		["+"] = "<C-a>",
 		["_"] = "<C-x>",
 	},
 
-	visual_block_mode = {},
+	visual_block_mode = {
+		["<A-k>"] = "<CMD>move '>+1<CR>gv-gv", -- copy line up
+		["<A-j>"] = "<CMD>move '<-2<CR>gv-gv", -- copy line down
+	},
+	-- Move text up and down
 
 	command_mode = {
 		["ç"] = { "<CR>", { noremap = true } },

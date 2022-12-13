@@ -89,7 +89,10 @@ return packer.startup(function(use)
 	use("numToStr/Comment.nvim") -- comment
 	use("windwp/nvim-ts-autotag") -- auto tags
 	use("aurum77/live-server.nvim") -- live server
-	use("sidebar-nvim/sidebar.nvim") -- sidebar
+	-- use({
+	-- 	"sidebar-nvim/sidebar.nvim",
+	-- 	rocks = { "luatz" },
+	-- })
 
 	use({
 		"windwp/nvim-autopairs",
@@ -123,12 +126,35 @@ return packer.startup(function(use)
 	use("lewis6991/gitsigns.nvim") -- git signs
 	use("nvim-lualine/lualine.nvim") -- statusline
 	use("akinsho/bufferline.nvim") -- bufferline
-	use("uga-rosa/ccc.nvim") -- ccc
 	use("goolord/alpha-nvim") -- dashboard
 	use("stevearc/dressing.nvim") -- dressing
 	use("gelguy/wilder.nvim") -- wilder
-	use("RRethy/vim-illuminate")
 	use("christianchiarulli/lir.nvim")
+
+	use({
+		"RRethy/vim-illuminate",
+		config = function()
+			require("illuminate").configure({
+				filetypes_denylist = {
+					"alpha",
+					"NvimTree",
+					"packer",
+					"telescope",
+				},
+			})
+		end,
+	})
+
+	use({
+		"uga-rosa/ccc.nvim",
+		config = function()
+			require("ccc").setup({
+				highlighter = {
+					auto_enable = true,
+				},
+			})
+		end,
+	})
 
 	-- THEMES
 	-- use("folke/tokyonight.nvim")

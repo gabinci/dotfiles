@@ -11,8 +11,8 @@ vim.opt_local.spell = false
 vim.opt_local.list = false
 vim.bo.path = vim.bo.path .. "," .. vim.fn.stdpath("config") .. "/lua"
 
-vim.bo.shiftwidth = 2
-vim.bo.tabstop = 2
-vim.bo.softtabstop = 2
+vim.bo.shiftwidth = 4
+vim.bo.tabstop = 4
+vim.bo.softtabstop = 4
 -- vim.bo.textwidth = 78
 vim.bo.expandtab = true

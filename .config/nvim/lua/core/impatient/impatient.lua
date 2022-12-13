@@ -11,6 +11,7 @@ local loadlib = package.loadlib
 local std_cache = vim.fn.stdpath("cache")
 
 local sep
+---@diagnostics disable_next_line
 if jit.os == "Windows" then
 	sep = "\\"
 else

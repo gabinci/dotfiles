@@ -39,7 +39,7 @@ require("alpha").setup({
 		{ type = "padding", val = 2 },
 		{
 			type = "text",
-			val = require("core.theming.headers").random(),
+			val = require("core.ui.headers").random(),
 			opts = { hl = "function", position = "center" },
 		},
 		{ type = "padding", val = 1 },
