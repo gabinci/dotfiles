@@ -20,22 +20,22 @@ if [ -x "$(command -v tput)" ]; then
 fi
 
 # you can change these
-c0="${reset}${black}"               # black
-c1="${reset}${red}"                 # red
-c2="${reset}${green}"               # green
-c3="${reset}${yellow}"              # yellow
-c4="${reset}${blue}"                # blue
-c5="${reset}${magenta}"             # magenta
-c6="${reset}${cyan}"                # cyan
-c7="${reset}${white}"               # white
-b0="${reset}${bold}${black}"        # bold black
-b1="${reset}${bold}${red}"          # bold red
-b2="${reset}${bold}${green}"        # bold green
-b3="${reset}${bold}${yellow}"       # bold yellow
-b4="${reset}${bold}${blue}"         # bold blue
-b5="${reset}${bold}${magenta}"      # bold magenta
-b6="${reset}${bold}${cyan}"         # bold cyan
-b7="${reset}${bold}${white}"        # bold white
+c0="${reset}${black}"          # black
+c1="${reset}${red}"            # red
+c2="${reset}${green}"          # green
+c3="${reset}${yellow}"         # yellow
+c4="${reset}${blue}"           # blue
+c5="${reset}${magenta}"        # magenta
+c6="${reset}${cyan}"           # cyan
+c7="${reset}${white}"          # white
+b0="${reset}${bold}${black}"   # bold black
+b1="${reset}${bold}${red}"     # bold red
+b2="${reset}${bold}${green}"   # bold green
+b3="${reset}${bold}${yellow}"  # bold yellow
+b4="${reset}${bold}${blue}"    # bold blue
+b5="${reset}${bold}${magenta}" # bold magenta
+b6="${reset}${bold}${cyan}"    # bold cyan
+b7="${reset}${bold}${white}"   # bold white
 
 cat <<EOF
 ${b4}  /| ､       ${b4} ${USER}${c0}╶─╴${b4} ${host}${c0}╶─╴${c1} ${c2} ${c3} ${c4} ${c5} ${c6} ${c7} ${c0} 

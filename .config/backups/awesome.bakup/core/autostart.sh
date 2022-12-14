@@ -1,10 +1,9 @@
 #!/bin/bash
 
 function run {
-  if ! pgrep $1 ;
-  then
-    $@&
-  fi
+	if ! pgrep $1; then
+		$@ &
+	fi
 }
 run dex $HOME/.config/autostart/arcolinux-welcome-app.desktop
 #run xrandr --output VGA-1 --primary --mode 1360x768 --pos 0x0 --rotate normal
@@ -23,8 +22,6 @@ run numlockx on
 #run nitrogen --restore
 # run conky -c $HOME/.config/awesome/system-overview
 #you can set wallpapers in themes as well
-feh --bg-fill /usr/share/backgrounds/archlinux/arch-wallpaper.jpg &
-feh --bg-fill /usr/share/backgrounds/arcolinux/arco-wallpaper.jpg &
 #run applications from startup
 #run atom
 #run dropbox
