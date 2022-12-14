@@ -16,7 +16,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme = {}
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/copland"
-theme.wallpaper = theme.dir .. "/wall.png"
+-- theme.wallpaper = theme.dir .. "/wall.png"
 theme.font = "JetBrains Mono Nerd Font 14"
 theme.fg_normal = "#6C7086"
 theme.fg_focus = "#B4BEFE"
@@ -130,33 +130,33 @@ theme.mail = lain.widget.imap({
 --]]
 
 -- MPD
--- local mpdicon = wibox.widget.imagebox()
--- theme.mpd = lain.widget.mpd({
--- 	settings = function()
--- 		if mpd_now.state == "play" then
--- 			title = mpd_now.title
--- 			artist = " "
--- 				.. mpd_now.artist
--- 				.. markup(
--- 					"#777777",
--- 					" <span font='JetBrains Mono Nerd Font 2'> </span>|<span font='JetBrains Mono Nerd Font 5'> </span>"
--- 				)
--- 			mpdicon:set_image(theme.play)
--- 		elseif mpd_now.state == "pause" then
--- 			title = "mpd "
--- 			artist = "paused" .. markup("#777777", " |<span font='JetBrains Mono Nerd Font 5'> </span>")
--- 			mpdicon:set_image(theme.pause)
--- 		else
--- 			title = ""
--- 			artist = ""
--- 			mpdicon._private.image = nil
--- 			mpdicon:emit_signal("widget::redraw_needed")
--- 			mpdicon:emit_signal("widget::layout_changed")
--- 		end
---
--- 		widget:set_markup(markup.font(theme.font, markup(blue, title) .. artist))
--- 	end,
--- })
+local mpdicon = wibox.widget.imagebox()
+theme.mpd = lain.widget.mpd({
+	settings = function()
+		if mpd_now.state == "play" then
+			title = mpd_now.title
+			artist = " "
+				.. mpd_now.artist
+				.. markup(
+					"#777777",
+					" <span font='JetBrains Mono Nerd Font 2'> </span>|<span font='JetBrains Mono Nerd Font 5'> </span>"
+				)
+			mpdicon:set_image(theme.play)
+		elseif mpd_now.state == "pause" then
+			title = "mpd "
+			artist = "paused" .. markup("#777777", " |<span font='JetBrains Mono Nerd Font 5'> </span>")
+			mpdicon:set_image(theme.pause)
+		else
+			title = ""
+			artist = ""
+			mpdicon._private.image = nil
+			mpdicon:emit_signal("widget::redraw_needed")
+			mpdicon:emit_signal("widget::layout_changed")
+		end
+
+		widget:set_markup(markup.font(theme.font, markup(blue, title) .. artist))
+	end,
+})
 
 -- Battery
 local baticon = wibox.widget.imagebox(theme.bat)

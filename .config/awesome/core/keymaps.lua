@@ -163,42 +163,6 @@ local globalkeys = my_table.join(
 	end, { description = "Pamac Manager", group = "alt+ctrl" }),
 
 	-- alt + ...
-	awful.key({ exp.altkey, "Shift" }, "t", function()
-		awful.spawn.with_shell("variety -t  && wal -i $(cat $HOME/.config/variety/wallpaper/wallpaper.jpg.txt)&")
-	end, { description = "Pywal Wallpaper trash", group = "exp.altkey" }),
-	awful.key({ exp.altkey, "Shift" }, "n", function()
-		awful.spawn.with_shell("variety -n  && wal -i $(cat $HOME/.config/variety/wallpaper/wallpaper.jpg.txt)&")
-	end, { description = "Pywal Wallpaper next", group = "exp.altkey" }),
-	awful.key({ exp.altkey, "Shift" }, "u", function()
-		awful.spawn.with_shell("wal -i $(cat $HOME/.config/variety/wallpaper/wallpaper.jpg.txt)&")
-	end, { description = "Pywal Wallpaper update", group = "exp.altkey" }),
-	awful.key({ exp.altkey, "Shift" }, "p", function()
-		awful.spawn.with_shell("variety -p  && wal -i $(cat $HOME/.config/variety/wallpaper/wallpaper.jpg.txt)&")
-	end, { description = "Pywal Wallpaper previous", group = "exp.altkey" }),
-	awful.key({ exp.altkey }, "t", function()
-		awful.util.spawn("variety -t")
-	end, { description = "Wallpaper trash", group = "exp.altkey" }),
-	awful.key({ exp.altkey }, "n", function()
-		awful.util.spawn("variety -n")
-	end, { description = "Wallpaper next", group = "exp.altkey" }),
-	awful.key({ exp.altkey }, "p", function()
-		awful.util.spawn("variety -p")
-	end, { description = "Wallpaper previous", group = "exp.altkey" }),
-	awful.key({ exp.altkey }, "f", function()
-		awful.util.spawn("variety -f")
-	end, { description = "Wallpaper favorite", group = "exp.altkey" }),
-	awful.key({ exp.altkey }, "Left", function()
-		awful.util.spawn("variety -p")
-	end, { description = "Wallpaper previous", group = "exp.altkey" }),
-	awful.key({ exp.altkey }, "Right", function()
-		awful.util.spawn("variety -n")
-	end, { description = "Wallpaper next", group = "exp.altkey" }),
-	awful.key({ exp.altkey }, "Up", function()
-		awful.util.spawn("variety --pause")
-	end, { description = "Wallpaper pause", group = "exp.altkey" }),
-	awful.key({ exp.altkey }, "Down", function()
-		awful.util.spawn("variety --resume")
-	end, { description = "Wallpaper resume", group = "exp.altkey" }),
 	awful.key({ exp.altkey }, "F2", function()
 		awful.util.spawn("xfce4-appfinder --collapsed")
 	end, { description = "Xfce appfinder", group = "exp.altkey" }),
@@ -605,7 +569,7 @@ M.clientbuttons = gears.table.join(
 		c:emit_signal("request::activate", "mouse_click", { raise = true })
 		awful.mouse.client.move(c)
 	end),
-	awful.button({ exp.modkey }, 3, function(c)
+	awful.button({ exp.modkey, "Control" }, 1, function(c)
 		c:emit_signal("request::activate", "mouse_click", { raise = true })
 		awful.mouse.client.resize(c)
 	end)
