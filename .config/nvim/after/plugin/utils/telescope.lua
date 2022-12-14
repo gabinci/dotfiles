@@ -92,7 +92,6 @@ telescope.setup({
 	},
 })
 
-telescope.load_extension("fzf")
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 
@@ -145,8 +144,10 @@ local new_maker = function(filepath, bufnr, opts)
 	previewers.buffer_previewer_maker(filepath, bufnr, opts)
 end
 
-require("telescope").setup({
+telescope.setup({
 	defaults = {
 		buffer_previewer_maker = new_maker,
 	},
 })
+
+telescope.load_extension("fzf")

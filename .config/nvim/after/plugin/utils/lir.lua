@@ -1,8 +1,14 @@
+local status, lir = pcall(require, "lir")
+if not status then
+	vim.notify("Failed to load lir")
+	return
+end
+
 local actions = require("lir.actions")
 local mark_actions = require("lir.mark.actions")
 local clipboard_actions = require("lir.clipboard.actions")
 
-require("lir").setup({
+lir.setup({
 	show_hidden_files = true,
 	ignore = {}, -- { ".DS_Store" "node_modules" } etc.
 	devicons_enable = true,

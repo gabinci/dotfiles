@@ -1,5 +1,6 @@
+---@diagnostic disable
 -- current file path: /home/gabinci/dotfiles/.config/nvim/snippets/all.lua
--- last change: Tue, 22 Nov 2022 - 15:23:40
+-- last change: Wed, 14 Dec 2022 - 12:57:15
 -- Author: gabinci
 
 return {

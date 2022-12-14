@@ -1,6 +1,5 @@
+---@diagnostic disable
 vim.cmd("autocmd!")
--- local o = vim.opt
-
 vim.keymap.set("", "<Space>", "<Nop>", { noremap = true, silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -72,7 +71,7 @@ local load_default_options = function()
 
 	---  SETTINGS  ---
 	vim.opt.listchars:append("space:⋅")
-	vim.opt.listchars:append("eol:↴")
+	-- vim.opt.listchars:append("eol:↴")
 	vim.opt.spelllang:append("cjk") -- disable spellchecking for asian characters (VIM algorithm does not support it)
 	vim.opt.shortmess:append("c") -- don't show redundant messages from ins-completion-menu
 	vim.opt.shortmess:append("I") -- don't show the default intro message
@@ -82,7 +81,6 @@ local load_default_options = function()
 
 	---  COMMANDS  ---
 	vim.cmd([[set wildignore+=.pyc,.swp]])
-	vim.cmd([[set formatoptions-=cro ]])
 
 	-- Undercurl
 	vim.cmd([[let &t_Cs = "\e[4:3m"]])

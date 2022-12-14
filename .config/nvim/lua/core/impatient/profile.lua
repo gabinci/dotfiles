@@ -1,7 +1,7 @@
 local M = {}
 
 local sep
-if jit.os == "Windows" then
+if jit.os == "Windows" then ---@diagnostic disable-line
 	sep = "\\"
 else
 	sep = "/"
@@ -126,7 +126,7 @@ function M.print_profile(I, std_dirs)
 			end
 		end
 
-		lines[#lines + 1] = string.format(fmt, unpack(args))
+		lines[#lines + 1] = string.format(fmt, unpack(args)) ---@diagnostic disable-line
 	end
 
 	local time_cell_width = 12
@@ -239,7 +239,7 @@ M.setup = function(profile)
 	end
 
 	-- Add profiling around all the loaders
-	local pl = package.loaders
+	local pl = package.loaders ---@diagnostic disable-line
 	for i = 1, #pl do
 		local l = pl[i]
 		pl[i] = function(mod)

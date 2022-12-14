@@ -11,7 +11,7 @@ local loadlib = package.loadlib
 local std_cache = vim.fn.stdpath("cache")
 
 local sep
----@diagnostics disable_next_line
+---@diagnostic disable-next-line
 if jit.os == "Windows" then
 	sep = "\\"
 else
@@ -327,6 +327,7 @@ local function load_from_cache(path)
 		return nil, string.format("No cache for path %s", path)
 	end
 
+	---@diagnostic disable-next-line
 	local mhash, codes = unpack(cache)
 
 	if mhash ~= hash(path) then
@@ -335,6 +336,7 @@ local function load_from_cache(path)
 		return nil, string.format("Stale cache for path %s", path)
 	end
 
+	---@diagnostic disable-next-line
 	local chunk = loadstring(codes)
 
 	if not chunk then
@@ -365,7 +367,7 @@ local function loadfile_cached(path)
 
 	if not err and M.chunks.enable then
 		log("Creating cache for path %s", path)
-		M.chunks:set(path, { hash(path), string.dump(chunk) })
+		M.chunks:set(path, { hash(path), string.dump(chunk) }) ---@diagnostic disable-line
 		M.chunks.dirty = true
 	end
 
@@ -440,9 +442,9 @@ local function setup()
 	-- 5. all-in-one
 
 	-- Override default functions
-	for i, loader in ipairs(package.loaders) do
+	for i, loader in ipairs(package.loaders) do ---@diagnostic disable-line
 		if loader == vim._load_package then
-			package.loaders[i] = load_package
+			package.loaders[i] = load_package ---@diagnostic disable-line
 			break
 		end
 	end

@@ -1,3 +1,9 @@
+local status, alpha = pcall(require, "alpha")
+if not status then
+	vim.notify("Failed to load Alpha")
+	return
+end
+
 local function button(sc, txt, keybind, keybind_opts, opts)
 	local def_opts = {
 		cursor = 5,
@@ -32,11 +38,10 @@ local function info()
 end
 
 math.randomseed(os.time())
--- local header_color = "AlphaCol" .. math.random(11)
 
-require("alpha").setup({
+alpha.setup({
 	layout = {
-		{ type = "padding", val = 2 },
+		{ type = "padding", val = 6 },
 		{
 			type = "text",
 			val = require("core.ui.headers").random(),
@@ -53,8 +58,8 @@ require("alpha").setup({
 			type = "group",
 			val = {
 				button("r", "  >  Recent Files", "<CMD>Telescope oldfiles<CR>"),
-				button("f", "  >  Find file", "<CMD> Telescope find_files<CR>"),
-				button("g", "  >  Find word", "<CMD>Telescope grep_string <CR>"),
+				button("f", "  >  Find File", "<CMD> Telescope find_files<CR>"),
+				button("g", "  >  Find Word", "<CMD>Telescope grep_string <CR>"),
 				button("s", "  >  Scripts", "<CMD>e ~/dotfiles/.local/bin/README.md |:cd %:p:h| wincmd k | pwd<CR>"),
 				button("d", "  >  Dotfiles", "<CMD>e ~/dotfiles/.config/README.md| :cd %:p:h | wincmd k | pwd<CR>"),
 				button("c", "  >  Nvim Configs", "<CMD>e $MYVIMRC |:cd %:p:h| wincmd k | pwd<CR>"),

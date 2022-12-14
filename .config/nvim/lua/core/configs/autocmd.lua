@@ -134,12 +134,6 @@ augroups.buffer = {
 		command = "set formatoptions-=cro",
 	},
 
-	-- auto_chdir = {
-	-- 	event = "BufEnter",
-	-- 	pattern = "*",
-	-- 	command = [[silent! lcd %:p:h]],
-	-- },
-
 	fix_commentstring = {
 		event = "BufEnter",
 		pattern = "*config,*rc,*conf,sxhkdrc,bspwmrc",

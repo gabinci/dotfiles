@@ -83,23 +83,14 @@ return packer.startup(function(use)
 	-- ▀▄█  █  █ █▄▄ ▄██
 	-- utils
 
+	use("lewis6991/impatient.nvim") -- impatient nvim
 	use("nvim-tree/nvim-tree.lua") -- nvim tree
 	use("nvim-telescope/telescope.nvim") -- telescope
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- telescope fzf
 	use("numToStr/Comment.nvim") -- comment
 	use("windwp/nvim-ts-autotag") -- auto tags
 	use("aurum77/live-server.nvim") -- live server
-	-- use({
-	-- 	"sidebar-nvim/sidebar.nvim",
-	-- 	rocks = { "luatz" },
-	-- })
-
-	use({
-		"windwp/nvim-autopairs",
-		config = function()
-			require("nvim-autopairs").setup({})
-		end,
-	})
+	use("windwp/nvim-autopairs") -- autopairs
 
 	use({
 		"kylechui/nvim-surround",
@@ -107,8 +98,6 @@ return packer.startup(function(use)
 			require("nvim-surround").setup({})
 		end,
 	}) -- nvim surround
-
-	use("lewis6991/impatient.nvim") -- impatient nvim
 
 	-- md preview
 	use({

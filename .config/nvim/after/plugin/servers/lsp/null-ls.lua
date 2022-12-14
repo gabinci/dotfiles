@@ -1,6 +1,7 @@
-local null_ls_status_ok, null_ls = pcall(require, "null-ls")
-if not null_ls_status_ok then
-  return
+local status, null_ls = pcall(require, "null-ls")
+if not status then
+	vim.notify("Failed to load Null-ls")
+	return
 end
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -19,7 +20,7 @@ null_ls.setup({
 		formatting.prettierd, -- js/ts formatter
 		formatting.stylua, -- lua formatter
 		formatting.shfmt, -- for shell
-    formatting.rustfmt, -- for rust
+		formatting.rustfmt, -- for rust
 		diagnostics.eslint_d.with({ -- js/ts linter
 			-- only enable eslint if root has .eslintrc.js (not in youtube nvim video)
 			condition = function(utils)

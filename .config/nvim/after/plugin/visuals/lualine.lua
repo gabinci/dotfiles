@@ -1,10 +1,9 @@
-local utils = require("core.utils")
 local status, lualine = pcall(require, "lualine")
 if not status then
 	vim.notify("failed to load lualine")
 	return
 end
-
+local utils = require("core.utils")
 
 local conditions = {
 	buffer_not_empty = function()

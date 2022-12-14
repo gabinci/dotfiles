@@ -1,5 +1,5 @@
 -- Filename: lua.lua
--- Last Change: Wed, 09 Nov 2022 18:24:06
+-- Last Change: Tue, 13 Dec 2022 - 23:55:33
 -- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
 
 -- local opt_local = vim.opt_local
@@ -11,8 +11,8 @@ vim.opt_local.spell = false
 vim.opt_local.list = false
 vim.bo.path = vim.bo.path .. "," .. vim.fn.stdpath("config") .. "/lua"
 
-vim.bo.shiftwidth = 4
-vim.bo.tabstop = 4
-vim.bo.softtabstop = 4
+vim.bo.shiftwidth = 2
+vim.bo.tabstop = 2
+vim.bo.softtabstop = 2
 -- vim.bo.textwidth = 78
 vim.bo.expandtab = true

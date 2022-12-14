@@ -1,8 +1,10 @@
-local handlers = require("core.lsp.handlers")
 local status, mason = pcall(require, "mason")
 if not status then
+	vim.notify("Failed to load Mason")
 	return
 end
+
+local handlers = require("core.lsp.handlers")
 
 mason.setup({
 	ui = {

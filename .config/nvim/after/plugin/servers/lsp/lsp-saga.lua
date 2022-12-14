@@ -1,5 +1,6 @@
 local status, saga = pcall(require, "lspsaga")
 if not status then
+	vim.notify("Failed to load LSPsaga")
 	return
 end
 

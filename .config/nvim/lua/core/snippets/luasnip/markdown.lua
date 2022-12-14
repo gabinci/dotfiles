@@ -1,5 +1,6 @@
+---@diagnostic disable
 -- current file path: /home/gabinci/dotfiles/.config/nvim/snippets/markdown.lua
--- last change: Tue, 22 Nov 2022 - 13:58:56
+-- last change: Wed, 14 Dec 2022 - 12:49:27
 -- Author: gabinci
 
 return {

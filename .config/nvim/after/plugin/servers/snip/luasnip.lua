@@ -1,5 +1,6 @@
 local status, ls = pcall(require, "luasnip")
 if not status then
+	vim.notify("Failed to load Luasnips")
 	return
 end
 
