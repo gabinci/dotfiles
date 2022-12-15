@@ -160,15 +160,57 @@ augroups.buffer = {
 	},
 
 	-- BufWinEnter
-	enable_Ccc = {
-		event = "BufWinEnter",
-		pattern = "*",
+	-- enable_Ccc = {
+	-- 	event = "BufWinEnter",
+	-- 	pattern = "*",
+	-- 	callback = function()
+	-- 		local status_Ccc, _ = pcall(require, "ccc")
+	-- 		if not status_Ccc then
+	-- 			return
+	-- 		end
+	-- 		vim.cmd([[CccHighlighterEnable]])
+	-- 	end,
+	-- },
+
+	load_default = {
+		event = "FileType",
+		pattern = {
+			"Jaq",
+			"qf",
+			"help",
+			"man",
+			"lspinfo",
+			"spectre_panel",
+			"lir",
+			"DressingSelect",
+			"tsplayground",
+			"qf",
+			"txt",
+		},
 		callback = function()
-			local status_Ccc, _ = pcall(require, "ccc")
-			if not status_Ccc then
-				return
-			end
-			vim.cmd([[CccHighlighterEnable]])
+			vim.wo.relativenumber = false
+			vim.wo.number = true
+			vim.wo.signcolumn = "no"
+			vim.opt_local.spell = false
+			vim.opt_local.buflisted = false
+			vim.api.nvim_buf_set_keymap(0, "n", "q", "<cmd>close!<cr>", { noremap = true, silent = true })
+		end,
+	},
+
+	load_opts = {
+		event = "FileType",
+		pattern = {
+			"gitcommit",
+			"markdown",
+			"txt",
+		},
+		callback = function()
+			vim.opt_local.wrap = true
+			vim.opt_local.spell = true
+			vim.bo.spelllang = "en_us"
+			vim.g["loaded_spellfile_plugin"] = 0
+			vim.api.nvim_buf_set_keymap(0, "n", "j", "gj", { noremap = true })
+			vim.api.nvim_buf_set_keymap(0, "n", "k", "gk", { noremap = true })
 		end,
 	},
 }
@@ -194,35 +236,36 @@ augroups.terminal = {
 	},
 }
 
-augroups.alpha = {
-	disable_alpha_stuff = {
-		event = "User",
-		pattern = "AlphaReady",
-		callback = function()
-			local status_alpha, _ = pcall(require, "alpha")
-			if not status_alpha then
-				return
-			end
-			vim.go.laststatus = 0
-			vim.opt.showtabline = 0
-			vim.opt.cmdheight = 0
-		end,
-	},
+-- augroups.alpha = {
+-- 	disable_alpha_stuff = {
+-- 		event = "User",
+-- 		pattern = "AlphaReady",
+-- 		callback = function()
+-- 			local status_alpha, _ = pcall(require, "alpha")
+-- 			if not status_alpha then
+-- 				return
+-- 			end
+-- 			vim.go.laststatus = 0
+-- 			vim.opt.showtabline = 0
+-- 			vim.opt.cmdheight = 0
+-- 		end,
+-- 	},
+--
+-- 	enavle_alpha_stuff = {
+-- 		event = "BufUnload",
+-- 		buffer = 0,
+-- 		callback = function()
+-- 			local status_alpha, _ = pcall(require, "alpha")
+-- 			if not status_alpha then
+-- 				return
+-- 			end
+-- 			vim.go.laststatus = 2
+-- 			vim.opt.showtabline = 2
+-- 			vim.opt.cmdheight = 1
+-- 		end,
+-- 	},
+-- }
 
-	enavle_alpha_stuff = {
-		event = "BufUnload",
-		buffer = 0,
-		callback = function()
-			local status_alpha, _ = pcall(require, "alpha")
-			if not status_alpha then
-				return
-			end
-			vim.go.laststatus = 2
-			vim.opt.showtabline = 2
-			vim.opt.cmdheight = 1
-		end,
-	},
-}
 augroups.misc = {
 
 	save_cursor_position = {
