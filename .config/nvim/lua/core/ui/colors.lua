@@ -1,7 +1,7 @@
 local function set(scheme)
 	local status, _ = pcall(vim.cmd, "colorscheme " .. scheme)
 	if not status then
-		vim.notify("colorscheme " .. scheme(" not found"))
+		vim.notify("Failed to load" .. scheme, "error")
 		return
 	end
 	require("core.ui.themes." .. scheme)
@@ -16,3 +16,5 @@ set("catppuccin-mocha")
 -- set("onebuddy")
 -- set("gruvbuddy")
 -- set("onedark")
+
+require("core.ui.modicator")
