@@ -10,16 +10,6 @@ return {
 					"awesome",
 					"screen",
 					"root",
-					-- luasnip
-					"ls",
-					"i",
-					"s",
-					"d",
-					"c",
-					"fmta",
-					"fmt",
-					"rep",
-					"f",
 				},
 			},
 			workspace = {
