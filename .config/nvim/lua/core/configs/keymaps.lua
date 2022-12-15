@@ -135,19 +135,46 @@ local function buff_nav()
 	if not nt_status then
 		vim.keymap.set("n", "<S-h>", "<CMD>bprevious<CR>", generic_opts_any)
 		vim.keymap.set("n", "<S-l>", "<CMD>bnext<CR>", generic_opts_any)
-	else
-		vim.keymap.set("n", "<S-h>", "<CMD>BufferLineCyclePrev<CR>", generic_opts_any)
-		vim.keymap.set("n", "<S-l>", "<CMD>BufferLineCycleNex<CR>", generic_opts_any)
 	end
+	vim.keymap.set("n", "<S-h>", "<CMD>BufferLineCyclePrev<CR>", generic_opts_any)
+	vim.keymap.set("n", "<S-l>", "<CMD>BufferLineCycleNex<CR>", generic_opts_any)
 end
 
 buff_nav()
 
-local function sidebar()
-	local sb_status, _ = pcall(require, "sidebar-nvim")
-	if sb_status then
-		keymap("n", "<leader>b", "<CMD>SidebarNvimToggle<CR>", generic_opts_any)
+local function luasnip()
+	local status, ls = pcall(require, "luasnip")
+	if status then
+		keymap({ "i", "s" }, "<C-e>", function()
+			if ls.expandable() then
+				ls.expand()
+			end
+		end, { silent = true })
+
+		keymap({ "i", "s" }, "<C-n>", function()
+			if ls.jumpable(1) then
+				ls.jump(1)
+			end
+		end, { silent = true })
+
+		keymap({ "i", "s" }, "<C-p>", function()
+			if ls.jumpable(-1) then
+				ls.jump(-1)
+			end
+		end, { silent = true })
+
+		keymap("i", "<C-k>", function()
+			if ls.choice_active() then
+				ls.change_choice(1)
+			end
+		end, generic_opts_any)
+
+		keymap("i", "<C-j>", function()
+			if ls.choice_active() then
+				ls.change_choice(-1)
+			end
+		end, generic_opts_any)
 	end
 end
 
-sidebar()
+luasnip()

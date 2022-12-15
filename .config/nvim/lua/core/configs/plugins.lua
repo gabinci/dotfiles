@@ -119,6 +119,9 @@ return packer.startup(function(use)
 	use("stevearc/dressing.nvim") -- dressing
 	use("gelguy/wilder.nvim") -- wilder
 	use("christianchiarulli/lir.nvim")
+	use("MunifTanjim/nui.nvim")
+	-- use("rcarriga/nvim-notify")
+	use("folke/noice.nvim")
 
 	use({
 		"RRethy/vim-illuminate",

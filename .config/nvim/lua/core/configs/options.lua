@@ -12,7 +12,6 @@ local load_default_options = function()
 		autoindent = true,
 		smarttab = true,
 		incsearch = true,
-		lazyredraw = true,
 		linebreak = true,
 		relativenumber = true,
 		inccommand = "split",
