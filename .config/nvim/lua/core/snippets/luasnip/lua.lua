@@ -9,39 +9,59 @@ end
 return {
 	s(
 		{
-			trig = "req",
-			desc = "Lua require function",
+			trig = "pcall",
+			desc = "pcall funciton",
 		},
-		fmta([[ <> ]], {
-			c(1, {
-				fmta([[ require("<>") ]], { -- c1
-					i(1),
-				}),
-
-				fmta([[local <> = require "<>"]], {
-					same(1),
-					i(1),
-				}),
-
-				fmta( -- c3
-					[[
-        local <>, <> = pcall(require '<>')
-        if not <> then
-          return
-        end
-        <>
-          ]],
-					{
-						i(1, "status"),
-						i(2, "_"),
-						rep(2),
-						rep(1),
-						i(0),
-					}
-				),
-			}),
-		})
+		fmta(
+			[[
+      local _, <> = pcall(require, "<>") 
+      if not _ then
+        require("core.log").log_error("<>")
+        return
+      end
+    ]],
+			{
+				i(1),
+				i(2),
+				i(3),
+			}
+		)
 	),
+	-- s(
+	-- 	{
+	-- 		trig = "req",
+	-- 		desc = "Lua require function",
+	-- 	},
+	-- 	fmta([[ <> ]], {
+	-- 		c(1, {
+	-- 			fmta([[ require("<>") ]], { -- c1
+	-- 				i(1),
+	-- 			}),
+	--
+	-- 			fmta([[local <> = require "<>"]], {
+	-- 				same(1),
+	-- 				i(1),
+	-- 			}),
+	--
+	-- 			fmta( -- c3
+	-- 				[[
+	--        local <>, <> = pcall(require '<>')
+	--        if not <> then
+	--          return
+	--        end
+	--        <>
+	--          ]],
+	-- 				{
+	-- 					i(1, "status"),
+	-- 					i(2, "_"),
+	-- 					rep(2),
+	-- 					rep(1),
+	-- 					i(0),
+	-- 				}
+	-- 			),
+	-- 		}),
+	-- 	})
+	-- ),
 
 	s(
 		{
