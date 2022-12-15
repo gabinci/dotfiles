@@ -1,6 +1,6 @@
 local status, lir = pcall(require, "lir")
 if not status then
-	vim.notify("Failed to load lir")
+	require("core.log").log_error("lir")
 	return
 end
 

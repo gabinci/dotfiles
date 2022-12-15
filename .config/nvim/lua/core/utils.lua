@@ -1,7 +1,4 @@
--- current file path: /home/gabinci/dotfiles/.config/nvim/lua/core/utils.lua
--- last change: Fri, 25 Nov 2022 - 18:33:03
--- Author: gabinci
-
+local log = require("core.log")
 local M = {}
 
 M.isModifiable = function()
@@ -40,5 +37,15 @@ M.is_executable = function()
 		end
 	end
 end
+
+-- ---@param module string
+-- M.call = function(module)
+-- 	local status, _ = pcall(require, module)
+-- 	if not status then
+-- 		log.log_error("" .. module)
+-- 		return "error"
+-- 	end
+-- 	return module
+-- end
 
 return M

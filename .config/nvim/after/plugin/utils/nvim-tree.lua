@@ -1,6 +1,6 @@
 local status, nvim_tree = pcall(require, "nvim-tree")
 if not status then
-	vim.notify("Failed to load nvim-tree")
+	require("core.log").log_error("nvim-tree")
 	return
 end
 

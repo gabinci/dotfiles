@@ -1,0 +1,11 @@
+-- local M = {}
+--
+-- ---@param name string
+-- M.log_error = function(name)
+-- 	vim.notify("Failed to load " .. name .. "'s config", "error", {
+-- 		title = "Plugin Error",
+-- 		timeout = 2000,
+-- 	})
+-- end
+--
+-- return M

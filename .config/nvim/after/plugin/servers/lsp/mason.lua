@@ -1,6 +1,6 @@
-local status, mason = pcall(require, "mason")
-if not status then
-	vim.notify("Failed to load Mason")
+local _, mason = pcall(require, "mason")
+if not _ then
+	require("core.log").log_error("mason")
 	return
 end
 
@@ -22,15 +22,18 @@ mason.setup({
 	automatic_installation = true,
 })
 
-local m_lspc_status, mason_lspconfig = pcall(require, "mason-lspconfig")
-if not m_lspc_status then
+local _, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not _ then
+	require("core.log").log_error("Mason-lspconfig")
 	return
 end
 
-local m_null_ls_status, mason_null_ls = pcall(require, "mason-null-ls")
-if not m_null_ls_status then
+local _, mason_null_ls = pcall(require, "mason-null-ls")
+if not _ then
+	require("core.log").log_error("Mason-null-ls")
 	return
 end
+
 mason_lspconfig.setup({
 	ensure_installed = handlers.lsp_servers,
 })

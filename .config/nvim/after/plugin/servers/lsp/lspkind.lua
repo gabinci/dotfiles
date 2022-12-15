@@ -1,6 +1,6 @@
 local lspkind_status, _ = pcall(require, "lspkind")
 if not lspkind_status then
-	vim.notify("Failed to load LSPkind")
+	require("core.log").log_error("LSPkind")
 	return
 end
 

@@ -1,12 +1,12 @@
 local cmp_status, cmp = pcall(require, "cmp")
 if not cmp_status then
-	vim.notify("Failed to load CMP")
+	require("core.log").log_error("cmp")
 	return
 end
 
 local lspkind_status, lspkind = pcall(require, "lspkind")
 if not lspkind_status then
-	vim.notify("Failed to load lspkind")
+	require("core.log").log_error("lspkind")
 	return
 end
 

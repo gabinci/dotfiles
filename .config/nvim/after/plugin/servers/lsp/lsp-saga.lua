@@ -1,10 +1,10 @@
-local status, saga = pcall(require, "lspsaga")
+local status, lspsaga = pcall(require, "lspsaga")
 if not status then
-	vim.notify("Failed to load LSPsaga")
+	require("core.log").log_error("lspsaga")
 	return
 end
 
-saga.init_lsp_saga({
+lspsaga.init_lsp_saga({
 	move_in_saga = { prev = "<C-k", next = "<C-j" },
 	finder_action_keys = {
 		open = "<CR>",

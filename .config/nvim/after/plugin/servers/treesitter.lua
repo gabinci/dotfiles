@@ -1,6 +1,6 @@
 local status, treesitter = pcall(require, "nvim-treesitter.configs")
 if not status then
-	vim.notify("Failed to load treesitter")
+	require("core.log").log_error("TreeSitter")
 	return
 end
 
@@ -53,7 +53,7 @@ treesitter.setup({
 		},
 	},
 	indent = { enable = true, disable = { "yaml", "python" } },
-	autotag = { enable = false },
+	autotag = { enable = true },
 	textobjects = {
 		swap = {
 			enable = false,

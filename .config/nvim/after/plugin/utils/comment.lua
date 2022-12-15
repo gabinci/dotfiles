@@ -1,6 +1,6 @@
 local status, comment = pcall(require, "Comment")
 if not status then
-	vim.notify("failed to load comment.nvim")
+	require("core.log").log_error("Comment")
 	return
 end
 

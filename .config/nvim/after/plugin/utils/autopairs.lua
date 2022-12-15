@@ -1,6 +1,6 @@
 local status, autopairs = pcall(require, "nvim-autopairs")
 if not status then
-	vim.notify("Failed to load Autopairs")
+	require("core.log").log_error("Autopairs")
 	return
 end
 

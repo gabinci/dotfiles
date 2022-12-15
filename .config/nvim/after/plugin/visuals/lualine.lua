@@ -1,6 +1,6 @@
 local status, lualine = pcall(require, "lualine")
 if not status then
-	vim.notify("failed to load lualine")
+	require("core.log").log_error("lualine")
 	return
 end
 local utils = require("core.utils")
@@ -81,7 +81,6 @@ local config = {
 				cond = conditions.buffer_not_empty,
 				padding = { left = 0, right = 0 },
 			},
-			{ "searchcount" },
 		},
 
 		lualine_x = {

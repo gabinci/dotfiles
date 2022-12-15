@@ -1,6 +1,6 @@
 local status, null_ls = pcall(require, "null-ls")
 if not status then
-	vim.notify("Failed to load Null-ls")
+	require("core.log").log_error("null-ls")
 	return
 end
 

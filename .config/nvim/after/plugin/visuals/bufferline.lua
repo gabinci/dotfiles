@@ -1,6 +1,6 @@
 local status, bufferline = pcall(require, "bufferline")
 if not status then
-	vim.notify("Failed to load Bufferline")
+	require("core.log").log_error("Bufferline")
 	return
 end
 

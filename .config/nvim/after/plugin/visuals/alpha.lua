@@ -1,6 +1,6 @@
 local status, alpha = pcall(require, "alpha")
 if not status then
-	vim.notify("Failed to load Alpha")
+	require("core.log").log_error("alpha")
 	return
 end
 
@@ -10,7 +10,7 @@ local function button(sc, txt, keybind, keybind_opts, opts)
 		align_shortcut = "right",
 		hl_shortcut = "AlphaButtonShortcut",
 		hl = "AlphaButton",
-		width = 35,
+		width = 30,
 		position = "center",
 	}
 	opts = opts and vim.tbl_extend("force", def_opts, opts) or def_opts
@@ -29,8 +29,7 @@ end
 
 ---@return string
 local function info()
-	--- @diagnostic disable-next-line
-	local plugins = #vim.tbl_keys(packer_plugins)
+	local plugins = #vim.tbl_keys(packer_plugins) --- @diagnostic disable-line
 	local v = vim.version()
 	local datetime = os.date(" %d-%m-%Y   %H:%M:%S")
 	local platform = vim.fn.has("win32") == 1 and "" or ""
@@ -60,9 +59,9 @@ alpha.setup({
 				button("r", "  >  Recent Files", "<CMD>Telescope oldfiles<CR>"),
 				button("f", "  >  Find File", "<CMD> Telescope find_files<CR>"),
 				button("g", "  >  Find Word", "<CMD>Telescope grep_string <CR>"),
-				button("s", "  >  Scripts", "<CMD>e ~/dotfiles/.local/bin/README.md |:cd %:p:h| wincmd k | pwd<CR>"),
-				button("d", "  >  Dotfiles", "<CMD>e ~/dotfiles/.config/README.md| :cd %:p:h | wincmd k | pwd<CR>"),
-				button("c", "  >  Nvim Configs", "<CMD>e $MYVIMRC |:cd %:p:h| wincmd k | pwd<CR>"),
+				button("s", "  >  Scripts", "<CMD>e ~/dotfiles/.local/bin/README.md |:cd %:p:h<CR>"),
+				button("d", "  >  Dotfiles", "<CMD>e ~/dotfiles/.config/README.md| :cd %:p:h <CR>"),
+				button("c", "  >  Nvim Configs", "<CMD>e $MYVIMRC |:cd %:p:h<CR>"),
 				button("u", "  >  Update plugins", "<CMD>PackerSync<CR>"),
 				button("q", "  >  Quit", "<Cmd>qa!<CR>"),
 			},
@@ -85,6 +84,7 @@ alpha.setup({
 				callback = function()
 					vim.go.laststatus = 0
 					vim.opt.showtabline = 0
+					vim.api.nvim_buf_set_keymap(0, "n", "l", "<CR>", { silent = true })
 				end,
 			})
 			vim.api.nvim_create_autocmd("BufUnload", {

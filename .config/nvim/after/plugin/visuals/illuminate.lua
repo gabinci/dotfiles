@@ -1,6 +1,6 @@
 local status, illuminate = pcall(require, "illuminate")
 if not status then
-	vim.notify("Failed to load illuminate")
+	require("core.log").log_error("Illuminate")
 	return
 end
 
