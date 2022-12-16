@@ -78,17 +78,17 @@ local load_default_options = function()
 	vim.opt.iskeyword:append("-")
 	vim.scriptencoding = "utf-8"
 
-	---  COMMANDS  ---
-	vim.cmd([[set wildignore+=.pyc,.swp]])
-
-	-- Undercurl
-	vim.cmd([[let &t_Cs = "\e[4:3m"]])
-	vim.cmd([[let &t_Ce = "\e[4:0m"]])
-
 	for k, v in pairs(default_options) do
 		vim.opt[k] = v
 	end
 end
+
+---  wildmenu  ---
+vim.cmd([[set wildignore+=.pyc,.swp]])
+
+-- Undercurl
+vim.cmd([[let &t_Cs = "\e[4:3m"]])
+vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
 local load_headless_options = function()
 	vim.opt.shortmess = "" -- try to prevent echom from cutting messages off or prompting

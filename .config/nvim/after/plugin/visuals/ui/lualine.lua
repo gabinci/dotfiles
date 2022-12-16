@@ -19,6 +19,10 @@ local conditions = {
 	end,
 }
 
+local sep = function()
+	return "|"
+end
+
 local icon = function()
 	return ""
 end
@@ -31,7 +35,6 @@ local modified = function()
 	end
 end
 
--- configs {{{
 local config = {
 	theme = "auto", -- lualine theme
 	options = {
@@ -79,7 +82,12 @@ local config = {
 				"filetype",
 				icon_only = true,
 				cond = conditions.buffer_not_empty,
+				padding = { left = 0, right = 1 },
+			},
+			{
+				"searchcount",
 				padding = { left = 0, right = 0 },
+				icon = { "|", align = "left" },
 			},
 		},
 
@@ -96,21 +104,36 @@ local config = {
 					info = " ",
 					hint = " ",
 				},
+				padding = { left = 1, right = 0 },
 			},
-			{ "progress", padding = { left = 0, right = 1 } },
-		},
-
-		lualine_y = {},
-		lualine_z = {
+			sep,
 			{
 				"location",
 				cond = conditions.buffer_not_empty,
 				icon = { "", align = "right" },
-				padding = { left = 1, right = 1 },
+				padding = { left = 0, right = 1 },
 			},
+		},
+
+		lualine_y = {},
+		lualine_z = {
+			'os.date("%H:%M:%S ", os.time())',
 		},
 	},
 	extensions = { "nvim-tree" },
 }
--- }}}
 lualine.setup(config)
+
+-- Trigger rerender of status line every second for clock
+if _G.Statusline_timer == nil then
+	_G.Statusline_timer = vim.loop.new_timer()
+else
+	_G.Statusline_timer:stop()
+end
+_G.Statusline_timer:start(
+	0,
+	1000,
+	vim.schedule_wrap(function()
+		vim.api.nvim_command("redrawstatus")
+	end)
+)

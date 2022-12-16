@@ -1,7 +1,6 @@
 --Remap space as leader key
 
 local generic_opts_any = { noremap = true, silent = true }
-
 local generic_opts = {
 	insert_mode = generic_opts_any,
 	normal_mode = generic_opts_any,
@@ -69,12 +68,10 @@ local maps = {
 	-- Move text up and down
 
 	command_mode = {
-		["ç"] = { "<CR>", { noremap = true } },
-		["Ç"] = { "<CR>", { noremap = true } },
-		-- navigate tab completion with <c-j> and <c-k>
-		-- runs conditionally
-		["<C-j>"] = { 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true } },
-		["<C-k>"] = { 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true } },
+		["ç"] = { "<CR>", noremap = true },
+		["Ç"] = { "<CR>", noremap = true },
+		-- ["<C-j>"] = { "<C-N>", noremap = true },
+		-- ["<C-k>"] = { "<C-P>", noremap = true },
 	},
 }
 

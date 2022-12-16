@@ -92,6 +92,8 @@ return packer.startup(function(use)
 	use("aurum77/live-server.nvim") -- live server
 	use("windwp/nvim-autopairs") -- autopairs
 
+	use("romgrk/fzy-lua-native")
+
 	use({
 		"kylechui/nvim-surround",
 		config = function()
@@ -117,11 +119,13 @@ return packer.startup(function(use)
 	use("akinsho/bufferline.nvim") -- bufferline
 	use("goolord/alpha-nvim") -- dashboard
 	use("stevearc/dressing.nvim") -- dressing
+	use("christianchiarulli/lir.nvim") -- lir
+
 	use("gelguy/wilder.nvim") -- wilder
-	use("christianchiarulli/lir.nvim")
-	use("MunifTanjim/nui.nvim")
-	-- use("rcarriga/nvim-notify")
-	use("folke/noice.nvim")
+	use("nixprime/cpsm")
+	use("MunifTanjim/nui.nvim") -- popup
+	use("rcarriga/nvim-notify") -- notifications
+	use("folke/noice.nvim") -- ui
 
 	use({
 		"RRethy/vim-illuminate",
