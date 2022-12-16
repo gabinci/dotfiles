@@ -46,13 +46,14 @@ cmp.setup({
 			require("luasnip").lsp_expand(args.body)
 		end,
 	},
+
 	window = {
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
+
 	experimental = {
 		ghost_text = true,
-		native_menu = false,
 	},
 
 	formatting = {
@@ -71,12 +72,14 @@ cmp.setup({
 			copilot = "(Copilot)",
 			treesitter = "(TreeSitter)",
 		},
+
 		duplicates = {
 			buffer = 1,
 			path = 1,
 			nvim_lsp = 0,
 			luasnip = 1,
 		},
+
 		duplicates_default = 0,
 		format = lspkind.cmp_format({
 			with_text = false,
@@ -111,14 +114,3 @@ vim.cmd([[
   set completeopt=menuone,noinsert,noselect
   highlight! default link CmpItemKind CmpItemMenuDefault
 ]])
-
--- enable for filetype
--- vim.cmd([[
--- augroup autogroupName
---   au!
---   autocmd FileType filetypeName lua require ( "cmp" ).setup.buffer { sources = { { name = ''} } }
--- augroup END
--- ]])
-
--- disable for ft
--- autocmd FileType fyletypeName lua requrie ( 'cmp' ).setup.buffer { enabled = false }

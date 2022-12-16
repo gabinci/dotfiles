@@ -183,7 +183,19 @@ noice.setup({
 	},
 	throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
 	views = {},
-	routes = {}, --- @see section on routes
+	routes = {
+		{
+			view = "notify",
+			filter = { event = "msg_showmode" },
+		},
+		{
+			filter = {
+				event = "msg_show",
+				kind = "",
+				find = "written",
+			},
+		},
+	}, --- @see section on routes
 	status = {}, --- @see section on statusline components
 	format = {}, --- @see section on formatting
 })

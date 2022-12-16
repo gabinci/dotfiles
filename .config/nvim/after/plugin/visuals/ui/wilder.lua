@@ -64,7 +64,7 @@ local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_border_the
 	pumblend = 20,
 	min_width = "100%", -- minimum height of the popupmenu, can also be a number
 	max_height = "25%", -- to set a fixed height, set max_height to the same value
-	reverse = 0, -- if 1, shows the candidates from bottom to top	border = "rounded",
+	reverse = 1, -- if 1, shows the candidates from bottom to top	border = "rounded",
 	empty_message = wilder.popupmenu_empty_message_with_spinner(),
 	highlighter = highlighters,
 	left = {
@@ -83,18 +83,20 @@ local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_border_the
 	highlights = {
 		accent = wilder.make_hl("WilderAccent", "Pmenu", { { a = 1 }, { a = 1 }, { foreground = "#f4468f" } }),
 	},
+	border = "rounded",
 }))
 
-local wildmenu_renderer = wilder.wildmenu_renderer({
+local wildmenu_renderer = wilder.wildmenu_renderer(wilder.wildmenu_airline_theme({
 	highlighter = highlighters,
 	pumblend = 20,
 	separator = "   ",
 	left = { " ", wilder.wildmenu_spinner(), " " },
 	right = { " ", wilder.wildmenu_index() },
 	highlights = {
+		default = "StatusLine",
 		accent = wilder.make_hl("WilderAccent", "Pmenu", { { a = 1 }, { a = 1 }, { foreground = "#f4468f" } }),
 	},
-})
+}))
 
 wilder.set_option(
 	"renderer",
