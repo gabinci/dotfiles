@@ -19,27 +19,27 @@ theme.confdir = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
 --theme.wallpaper                                 = theme.confdir .. "/wallpaper.jpg"
 --theme.wallpaper                                 = "/usr/share/backgrounds/arcolinux/arco-wallpaper.jpg"
 --theme.wallpaper                                 = "/usr/share/archlinux-tweak-tool/data/wallpaper/wallpaper.png"
-theme.font = "Noto Sans Regular 11"
+theme.font = "JetBrains Mono Nerd Font 11"
 theme.taglist_font = "Noto Sans Regular 13"
 theme.menu_bg_normal = "#000000"
 theme.menu_bg_focus = "#000000"
 theme.bg_normal = "#000000"
 theme.bg_focus = "#000000"
 theme.bg_urgent = "#000000"
-theme.fg_normal = "#aaaaaa"
-theme.fg_focus = "#ff8c00"
-theme.fg_urgent = "#af1d18"
-theme.fg_minimize = "#ffffff"
-theme.border_width = dpi(2)
+theme.fg_normal = "#45475A"
+theme.fg_focus = "#B4BEFE"
+theme.fg_urgent = "#F38BA8"
+theme.fg_minimize = "#A6ADC8"
+theme.border_width = dpi(3)
 theme.border_normal = "#1c2022"
-theme.border_focus = "#5e81ac"
-theme.border_marked = "#3ca4d8"
+theme.border_focus = "#B4BEFE"
+theme.border_marked = "#89B4FA"
 theme.menu_border_width = 0
 theme.menu_height = dpi(25)
 theme.menu_width = dpi(260)
 theme.menu_submenu_icon = theme.confdir .. "/icons/submenu.png"
-theme.menu_fg_normal = "#aaaaaa"
-theme.menu_fg_focus = "#ff8c00"
+theme.menu_fg_normal = "#45475A"
+theme.menu_fg_focus = "#B4BEFE"
 theme.menu_bg_normal = "#050505dd"
 theme.menu_bg_focus = "#050505dd"
 theme.widget_temp = theme.confdir .. "/icons/temp.png"
@@ -58,6 +58,9 @@ theme.widget_clock = theme.confdir .. "/icons/clock.png"
 theme.widget_vol = theme.confdir .. "/icons/spkr.png"
 theme.taglist_squares_sel = theme.confdir .. "/icons/square_a.png"
 theme.taglist_squares_unsel = theme.confdir .. "/icons/square_b.png"
+theme.taglist_fg_focus = "#ffffff"
+theme.taglist_bg_focus = "#1E1E2E"
+theme.taglist_bg_normal = "#1E1E2E"
 theme.tasklist_plain_task_name = true
 theme.tasklist_disable_icon = true
 theme.useless_gap = 5
@@ -97,11 +100,16 @@ theme.titlebar_maximized_button_focus_active = theme.confdir .. "/icons/titlebar
 
 local markup = lain.util.markup
 
+local bar_spr = wibox.widget.textbox(
+	markup.font("JetBrains Mono Nerd Font 3", " ")
+		.. markup.fontfg(theme.font, "#777777", "|")
+		.. markup.font("JetBrains Mono Nerd Font 5", " ")
+)
+
 -- Textclock
 os.setlocale(os.getenv("LANG")) -- to localize the clock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
-local mytextclock =
-	wibox.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#535f7a", ">") .. markup("#de5e1e", " %H:%M "))
+local mytextclock = wibox.widget.textclock(markup("#B4BEFE", " %H:%M "))
 mytextclock.font = theme.font
 
 -- Calendar
@@ -114,82 +122,15 @@ theme.cal = lain.widget.cal({
 	},
 })
 
--- Weather
---[[ to be set before use
-local weathericon = wibox.widget.imagebox(theme.widget_weather)
-theme.weather = lain.widget.weather({
-    city_id = 2803138, -- placeholder (Belgium)
-    notification_preset = { font = "Noto Sans Mono Medium 10", fg = theme.fg_normal },
-    weather_na_markup = markup.fontfg(theme.font, "#eca4c4", "N/A "),
-    settings = function()
-        descr = weather_now["weather"][1]["description"]:lower()
-        units = math.floor(weather_now["main"]["temp"])
-        widget:set_markup(markup.fontfg(theme.font, "#eca4c4", descr .. " @ " .. units .. "°C "))
-    end
-})
---]]
-
--- / fs
---[[ commented because it needs Gio/Glib >= 2.54
-local fsicon = wibox.widget.imagebox(theme.widget_fs)
-theme.fs = lain.widget.fs({
-    notification_preset = { font = "Noto Sans Mono Medium 10", fg = theme.fg_normal },
-    settings  = function()
-        widget:set_markup(markup.fontfg(theme.font, "#80d9d8", string.format("%.1f", fs_now["/"].used) .. "% "))
-    end
-})
---]]
-
--- Mail IMAP check
---[[ to be set before use
-local mailicon = wibox.widget.imagebox()
-theme.mail = lain.widget.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
-    settings = function()
-        if mailcount > 0 then
-            mailicon:set_image(theme.widget_mail)
-            widget:set_markup(markup.fontfg(theme.font, "#cccccc", mailcount .. " "))
-        else
-            widget:set_text("")
-            --mailicon:set_image() -- not working in 4.0
-            mailicon._private.image = nil
-            mailicon:emit_signal("widget::redraw_needed")
-            mailicon:emit_signal("widget::layout_changed")
-        end
-    end
-})
---]]
-
--- CPU
-local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
-local cpu = lain.widget.cpu({
-	settings = function()
-		widget:set_markup(markup.fontfg(theme.font, "#e33a6e", cpu_now.usage .. "% "))
-	end,
-})
-
--- Coretemp
-local tempicon = wibox.widget.imagebox(theme.widget_temp)
-local temp = lain.widget.temp({
-	settings = function()
-		widget:set_markup(markup.fontfg(theme.font, "#f1af5f", coretemp_now .. "°C "))
-	end,
-})
-
 -- Battery
-local baticon = wibox.widget.imagebox(theme.widget_batt)
 local bat = lain.widget.bat({
 	settings = function()
 		local perc = bat_now.perc ~= "N/A" and bat_now.perc .. "%" or bat_now.perc
-
 		if bat_now.ac_status == 1 then
-			perc = perc .. " plug"
+			widget:set_markup(markup.fontfg(theme.font, "#A6E3A1", "" .. perc))
+		else
+			widget:set_markup(markup.fontfg(theme.font, theme.fg_urgent, "", perc))
 		end
-
-		widget:set_markup(markup.fontfg(theme.font, theme.fg_normal, perc .. " "))
 	end,
 })
 
@@ -201,7 +142,7 @@ theme.volume = lain.widget.alsa({
 			volume_now.level = volume_now.level .. "M"
 		end
 
-		widget:set_markup(markup.fontfg(theme.font, "#7493d2", volume_now.level .. "% "))
+		widget:set_markup(markup.fontfg(theme.font, theme.fg_focus, volume_now.level .. "% "))
 	end,
 })
 
@@ -239,7 +180,6 @@ theme.mpd = lain.widget.mpd({
 		mpd_notification_preset = {
 			text = string.format("%s [%s] - %s\n%s", mpd_now.artist, mpd_now.album, mpd_now.date, mpd_now.title),
 		}
-
 		if mpd_now.state == "play" then
 			artist = mpd_now.artist .. " > "
 			title = mpd_now.title .. " "
@@ -259,10 +199,19 @@ theme.mpd = lain.widget.mpd({
 	end,
 })
 
+local orig_filter = awful.widget.taglist.filter.all
+
+-- Taglist label functions
+awful.widget.taglist.filter.all = function(t, args)
+	if t.selected or #t:clients() > 0 then
+		return orig_filter(t, args)
+	end
+end
+
 function theme.at_screen_connect(s)
 	-- Quake application
-	-- s.quake = lain.util.quake({ app = awful.util.terminal })
-	s.quake = lain.util.quake({ app = "urxvt", height = 0.50, argname = "--name %s" })
+	s.quake = lain.util.quake({ app = awful.util.terminal })
+	-- s.quake = lain.util.quake({ app = "urxvt", height = 0.50, argname = "--name %s" })
 
 	-- If wallpaper is a function, call it with the screen
 	-- local wallpaper = theme.wallpaper
@@ -314,35 +263,20 @@ function theme.at_screen_connect(s)
 			--s.mylayoutbox,
 			s.mytaglist,
 			s.mypromptbox,
-			--mpdicon,
-			--theme.mpd.widget,
+			mpdicon,
+			theme.mpd.widget,
 		},
 		--s.mytasklist, -- Middle widget
 		nil,
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
-			--mailicon,
-			--theme.mail.widget,
-			netdownicon,
-			netdowninfo,
-			netupicon,
-			netupinfo.widget,
 			volicon,
 			theme.volume.widget,
-			memicon,
-			memory.widget,
-			cpuicon,
-			cpu.widget,
-			--fsicon,
-			--theme.fs.widget,
-			--weathericon,
-			--theme.weather.widget,
-			--tempicon,
-			--temp.widget,
-			--baticon,
-			--bat.widget,
-			clockicon,
+			bar_spr,
+			bat.widget,
+			bar_spr,
 			mytextclock,
+			bar_spr,
 			wibox.widget.systray(),
 		},
 	})

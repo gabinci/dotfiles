@@ -4,7 +4,6 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 local awful = require("awful") --Everything related to window managment
 local exp = require("core.exports")
 local wibox = require("wibox")
-local gears = require("gears") --Utilities such as color parsing and objects
 
 -- {{{ Menu
 local myawesomemenu = {
