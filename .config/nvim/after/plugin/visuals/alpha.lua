@@ -36,6 +36,15 @@ local function info()
 	return string.format(" %d   v%d.%d.%d %s  %s", plugins, v.major, v.minor, v.patch, platform, datetime)
 end
 
+---@return string
+local function working_dir()
+	local pwd = os.getenv("PWD")
+	if pwd == os.getenv("HOME") then
+		pwd = "Home"
+	end
+	return "@ " .. pwd
+end
+
 math.randomseed(os.time())
 
 alpha.setup({
@@ -69,6 +78,12 @@ alpha.setup({
 			opts = { position = "center", spacing = 0 },
 		},
 		{ type = "padding", val = 2 },
+		{
+			type = "text",
+			val = working_dir(),
+
+			opts = { hl = "keyword", position = "center" },
+		},
 		{ type = "padding", val = 3 },
 		{
 			type = "text",

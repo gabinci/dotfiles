@@ -91,8 +91,7 @@ return packer.startup(function(use)
 	use("windwp/nvim-ts-autotag") -- auto tags
 	use("aurum77/live-server.nvim") -- live server
 	use("windwp/nvim-autopairs") -- autopairs
-
-	use("romgrk/fzy-lua-native")
+	use("numToStr/FTerm.nvim") --fterm
 
 	use({
 		"kylechui/nvim-surround",
@@ -121,12 +120,22 @@ return packer.startup(function(use)
 	use("stevearc/dressing.nvim") -- dressing
 	use("christianchiarulli/lir.nvim") -- lir
 
-	use("gelguy/wilder.nvim") -- wilder
-	use("nixprime/cpsm")
-	use("MunifTanjim/nui.nvim") -- popup
-	use("rcarriga/nvim-notify") -- notifications
-	use("folke/noice.nvim") -- ui
+	-- Packer
+	use({
+		"folke/noice.nvim",
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		},
+	})
 
+	use({
+		"gelguy/wilder.nvim",
+		requires = {
+			"nixprime/cpsm",
+			"romgrk/fzy-lua-native",
+		},
+	}) -- wilder
 	use({
 		"RRethy/vim-illuminate",
 		config = function()
@@ -136,6 +145,12 @@ return packer.startup(function(use)
 					"NvimTree",
 					"packer",
 					"telescope",
+					"fterm",
+				},
+				providers = {
+					"lsp",
+					"treesitter",
+					"regex",
 				},
 			})
 		end,

@@ -120,9 +120,9 @@ local function file_exp()
 	local nt_status, _ = pcall(require, "nvim-tree")
 	if not nt_status then
 		keymap("n", "<leader>e", "<CMD>Ex<CR>", generic_opts_any)
-	else
-		keymap("n", "<leader>e", "<CMD>NvimTreeToggle<CR>", generic_opts_any)
+		return
 	end
+	keymap("n", "<leader>e", "<CMD>NvimTreeToggle<CR>", generic_opts_any)
 end
 
 file_exp()
@@ -132,6 +132,7 @@ local function buff_nav()
 	if not nt_status then
 		vim.keymap.set("n", "<S-h>", "<CMD>bprevious<CR>", generic_opts_any)
 		vim.keymap.set("n", "<S-l>", "<CMD>bnext<CR>", generic_opts_any)
+		return
 	end
 	vim.keymap.set("n", "<S-h>", "<CMD>BufferLineCyclePrev<CR>", generic_opts_any)
 	vim.keymap.set("n", "<S-l>", "<CMD>BufferLineCycleNex<CR>", generic_opts_any)
@@ -175,3 +176,14 @@ local function luasnip()
 end
 
 luasnip()
+
+local fterm = function()
+	local status, _ = pcall(require, "FTerm")
+	if status then
+		vim.keymap.set("n", "<A-t>", '<CMD>lua require("FTerm").toggle()<CR>')
+		vim.keymap.set("t", "<A-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+		vim.keymap.set("t", "<ESC>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+	end
+end
+
+fterm()
