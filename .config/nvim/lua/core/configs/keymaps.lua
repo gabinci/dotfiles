@@ -1,5 +1,6 @@
 --Remap space as leader key
 
+local keymap = vim.keymap.set
 local generic_opts_any = { noremap = true, silent = true }
 local generic_opts = {
 	insert_mode = generic_opts_any,
@@ -25,7 +26,6 @@ local maps = {
 		["ç"] = { ":", { noremap = true } }, -- remap ç
 		["Ç"] = { ":", { noremap = true } }, -- remap Ç
 		["<leader><leader>s"] = "<CMD>source ~/.config/nvim/init.lua<CR>", -- source init.lua
-		["<leader>nh"] = "<CMD>nohl<CR>", -- remove search highlight
 		[",p"] = '"0p', -- paste last yanked
 		[",P"] = '"0P', -- paste last YANKED
 		["+"] = "<C-a>", -- increment
@@ -51,17 +51,26 @@ local maps = {
 		["<A-j>"] = "<Esc>:m .+1<CR>", -- move line down
 		["<A-K>"] = "mzyyP`zk", -- copy line up
 		["<A-J>"] = "mzyyp`zj", -- copy line down
+		["<CR>"] = "gf", -- goto file
 		["<leader><TAB>"] = [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]], -- switch buffer
+		["<leader>h"] = {
+			[[:exe &hls && v:hlsearch ? ':nohls' : ':set hls'<CR>]],
+			{ silent = true, noremap = true, expr = true },
+		}, -- toggles highlights
 	},
 
 	insert_mode = {},
 	term_mode = {},
 	visual_mode = {
-		["+"] = "<C-a>",
-		["_"] = "<C-x>",
+		["ç"] = { ":", { noremap = true } }, -- remap ç
+		["Ç"] = { ":", { noremap = true } }, -- remap Ç
+		["+"] = "<C-a>", -- increment
+		["_"] = "<C-x>", -- decrement
 	},
 
 	visual_block_mode = {
+		["ç"] = { ":", { noremap = true } }, -- remap ç
+		["Ç"] = { ":", { noremap = true } }, -- remap Ç
 		["<A-k>"] = "<CMD>move '>+1<CR>gv-gv", -- copy line up
 		["<A-j>"] = "<CMD>move '<-2<CR>gv-gv", -- copy line down
 	},
@@ -70,8 +79,6 @@ local maps = {
 	command_mode = {
 		["ç"] = { "<CR>", noremap = true },
 		["Ç"] = { "<CR>", noremap = true },
-		-- ["<C-j>"] = { "<C-N>", noremap = true },
-		-- ["<C-k>"] = { "<C-P>", noremap = true },
 	},
 }
 
@@ -82,7 +89,7 @@ local function set_keymaps(mode, key, val)
 		opt = val[2]
 	end
 	if val then
-		vim.keymap.set(mode, key, val, opt)
+		keymap(mode, key, val, opt)
 	else
 		pcall(vim.api.nvim_del_keymap, mode, key)
 	end
@@ -113,7 +120,6 @@ local function load_keymaps()
 end
 
 load_keymaps()
-local keymap = vim.keymap.set
 
 -- function keymaps
 local function file_exp()
@@ -130,12 +136,12 @@ file_exp()
 local function buff_nav()
 	local nt_status, _ = pcall(require, "bufferline")
 	if not nt_status then
-		vim.keymap.set("n", "<S-h>", "<CMD>bprevious<CR>", generic_opts_any)
-		vim.keymap.set("n", "<S-l>", "<CMD>bnext<CR>", generic_opts_any)
+		keymap("n", "<S-h>", "<CMD>bprevious<CR>", generic_opts_any)
+		keymap("n", "<S-l>", "<CMD>bnext<CR>", generic_opts_any)
 		return
 	end
-	vim.keymap.set("n", "<S-h>", "<CMD>BufferLineCyclePrev<CR>", generic_opts_any)
-	vim.keymap.set("n", "<S-l>", "<CMD>BufferLineCycleNex<CR>", generic_opts_any)
+	keymap("n", "<S-h>", "<CMD>BufferLineCyclePrev<CR>", generic_opts_any)
+	keymap("n", "<S-l>", "<CMD>BufferLineCycleNex<CR>", generic_opts_any)
 end
 
 buff_nav()
@@ -180,10 +186,20 @@ luasnip()
 local fterm = function()
 	local status, _ = pcall(require, "FTerm")
 	if status then
-		vim.keymap.set("n", "<A-t>", '<CMD>lua require("FTerm").toggle()<CR>')
-		vim.keymap.set("t", "<A-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
-		vim.keymap.set("t", "<ESC>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+		keymap("n", "<A-t>", '<CMD>lua require("FTerm").toggle()<CR>')
+		keymap("t", "<A-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+		keymap("t", "<ESC>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 	end
 end
 
 fterm()
+
+-- src: https://www.reddit.com/r/neovim/comments/w0jzzv/comment/igfjx5y/
+local function smart_dd()
+	if vim.api.nvim_get_current_line():match("^%s*$") then
+		return '"_dd'
+	else
+		return "dd"
+	end
+end
+keymap("n", "dd", smart_dd, { noremap = true, expr = true })

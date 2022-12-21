@@ -1,7 +1,3 @@
--- Filename: catppuccin-macchiato.lua
--- Last Change: Tue, 13 Dec 2022 - 15:03:46
--- vim:set ft=lua nolist softtabstop=2 shiftwidth=2 tabstop=2 expandtab:
-
 local status, catppuccin = pcall(require, "catppuccin")
 if not status then
 	return
