@@ -1,5 +1,2 @@
-require("core.configs.options")
-require("core.configs.plugins")
-require("core.configs.keymaps")
-require("core.configs.autocmd")
-require("core.ui.scheme")
+vim.opt.swapfile = false
+

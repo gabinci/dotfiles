@@ -1,15 +1,20 @@
 #!/bin/zsh
+# ~/.config/zsh/.zshrc 						# MY ZSHRC PATH
 
-# system
-export ZDOTDIR=${ZDOTDIR:-~/.config/zsh}
+export ZDOTDIR=${ZDOTDIR:-~/.config/zsh} 			# Change zsh default config path to be inside dotfiles
 
-# enable NIX
-export NIX_REMOTE=daemon
+path=(					 			# PATH configurations
+	$path                            			# keeps current path
+	$HOME/bin/			 			# Adds bin to path
+	$HOME/.local/bin/		 			# Adds .local/bin to path
+)
 
-# export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
-export PATH=$HOME/.cargo/bin:$PATH$(find $HOME/.local/bin/ -type d -printf ":%p")
+typeset -U path 						# Remove duplicate entries and non-existing directories
+path=($^path(N-/))
+export PATH
 
-# bat
-export BAT_CONFIG_PATH="$HOME/dotfiles/.config/bat/config"
+# Environment Exports
+export VISUAL=nvim						# default file visualizer
+export EDITOR=nvim						# default file editor
 
-. "$HOME/.cargo/env"
+export BAT_CONFIG_PATH="$HOME/dotfiles/.config/bat/config" 	# bat
