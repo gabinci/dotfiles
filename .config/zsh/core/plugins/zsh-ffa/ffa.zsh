@@ -4,8 +4,8 @@
 source $ZDOTDIR/core/functions/detect_terminal.zsh
 
 # Source the separated function files
-source $ZDOTDIR/core/plugins/ffa-zsh/load_config.zsh
-source $ZDOTDIR/core/plugins/ffa-zsh/print_help.zsh
+source $ZDOTDIR/core/plugins/zsh-ffa/load_config.zsh
+source $ZDOTDIR/core/plugins/zsh-ffa/print_help.zsh
 
 # Find and open files and directories with fzf
 ffa() {
@@ -92,30 +92,33 @@ ffa() {
     elif [[ "$dir" == "$HOME/"* ]]; then
       prompt_dir="~/${dir#$HOME/}"
     fi
-    local selected_item=$( (echo ".." && cd "$dir" && fd --full-path "${fd_exclude_args[@]}") | fzf --preview '([[ -d {} ]] && ls -la {} || bat --style=numbers --color=always --line-range :500 {}) 2> /dev/null | head -200' --preview-window=right:60%:wrap --bind "tab:toggle+down" --bind "ctrl-e:execute($EDITOR {})" --bind "ctrl-y:execute-silent(echo -n ${dir}/{} | sed \"s|^$HOME|~|\" | $clipboard_cmd)" -m --reverse --info=inline --prompt="$prompt_dir  ")
+    local selected_items=$( (echo ".." && cd "$dir" && fd --full-path "${fd_exclude_args[@]}") | fzf --preview '([[ -d {} ]] && ls -la {} || bat --style=numbers --color=always --line-range :500 {}) 2> /dev/null')
 
-    if [[ -z $selected_item ]]; then
+    if [[ -z $selected_items ]]; then
       if [[ $verbose == true ]]; then
         echo "No item selected."
       fi
       return
-    elif [[ $selected_item == ".." ]]; then
+    elif [[ $selected_items == ".." ]]; then
       dir=$(dirname "$dir")
       cd "$dir"
-    elif [[ -d "$dir/$selected_item" ]]; then
-      cd "$dir/$selected_item"
+    elif [[ -d "$dir/$selected_items" ]]; then
+      cd "$dir/$selected_items"
       ffa
       return
     else
       # Handle multi-selection
-      IFS=$'\n' read -d '' -r -A items <<< "$selected_item"
-      if [[ ${#items[@]} -gt 0 ]]; then
-        if [[ ${#items[@]} -gt 1 && $editor == "nvim" ]]; then
-          $editor $split_flag "${(@)items}"
+      local files=()
+      for selected_item in ${(f)selected_items}; do
+        if [[ -d $selected_item ]]; then
+          dir="${selected_item%/}"
         else
-          $editor "${(@)items}"
+          files+=("$dir/$selected_item")
         fi
-        return
+      done
+      if [[ ${#files[@]} -gt 0 ]]; then
+        $editor -O "${(@)files}"
+        break
       fi
     fi
   done

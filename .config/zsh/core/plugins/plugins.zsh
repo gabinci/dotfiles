@@ -21,4 +21,4 @@ HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 
 source $ZDOTDIR/core/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh		# NOTE: must come after select-word-style.
 
-source $ZDOTDIR/core/plugins/ffa-zsh/ffa.zsh
+source $ZDOTDIR/core/plugins/zsh-ffa/ffa.zsh							# loads ffa

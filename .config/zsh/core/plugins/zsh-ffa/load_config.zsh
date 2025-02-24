@@ -1,5 +1,4 @@
 #!/bin/zsh
-
 # Load configuration from file and determine split flag
 load_config() {
   local config_file="$HOME/.ffa.conf"
