@@ -8,7 +8,7 @@ select-word-style bash 										# only alphanumeric chars are considered WORDCH
 
 source $ZDOTDIR/core/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# For speed: https://github.com/zsh-users/zsh-autosuggestions#disabling-automatic-widget-re-binding
+# For speed: https://github.com/zsh-users/zsh-autosuggestions					#disabling-automatic-widget-re-binding
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
@@ -21,3 +21,4 @@ HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 
 source $ZDOTDIR/core/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh		# NOTE: must come after select-word-style.
 
+source $ZDOTDIR/core/plugins/ffa-zsh/ffa.zsh
