@@ -1,5 +1,4 @@
 #!/bin/zsh
-
 # Function to print help message
 print_help() {
   local help_text="Usage: 
@@ -12,8 +11,6 @@ Options:
   -e <pattern>                          # Add exclude pattern
   -E <editor>                           # Specify editor (default: \$EDITOR or nvim)
   -v                                    # Enable verbose mode
-  --debug                               # Enable debug mode
-  --log-to-file                         # Enable logging to file
   -h, --help                            # Show this help message and exit
   -i                                    # Hide hidden files and directories
   -f                                    # Show only files
