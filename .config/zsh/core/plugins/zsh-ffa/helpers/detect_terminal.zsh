@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+source "${0:A:h}/logging.zsh"
+
 # Function to detect the terminal emulator
 detect_terminal() {
   local terminal_emulator="unknown"
@@ -33,6 +35,7 @@ detect_terminal() {
     done
   fi
 
+  log_debug "Terminal emulator detected: $terminal_emulator"
   echo "$terminal_emulator"
 }
 
@@ -42,11 +45,20 @@ detect_terminal_and_clipboard() {
   if [[ $terminal_emulator == "termux" ]]; then
     # Check if termux-api is installed
     if ! command -v termux-clipboard-set >/dev/null 2>&1; then
-      echo "Error: termux-api is not installed."
+      log_error "Error: termux-api is not installed."
       return 1
     fi
     clipboard_cmd="termux-clipboard-set"
-  else
+  elif command -v pbcopy >/dev/null 2>&1; then
     clipboard_cmd="pbcopy"
+  elif command -v xclip >/dev/null 2>&1; then
+    clipboard_cmd="xclip -selection clipboard"
+  elif command -v xsel >/dev/null 2>&1; then
+    clipboard_cmd="xsel --clipboard --input"
+  else
+    log_error "Error: No clipboard command found."
+    return 1
   fi
+
+  log_debug "Clipboard command set to: $clipboard_cmd"
 }
