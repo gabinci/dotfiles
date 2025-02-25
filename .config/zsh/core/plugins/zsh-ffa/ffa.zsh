@@ -1,18 +1,22 @@
 #!/bin/zsh
 
 # Source the separated function files
-source ./helpers/detect_terminal.zsh
-source ./helpers/load_config.zsh
-source ./helpers/print_help.zsh
-source ./helpers/options_parser.zsh
-source ./helpers/dependencies.zsh
-source ./helpers/run_fzf.zsh
+source $ZDOTDIR/core/plugins/zsh-ffa/helpers/detect_terminal.zsh
+source $ZDOTDIR/core/plugins/zsh-ffa/helpers/load_config.zsh
+source $ZDOTDIR/core/plugins/zsh-ffa/helpers/print_help.zsh
+source $ZDOTDIR/core/plugins/zsh-ffa/helpers/options_parser.zsh
+source $ZDOTDIR/core/plugins/zsh-ffa/helpers/dependencies.zsh
+source $ZDOTDIR/core/plugins/zsh-ffa/helpers/run_fzf.zsh
 
 # Main function
 ffa() {
   local dir="$PWD"
   local fd_exclude_args=()
   local fd_type_args=()
+
+  # Initialize debug and log_to_file flags
+  debug=false
+  log_to_file=false
 
   # Load configuration and determine split flag
   load_config
@@ -24,7 +28,7 @@ ffa() {
   fi
 
   # Parse options
-  parse_options "$@"
+  parse_options "$@" || return 0  # Return if help or error
 
   # Build fd exclude arguments
   build_fd_args
