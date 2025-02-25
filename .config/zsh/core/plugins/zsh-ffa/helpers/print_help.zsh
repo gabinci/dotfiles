@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-source "${0:A:h}/colors.zsh"
-
 # Function to print help message
 print_help() {
   local help_text="${CYAN}Usage:${NC} 

@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-source "${0:A:h}/colors.zsh"
-
 # Default log file (can be overridden in configuration or command line)
 LOG_FILE="$HOME/.ffa.log"
 

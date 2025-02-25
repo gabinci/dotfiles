@@ -1,25 +1,5 @@
 #!/bin/zsh
 
-source "${0:A:h}/logging.zsh"
-source "${0:A:h}/detect_terminal.zsh"
-source "${0:A:h}/dependencies.zsh"
-
-# Default configuration values
-default_config() {
-  exclude_dirs=(".git/" "node_modules/")
-  exclude_patterns=("*.png" "*.jpg" "*.jpeg" "*.gif" "*.bmp" "*.webp" "*.tiff" "*.pdf" "*.epub" "*.zip" "*.tar" "*.gz" "*.rar" "*.7z" "*.ico" "*.woff" "*.woff2" "*.otf" "*.ttf" "*.eot")
-  editor="${EDITOR:-nvim}"
-  verbose=false
-  hide_hidden=false
-  default_split="horizontal"
-  fzf_bindings="tab:toggle+down,ctrl-e:execute($editor {}),ctrl-y:execute-silent(echo -n \${dir}/{} | sed \"s|^$HOME|~|\" | $clipboard_cmd)"
-}
-#!/bin/zsh
-
-source "${0:A:h}/logging.zsh"
-source "${0:A:h}/detect_terminal.zsh"
-source "${0:A:h}/dependencies.zsh"
-
 # Default configuration values
 default_config() {
   exclude_dirs=(".git/" "node_modules/")

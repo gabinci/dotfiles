@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-source "${0:A:h}/logging.zsh"
-
 # Initialize global variables for preview commands
 preview_dir_cmd=""
 preview_file_cmd=""

@@ -1,12 +1,7 @@
 #!/bin/zsh
 
 # Source the separated function files
-source ${0:A:h}/helpers/detect_terminal.zsh
-source ${0:A:h}/helpers/load_config.zsh
-source ${0:A:h}/helpers/print_help.zsh
-source ${0:A:h}/helpers/options_parser.zsh
-source ${0:A:h}/helpers/dependencies.zsh
-source ${0:A:h}/helpers/run_fzf.zsh
+source "${0:A:h}/init.zsh"
 
 # Main function
 ffa() {

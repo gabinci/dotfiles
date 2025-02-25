@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-source "${0:A:h}/logging.zsh"
-
 # Function to detect the terminal emulator
 detect_terminal() {
   local terminal_emulator="unknown"

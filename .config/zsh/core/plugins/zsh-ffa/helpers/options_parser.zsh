@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-source $ZDOTDIR/core/plugins/zsh-ffa/helpers/logging.zsh
-
 # Parse command-line options
 parse_options() {
   while [[ $# -gt 0 ]]; do
