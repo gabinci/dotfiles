@@ -1,14 +1,9 @@
 #!/bin/zsh
 
+source "${0:A:h}/colors.zsh"
+
 # Default log file (can be overridden in configuration or command line)
 LOG_FILE="$HOME/.ffa.log"
-
-# ANSI color codes
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
 
 # Logging function
 log() {

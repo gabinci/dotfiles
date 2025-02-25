@@ -2,6 +2,7 @@
 
 source "${0:A:h}/logging.zsh"
 source "${0:A:h}/detect_terminal.zsh"
+source "${0:A:h}/dependencies.zsh"
 
 # Default configuration values
 default_config() {
@@ -12,7 +13,22 @@ default_config() {
   hide_hidden=false
   default_split="horizontal"
   fzf_bindings="tab:toggle+down,ctrl-e:execute($editor {}),ctrl-y:execute-silent(echo -n \${dir}/{} | sed \"s|^$HOME|~|\" | $clipboard_cmd)"
-  fzf_preview_cmd='([[ -d {} ]] && ls -la {} || bat --style=numbers --color=always --line-range :500 {}) 2> /dev/null | head -200'
+}
+#!/bin/zsh
+
+source "${0:A:h}/logging.zsh"
+source "${0:A:h}/detect_terminal.zsh"
+source "${0:A:h}/dependencies.zsh"
+
+# Default configuration values
+default_config() {
+  exclude_dirs=(".git/" "node_modules/")
+  exclude_patterns=("*.png" "*.jpg" "*.jpeg" "*.gif" "*.bmp" "*.webp" "*.tiff" "*.pdf" "*.epub" "*.zip" "*.tar" "*.gz" "*.rar" "*.7z" "*.ico" "*.woff" "*.woff2" "*.otf" "*.ttf" "*.eot")
+  editor="${EDITOR:-nvim}"
+  verbose=false
+  hide_hidden=false
+  default_split="horizontal"
+  fzf_bindings="tab:toggle+down,ctrl-e:execute($editor {}),ctrl-y:execute-silent(echo -n \${dir}/{} | sed \"s|^$HOME|~|\" | $clipboard_cmd)"
 }
 
 # Load configuration from file and determine split flag
@@ -65,3 +81,11 @@ load_config() {
   # Log the keybindings
   log_debug "Final fzf_bindings: $fzf_bindings"
 }
+
+# Check dependencies and set preview commands
+check_deps
+
+# Update fzf_preview_cmd with the determined preview commands
+fzf_preview_cmd="([[ -d {} ]] && $preview_dir_cmd || $preview_file_cmd) 2> /dev/null | head -200"
+
+log_debug "Final fzf_preview_cmd: $fzf_preview_cmd"

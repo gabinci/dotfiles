@@ -1,12 +1,12 @@
 #!/bin/zsh
 
 # Source the separated function files
-source $ZDOTDIR/core/plugins/zsh-ffa/helpers/detect_terminal.zsh
-source $ZDOTDIR/core/plugins/zsh-ffa/helpers/load_config.zsh
-source $ZDOTDIR/core/plugins/zsh-ffa/helpers/print_help.zsh
-source $ZDOTDIR/core/plugins/zsh-ffa/helpers/options_parser.zsh
-source $ZDOTDIR/core/plugins/zsh-ffa/helpers/dependencies.zsh
-source $ZDOTDIR/core/plugins/zsh-ffa/helpers/run_fzf.zsh
+source ${0:A:h}/helpers/detect_terminal.zsh
+source ${0:A:h}/helpers/load_config.zsh
+source ${0:A:h}/helpers/print_help.zsh
+source ${0:A:h}/helpers/options_parser.zsh
+source ${0:A:h}/helpers/dependencies.zsh
+source ${0:A:h}/helpers/run_fzf.zsh
 
 # Main function
 ffa() {
