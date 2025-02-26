@@ -1,42 +1,52 @@
 #!/bin/zsh
 
-# Source the separated function files
-source "${0:A:h}/init.zsh"
-
-# Main function
+# Find and open files or directories with fzf
 ffa() {
   local dir="$PWD"
-  local fd_exclude_args=()
-  local fd_type_args=()
-
-  # Initialize debug and log_to_file flags
-  debug=false
-  log_to_file=false
-
-  # Load configuration and determine split flag
-  load_config
-
-  # Check if the first argument is a directory
-  if [[ -d $1 ]]; then
-    dir="$1"
-    shift
-  fi
+  local type_filter=""
 
   # Parse options
-  parse_options "$@" || return 0  # Return if help or error
+  while getopts ":fd" opt; do
+    case $opt in
+      f) type_filter="f" ;;
+      d) type_filter="d" ;;
+      \?) echo "Invalid option: -$OPTARG" >&2; return 1 ;;
+    esac
+  done
+  shift $((OPTIND -1))
 
-  # Build fd exclude arguments
-  build_fd_args
+  # If a directory is provided as an argument, use it
+  if [ -n "$1" ]; then
+    dir="$(realpath "$1")"
+  fi
 
-  # Check if dependencies exist
-  check_deps || return 1
+  # Add a special option to go up to the parent directory
+  local go_up_option=".."
 
-  # Verbose output
-  verbose_output
+  # Run fzf to select files or directories with preview
+  selected=$(cd "$dir" && (echo "$go_up_option"; fd --full-path --exclude .git/ ${type_filter:+--type=$type_filter}) | fzf --reverse --info=inline --prompt="Choose files or directories  " --preview '[[ -d {} ]] && tree -C {} || bat --style=numbers --color=always {}')
 
-  # Detect terminal emulator and clipboard command
-  detect_terminal_and_clipboard || return 1
+  # Exit if no selection is made
+  if [ -z "$selected" ]; then
+    return
+  fi
 
-  # Run fzf to select files and directories
-  run_fzf
+  # Get the absolute path of the selected item
+  selected_path="$(realpath "$dir/$selected")"
+
+  # Check if the selected item is the special option to go up
+  if [ "$selected" = "$go_up_option" ]; then
+    # Change to parent directory and call ffa recursively
+    ffa "$(dirname "$dir")"
+    return
+  fi
+
+  # Check if the selected item is a directory or a file
+  if [ -d "$selected_path" ]; then
+    # Recursively call ffa for the selected directory
+    ffa "$selected_path"
+  else
+    # Open the selected file in the editor
+    $EDITOR "$selected_path"
+  fi
 }

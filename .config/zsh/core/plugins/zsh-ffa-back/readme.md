@@ -17,10 +17,14 @@ while [[ $(realpath "$path") != / ]]; do
 done
 ```
 
-> TODO: add some sort of bookmarks system, for folders and files 
-  
-> TODO: add creating files
-> TODO: add moving files
-> TODO: add renaming files
+> [ ] TODO: add some sort of bookmarks system, for folders and files 
 
+> [ ] TODO: add creating files
+> [ ] TODO: add moving files
+> [ ] TODO: add renaming files
 
+> [ ] TODO: refactor file structure 
+
+> [ ] TODO: create binding to go back to original dir were function was executed 
+
+> [ ] TODO: Fix preview command 
