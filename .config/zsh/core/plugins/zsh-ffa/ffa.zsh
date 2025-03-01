@@ -1,52 +1,62 @@
 #!/bin/zsh
 
-# Find and open files or directories with fzf
+# Get the absolute path to the script directory
+SCRIPT_DIR="$(cd "$(dirname "${(%):-%x}")" && pwd)"
+
+# Source the helper and command files
+source "${SCRIPT_DIR}/helpers.sh"
+source "${SCRIPT_DIR}/commands.sh"
+
+# Source utility functions
+source "${SCRIPT_DIR}/utils/rename_file.sh"
+
 ffa() {
   local dir="$PWD"
+  local ffa_flags=()
   local type_filter=""
+  local hide_hidden=false
+  local file_type=""
 
   # Parse options
-  while getopts ":fd" opt; do
-    case $opt in
-      f) type_filter="f" ;;
-      d) type_filter="d" ;;
-      \?) echo "Invalid option: -$OPTARG" >&2; return 1 ;;
-    esac
-  done
-  shift $((OPTIND -1))
+  parse_options "$@"
 
-  # If a directory is provided as an argument, use it
   if [ -n "$1" ]; then
     dir="$(realpath "$1")"
   fi
 
-  # Add a special option to go up to the parent directory
   local go_up_option=".."
 
-  # Run fzf to select files or directories with preview
-  selected=$(cd "$dir" && (echo "$go_up_option"; fd --full-path --exclude .git/ ${type_filter:+--type=$type_filter}) | fzf --reverse --info=inline --prompt="Choose files or directories  " --preview '[[ -d {} ]] && tree -C {} || bat --style=numbers --color=always {}')
+  # Determine preview command with fallback
+  determine_preview_command
 
-  # Exit if no selection is made
-  if [ -z "$selected" ]; then
-    return
-  fi
+  # Build fd command based on options
+  local fd_cmd
+  fd_cmd=$(construct_fd_command "$dir" "$type_filter" "$hide_hidden" "$file_type")
 
-  # Get the absolute path of the selected item
-  selected_path="$(realpath "$dir/$selected")"
+  # Create file/directory command
+  local create_cmd
+  create_cmd=$(construct_create_command "$dir")
 
-  # Check if the selected item is the special option to go up
-  if [ "$selected" = "$go_up_option" ]; then
-    # Change to parent directory and call ffa recursively
-    ffa "$(dirname "$dir")"
-    return
-  fi
+  # Create an inline wrapper to call our rename function
+  local rename_wrapper="source \"${SCRIPT_DIR}/utils/rename_file.sh\"; rename_file \"$dir\" {}"
+  
+  # Run fzf with preview and custom key bindings
+  export dir
 
-  # Check if the selected item is a directory or a file
-  if [ -d "$selected_path" ]; then
-    # Recursively call ffa for the selected directory
-    ffa "$selected_path"
-  else
-    # Open the selected file in the editor
-    $EDITOR "$selected_path"
-  fi
+  selected=$(cd "$dir" && (echo "$go_up_option"; eval "$fd_cmd") | \
+    fzf --reverse --info=inline --prompt="Choose files or directories  " \
+    --preview "if [[ -d {} ]]; then $dir_preview_cmd; else $file_preview_cmd; fi" \
+    --bind "ctrl-a:execute($create_cmd)+reload(echo '$go_up_option'; $fd_cmd)" \
+    --bind "ctrl-r:execute($rename_wrapper)+reload(echo '$go_up_option'; $fd_cmd)")
+
+  [ -z "$selected" ] && return
+
+  handle_selection "$selected" "$dir" "ffa_flags"
 }
+
+# Register commands - simplified as we're using function calls
+register_commands() {
+  # Commands are now handled directly via bindings
+  :
+}
+

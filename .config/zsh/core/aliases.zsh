@@ -2,12 +2,13 @@
 # ~/.config/zsh/.zshrc
 
 alias nv="nvim"
+alias lg="lazygit"
 
 
 alias ls="ls -a"
 alias mkdir-"mkdir -pv"
 alias mv="mv -v"
-alias rm="rm -rf"
+alias rm="rm -rvf"
 
 alias c="clear ; exec zsh"
 alias q="exit"

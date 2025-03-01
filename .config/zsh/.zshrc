@@ -345,7 +345,7 @@ function -auto-ls-after-cd() {
   # Only in response to a user-initiated `cd`, not indirectly (eg. via another
   # function).
   if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
-    ls -a
+    ls -ah
   fi
 }
 add-zsh-hook chpwd -auto-ls-after-cd

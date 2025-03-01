@@ -18,3 +18,7 @@ export VISUAL=nvim						# default file visualizer
 export EDITOR=nvim						# default file editor
 
 export BAT_CONFIG_PATH="$HOME/dotfiles/.config/bat/config" 	# bat
+# export EZA_CONFIG_DIR="$HOME/dotfiles/.config/eza" 		# eza
+
+# Enable icons for eza by default
+export EZA_ICONS_AUTO=1

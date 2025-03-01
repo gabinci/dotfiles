@@ -1,34 +1,29 @@
 #!/bin/zsh
 
-# Find and open files with fzf
-ff() {
+# Find and change directory with fzf
+ffd() {
   local dir="$PWD"
   local exclude_dirs=(".git/" "node_modules/")
-  local exclude_patterns=("*.png" "*.jpg" "*.jpeg" "*.gif" "*.bmp" "*.webp" "*.tiff" "*.pdf" "*.epub" "*.zip" "*.tar" "*.gz" "*.rar" "*.7z" "*.ico" "*.woff" "*.woff2" "*.otf" "*.ttf" "*.eot")
   local fd_exclude_args=()
-  local editor="${EDITOR:-vim}"
   local verbose=0
 
   # Function to print help message
   print_help() {
     local help_text="Usage: 
-  ff [directory] [options]
+  ffd [directory] [options]
 
-Find and open files with fzf, while excluding specified directories and file patterns.
+Find and change directory with fzf, while excluding specified directories.
 
 Options:
   -d <directory>                        # Add exclude directory
-  -e <pattern>                          # Add exclude pattern
-  -E <editor>                           # Specify editor (default: \$EDITOR or vim)
   -v                                    # Enable verbose mode
   -h, --help                            # Show this help message and exit
 
 Examples:
-  ff                                    # Run in current directory
-  ff ~/projects                         # Run in specified directory
-  ff -d build -d dist                   # Exclude 'build' and 'dist' directories
-  ff -e \"*.log\" -e \"*.tmp\"              # Exclude '*.log' and '*.tmp' file patterns
-  ff ~/projects -d dist -e \"*.log\"      # Combined usage
+  ffd                                   # Run in current directory
+  ffd ~/projects                        # Run in specified directory
+  ffd -d build -d dist                  # Exclude 'build' and 'dist' directories
+
 "
 
     if command -v bat >/dev/null 2>&1; then
@@ -48,8 +43,6 @@ Examples:
   while [[ $# -gt 0 ]]; do
     case $1 in
       -d) IFS=',' read -r -a dirs <<< "$2"; exclude_dirs+=("${dirs[@]}"); shift ;;
-      -e) IFS=',' read -r -a patterns <<< "$2"; exclude_patterns+=("${patterns[@]}"); shift ;;
-      -E) editor="$2"; shift ;;
       -v) verbose=1 ;;
       -h|--help) print_help; return 0 ;;
       *) echo "Unknown option: $1"; print_help; return 1 ;;
@@ -61,9 +54,6 @@ Examples:
   for excluded_dir in "${exclude_dirs[@]}"; do
     fd_exclude_args+=("--exclude" "$excluded_dir")
   done
-  for pattern in "${exclude_patterns[@]}"; do
-    fd_exclude_args+=("-E" "$pattern")
-  done
 
   # Check if dependencies exist
   for cmd in fd fzf; do
@@ -74,10 +64,16 @@ Examples:
   if [[ $verbose -eq 1 ]]; then
     echo "Directory: $dir"
     echo "Exclude directories: ${exclude_dirs[*]}"
-    echo "Exclude patterns: ${exclude_patterns[*]}"
-    echo "Editor: $editor"
   fi
 
-  # Run fzf to select files
-  (cd "$dir" && fd -Htf --full-path "${fd_exclude_args[@]}" | fzf -m --reverse --info=inline --prompt="Choose files  " | xargs -r $editor)
+  # Run fzf to select directories
+  local selected_dir
+  selected_dir=$(cd "$dir" && fd -Ht d --full-path "${fd_exclude_args[@]}" | fzf -m --reverse --info=inline --prompt="Choose directory  ")
+
+  # Change to selected directory
+  if [[ -n $selected_dir ]]; then
+    cd "$selected_dir"
+  else
+    echo "No directory selected."
+  fi
 }

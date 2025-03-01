@@ -1,0 +1,11 @@
+.
+├── commands.sh
+├── ffa.zsh
+├── helpers.sh
+├── log.md
+├── test1
+└── utils
+    ├── rename_file.sh
+    └── test
+
+2 directories, 7 files
