@@ -1,0 +1,29 @@
+display:
+  icons: always
+  color: auto
+  hyperlink: true
+  absolute: off
+  width: 80
+
+sorting:
+  sort: name
+  reverse: false
+  group_dirs_first: true
+
+time:
+  time: modified
+  time_style: default
+
+git:
+  git: true
+  git_repos: true
+  git_repos_no_status: false
+
+environment:
+  columns: 80
+  strict: false
+  grid_rows: 10
+  icon_spacing: 1
+  no_color: false
+  eza_colors: "uu=0:gu=0"
+  eza_config_dir: "$XDG_CONFIG_HOME/eza"
