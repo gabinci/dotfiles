@@ -15,19 +15,22 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-  
-		{ 
-			"folke/tokyonight.nvim",
-			priority = 1000,
-			config = function()
-				vim.cmd.colorscheme "tokyonight-storm" 
-			end 
-		},
-		{ import = "plugins" },
+    -- import your plugins
+    { import = "plugins" },
+  -- Highlight todo, notes, etc in comments
+  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+
   },
+  -- Configure any other settings here. See the documentation for more details.
+  install = { colorscheme = { "sorbet" } }, -- colorscheme that will be used when installing plugins.
+  checker = { enabled = true }, -- automatically check for plugin updates
 })
-
-
