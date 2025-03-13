@@ -1,6 +1,7 @@
 vim.cmd("autocmd!") -- Clear all autocommands to prevent unexpected behaviors
 vim.g.have_nerd_font = true -- Indicate that NERD fonts are available
 
+asldjkasd
 -- Function to load default options
 local load_default_options = function()
 	-- Check if Neovim is running in headless mode (without a UI)
