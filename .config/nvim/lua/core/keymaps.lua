@@ -63,7 +63,7 @@ local maps = {
 
 	insert_mode = {
 		["jj"] = "<ESC>",
-},
+	},
 	term_mode = {},
 	visual_mode = {
 		["ç"] = { ":", { noremap = true } }, -- remap ç
@@ -83,7 +83,7 @@ local maps = {
 	command_mode = {
 		["ç"] = { "<CR>", noremap = true },
 		["Ç"] = { "<CR>", noremap = true },
-		["jj"] = "<ESC>",
+		-- ["jj"] = "<ESC>",
 	},
 }
 

@@ -1,7 +1,7 @@
 local fn = vim.fn
 local augroups = {}
 -- local autocmd = vim.api.nvim_create_autocmd
-local utils = require("core.utils")
+local utils = require("core.utils.general")
 
 augroups.insert = {
 	-- clear_search_highlighting = {
