@@ -1,7 +1,11 @@
 vim.cmd("autocmd!") -- Clear all autocommands to prevent unexpected behaviors
 vim.g.have_nerd_font = true -- Indicate that NERD fonts are available
 
-asldjkasd
+-- Schedule setting clipboard option to avoid potential issues
+vim.schedule(function()
+	vim.opt.clipboard = "unnamedplus" -- Use the system clipboard
+end)
+
 -- Function to load default options
 local load_default_options = function()
 	-- Check if Neovim is running in headless mode (without a UI)
@@ -88,10 +92,6 @@ local load_default_options = function()
 end
 
 --- OTHER SETINGS --
--- Schedule setting clipboard option to avoid potential issues
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus" -- Use the system clipboard
-end)
 
 vim.scriptencoding = "utf-8" -- Set script encoding to UTF-8
 

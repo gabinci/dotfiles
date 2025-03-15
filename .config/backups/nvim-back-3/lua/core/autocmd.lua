@@ -1,7 +1,7 @@
 local fn = vim.fn
 local augroups = {}
 -- local autocmd = vim.api.nvim_create_autocmd
--- local utils = require("core.utils.general")
+local utils = require("core.utils")
 
 augroups.insert = {
 	-- clear_search_highlighting = {
@@ -87,13 +87,13 @@ augroups.buffer = {
 		end,
 	},
 
-	-- change_header = {
-	-- 	event = "BufWritePre",
-	-- 	pattern = "*",
-	-- 	callback = function()
-	-- 		utils.changeHeader()
-	-- 	end,
-	-- },
+	change_header = {
+		event = "BufWritePre",
+		pattern = "*",
+		callback = function()
+			utils.changeHeader()
+		end,
+	},
 
 	-- buf wire post
 	reload_sxhkd = {
@@ -102,17 +102,17 @@ augroups.buffer = {
 		command = [[!pkill -USR1 -x sxhkd]],
 	},
 
-	-- make_scripts_executable = {
-	-- 	event = "BufWritePost",
-	-- 	pattern = "*.sh,*.py,*.zsh",
-	-- 	callback = function()
-	-- 		local file = vim.fn.expand("%p")
-	-- 		local status = utils.is_executable()
-	-- 		if status ~= true then
-	-- 			vim.fn.setfperm(file, "rwxr-x---")
-	-- 		end
-	-- 	end,
-	-- },
+	make_scripts_executable = {
+		event = "BufWritePost",
+		pattern = "*.sh,*.py,*.zsh",
+		callback = function()
+			local file = vim.fn.expand("%p")
+			local status = utils.is_executable()
+			if status ~= true then
+				vim.fn.setfperm(file, "rwxr-x---")
+			end
+		end,
+	},
 
 	update_xresources = {
 		event = "BufWritePost",
