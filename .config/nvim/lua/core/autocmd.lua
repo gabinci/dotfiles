@@ -4,23 +4,36 @@ local augroups = {}
 -- local utils = require("core.utils.general")
 
 augroups.insert = {
-	-- clear_search_highlighting = {
-	-- 	event = "InsertEnter",
-	-- 	pattern = "*",
-	-- 	callback = function()
-	-- 		vim.opt_local.hlsearch = false
-	-- 		vim.fn.clearmatches()
-	-- 	end,
-	-- },
+	toggle_search_highlighting = {
+		event = { "InsertEnter", "InsertLeave" },
+		pattern = "*",
+		callback = function(event)
+			if event.event == "InsertEnter" then
+				-- Entering insert mode: check if search was active, then clear it
+				if vim.v.hlsearch == 1 then
+					vim.b._search_was_active = true
+					vim.opt_local.hlsearch = false
+					vim.fn.clearmatches()
+				else
+					vim.b._search_was_active = false
+				end
+			elseif event.event == "InsertLeave" then
+				-- Leaving insert mode: restore only if it was previously cleared
+				if vim.b._search_was_active then
+					vim.opt_local.hlsearch = true
+				end
+			end
+		end,
+	},
 
-	-- match_extra_spaces = {
-	-- 	event = "InsertLeave",
-	-- 	pattern = "*",
-	-- 	command = [[
-	--    highlight RedundantSpaces ctermbg=red guibg=red
-	--    match RedundantSpaces /\s\+$/
-	--    ]],
-	-- },
+	match_extra_spaces = {
+		event = "InsertLeave",
+		pattern = "*",
+		command = [[
+		highlight RedundantSpaces cterm=underline gui=underline
+		match RedundantSpaces /\s\+$/
+	]],
+	},
 
 	center_screen = {
 		event = "InsertEnter",
@@ -35,23 +48,22 @@ augroups.insert = {
 	},
 }
 
--- augroups.toggle_cursorline = {
---
---   enable_cursorline = {
---     event = { "VimEnter","WinEnter","BufWinEnter" },
---     pattern = "*",
---     callback = function()
---       vim.opt.cursorline = true
---     end,
---   },
---
---   disable_cursorline = {
---     event = "WinLeave",
---     pattern = "*",
---     command = [[set nocursorline]]
---   },
---
--- }
+augroups.toggle_cursorline = {
+
+	enable_cursorline = {
+		event = { "VimEnter", "WinEnter", "BufWinEnter" },
+		pattern = "*",
+		callback = function()
+			vim.opt.cursorline = true
+		end,
+	},
+
+	disable_cursorline = {
+		event = "WinLeave",
+		pattern = "*",
+		command = [[set nocursorline]],
+	},
+}
 
 augroups.yankpost = {
 	highlight_yank = {
@@ -96,11 +108,6 @@ augroups.buffer = {
 	-- },
 
 	-- buf wire post
-	reload_sxhkd = {
-		event = "BufWritePost",
-		pattern = "sxhkdrc",
-		command = [[!pkill -USR1 -x sxhkd]],
-	},
 
 	-- make_scripts_executable = {
 	-- 	event = "BufWritePost",
@@ -113,18 +120,6 @@ augroups.buffer = {
 	-- 		end
 	-- 	end,
 	-- },
-
-	update_xresources = {
-		event = "BufWritePost",
-		pattern = "~/.Xresources",
-		command = [[!xrdb -merge ~/.Xresources]],
-	},
-
-	updated_xdefaults = {
-		event = "BufWritePost",
-		pattern = "~/.Xdefaults",
-		command = [[!xrdb -merge ~/.Xdefaults]],
-	},
 	-- }}}
 
 	-- buf Enter
@@ -187,6 +182,7 @@ augroups.buffer = {
 			"qf",
 			"txt",
 		},
+
 		callback = function()
 			vim.wo.relativenumber = false
 			vim.wo.number = true
@@ -267,7 +263,6 @@ augroups.terminal = {
 -- }
 
 augroups.misc = {
-
 	save_cursor_position = {
 		event = { "VimEnter", "CursorMoved" },
 		pattern = "*",
@@ -291,7 +286,6 @@ augroups.misc = {
 
 for group, commands in pairs(augroups) do
 	local augroup = vim.api.nvim_create_augroup("AU_" .. group, { clear = true })
-
 	for _, opts in pairs(commands) do
 		local event = opts.event
 		opts.event = nil

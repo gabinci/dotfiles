@@ -37,6 +37,7 @@ __DEF_OPTIONS[DOTFILES]=${__DEF_OPTIONS[REAL_ZSHRC]:h:h:h:h}
 # Autoloaded functions
 #
 
+
 # TODO look at these functions afterwards
 # fpath=($HOME/.zsh/functions.d $fpath)
 

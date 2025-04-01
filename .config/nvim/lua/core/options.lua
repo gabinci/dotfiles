@@ -1,11 +1,6 @@
 vim.cmd("autocmd!") -- Clear all autocommands to prevent unexpected behaviors
 vim.g.have_nerd_font = true -- Indicate that NERD fonts are available
 
--- Schedule setting clipboard option to avoid potential issues
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus" -- Use the system clipboard
-end)
-
 -- Function to load default options
 local load_default_options = function()
 	-- Check if Neovim is running in headless mode (without a UI)
@@ -18,6 +13,7 @@ local load_default_options = function()
 		vim.opt.swapfile = false -- Disable swap file creation
 		return
 	end
+
 	-- Standard mode settings
 	local default_options = {
 		breakindent = true, -- Enable break indent
@@ -42,7 +38,7 @@ local load_default_options = function()
 		keywordprg = ":help", -- Use :help for K command
 		backup = false, -- Disable backup file creation
 		cmdheight = 1, -- Command-line height
-		completeopt = { "menuone", "noselect" }, -- Completion options
+		completeopt = { "menuone", "noselect", "noinsert" }, -- Completion options
 		conceallevel = 0, -- Show all text normally
 		fileencoding = "utf-8", -- File encoding
 		foldmethod = "manual", -- Manual code folding
@@ -59,7 +55,6 @@ local load_default_options = function()
 		splitright = true, -- Vertical splits open to the right
 		swapfile = false, -- Disable swap file creation
 		termguicolors = true, -- Enable 24-bit RGB colors
-		timeoutlen = 300, -- Time to wait for a mapped sequence to complete (in milliseconds)
 		title = true, -- Set window title
 		undofile = true, -- Enable persistent undo
 		updatetime = 250, -- Faster completion
@@ -77,12 +72,23 @@ local load_default_options = function()
 		showcmd = false, -- Disable command display in the last line of the screen
 		ruler = false, -- Disable the ruler
 		laststatus = 3, -- Global status line
+
 		list = false, -- Disable displaying unprintable characters
 		listchars = { tab = "» ", trail = "·", nbsp = "␣" }, -- Characters to show for tabs, trailing spaces, and non-breaking spaces
-		shortmess = "cI", -- Suppress completion messages and intro text
+
+		-- l = Don't show "written" messages
+		-- W = Don't show "written" messages when writing
+		-- I = Don't show intro message when starting Vim
+		-- c = Don't show ins-completion-menu messages
+		shortmess = "lwIcF",
 		spelllang = "cjk", -- Disable spellchecking for Asian characters
 		whichwrap = "<,>,[,],h,l", -- Allow cursor to move to the next/previous line with certain keys
 		-- iskeyword = "-", -- Treat hyphenated words as a single word
+
+		timeoutlen = 300, -- Time to wait for a mapped sequence to complete (in milliseconds)
+		ttimeoutlen = 10,
+
+		redrawtime = 1000,
 	}
 
 	-- Apply the options
@@ -91,7 +97,7 @@ local load_default_options = function()
 	end
 end
 
---- OTHER SETINGS --
+load_default_options() -- Load the default options
 
 vim.scriptencoding = "utf-8" -- Set script encoding to UTF-8
 
@@ -102,4 +108,32 @@ vim.cmd([[set wildignore+=.pyc,.swp]]) -- Ignore certain file types in file comp
 vim.cmd([[let &t_Cs = "\e[4:3m"]]) -- Enable undercurl
 vim.cmd([[let &t_Ce = "\e[4:0m"]]) -- Disable undercurl
 
-load_default_options() -- Load the default options
+-- Diagnostic Config
+-- See :help vim.diagnostic.Opts
+vim.diagnostic.config({
+	severity_sort = true,
+	float = { border = "rounded", source = "if_many" },
+	underline = { severity = vim.diagnostic.severity.ERROR },
+	signs = vim.g.have_nerd_font and {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅚 ",
+			[vim.diagnostic.severity.WARN] = "󰀪 ",
+			[vim.diagnostic.severity.INFO] = "󰋽 ",
+			[vim.diagnostic.severity.HINT] = "󰌶 ",
+		},
+	} or {},
+
+	virtual_text = {
+		source = "if_many",
+		spacing = 2,
+		format = function(diagnostic)
+			local diagnostic_message = {
+				[vim.diagnostic.severity.ERROR] = diagnostic.message,
+				[vim.diagnostic.severity.WARN] = diagnostic.message,
+				[vim.diagnostic.severity.INFO] = diagnostic.message,
+				[vim.diagnostic.severity.HINT] = diagnostic.message,
+			}
+			return diagnostic_message[diagnostic.severity]
+		end,
+	},
+})

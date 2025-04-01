@@ -1,0 +1,107 @@
+-- TODO: FIX THIS FILE TO MAKE IT WORK WITH NEW NVIM 0.11
+
+-- -- Reserve a space in the gutter
+-- -- This will avoid an annoying layout shift in the screen
+-- vim.opt.signcolumn = "yes"
+--
+-- -- Add cmp_nvim_lsp capabilities settings to lspconfig
+-- -- This should be executed before you configure any language server
+-- -- local lspconfig_defaults = require("lspconfig").util.default_config
+-- -- lspconfig_defaults.capabilities =
+-- -- 	vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("blink.cmp").get_lsp_capabilities())
+--
+-- -- This is where you enable features that only work
+-- -- if there is a language server active in the file
+-- vim.api.nvim_create_autocmd("LspAttach", {
+-- 	desc = "LSP actions",
+-- 	callback = function(event)
+--
+-- 		local map = function(keys, func, desc, mode)
+-- 			mode = mode or "n"
+-- 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+-- 		end
+--
+-- 		local snacks = require("snacks.picker")
+-- 		map("gd", snacks.lsp_definitions, "[g]oto [d]efinition")
+-- 		map("gr", snacks.lsp_references, "[g]oto [r]eferences")
+-- 		map("gi", snacks.lsp_implementations, "[g]oto [i]mplementation")
+-- 		map("<leader>D", snacks.lsp_type_definitions, "type [d]efinition")
+-- 		map("<leader>ds", snacks.lsp_symbols, "[d]ocument [s]ymbols")
+-- 		map("<leader>ws", snacks.lsp_workspace_symbols, "[w]orkspace [s]ymbols")
+-- 		map("<leader>rn", vim.lsp.buf.rename, "[r]e[n]ame")
+-- 		map("<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction", { "n", "x" })
+-- 		map("gd", vim.lsp.buf.declaration, "[g]oto [d]eclaration")
+-- 		map("gk", vim.lsp.buf.hover, "hover documentation")
+-- 		map("[d", vim.diagnostic.goto_prev, "previous diagnostic")
+-- 		map("]d", vim.diagnostic.goto_next, "next diagnostic")
+-- 		map("<leader>d", function()
+-- 			vim.diagnostic.open_float({ focus = false })
+-- 		end, "show diagnostic")
+--
+-- 		local client = vim.lsp.get_client_by_id(event.data.client_id)
+-- 		-- Assuming 'client' and 'event' are defined in the surrounding scope (e.g., on_attach)
+-- 		if
+-- 			client
+-- 			and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, { bufnr = event.buf })
+-- 		then
+-- 			local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+-- 			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+-- 				buffer = event.buf,
+-- 				group = highlight_augroup,
+-- 				callback = vim.lsp.buf.document_highlight,
+-- 			})
+--
+-- 			vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+-- 				buffer = event.buf,
+-- 				group = highlight_augroup,
+-- 				callback = vim.lsp.buf.clear_references,
+-- 			})
+--
+-- 			vim.api.nvim_create_autocmd("LspDetach", {
+-- 				group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+-- 				callback = function(event2)
+-- 					vim.lsp.buf.clear_references()
+-- 					vim.api.nvim_clear_autocmds({
+-- 						group = "kickstart-lsp-highlight",
+-- 						buffer = event2.buf,
+-- 					})
+-- 				end,
+-- 			})
+-- 		end
+--
+-- 		if
+-- 			client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, { bufnr = event.buf })
+-- 		then
+-- 			map("<leader>th", function()
+-- 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+-- 			end, "[T]oggle Inlay [H]ints")
+-- 		end
+-- 	end,
+-- })
+--
+-- local capabilities = {
+-- 	textDocument = {
+-- 		foldingRange = {
+-- 			dynamicRegistration = false,
+-- 			lineFoldingOnly = true,
+-- 		},
+-- 	},
+-- }
+--
+-- capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+--
+-- -- Setup language servers.
+--
+-- vim.lsp.config("*", {
+-- 	capabilities = capabilities,
+-- 	root_markers = { ".git" },
+-- })
+--
+-- vim.lsp.enable({
+-- 	"gopls",
+-- 	"basedpyright",
+-- 	"luals",
+-- 	"terraform_lsp",
+-- 	-- 'nil_ls',
+-- 	"nixd",
+-- })
