@@ -32,8 +32,8 @@ return {
 				-- Customization of explorer windows
 				windows = {
 					max_number = math.huge, -- Maximum number of windows to show side by side
-					preview = true, -- Whether to show preview of file/directory under cursor
-					width_focus = 50, -- Width of focused window
+					preview = true,    -- Whether to show preview of file/directory under cursor
+					width_focus = 50,  -- Width of focused window
 					width_nofocus = 15, -- Width of non-focused window
 					width_preview = 40, -- Width of preview window
 				},
@@ -46,18 +46,6 @@ return {
 			statusline.section_location = function()
 				return "%2l:%-2v"
 			end
-
-			-- ... and there is more!
-			--  Check out: https://github.com/echasnovski/mini.nvim
-
-			-- require("mini.snippets").setup()
-			-- require("mini.completion").setup({
-			-- 	delay = { completion = 100, info = 100, signature = 50 },
-			-- 	window = {
-			-- 		info = { height = 25, width = 80, border = "single" },
-			-- 		signature = { height = 25, width = 80, border = "single" },
-			-- 	},
-			-- })
 		end,
 		keys = {
 			{
