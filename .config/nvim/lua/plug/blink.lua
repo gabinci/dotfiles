@@ -28,17 +28,29 @@ return {
 		--   menu = { auto_show = function(ctx) return ctx.mode ~= 'cmdline' end }
 		-- },
 		completion = {
+			list = {
+				selection = {
+					auto_insert = false,
+					preselect = true,
+				},
+			},
+
 			ghost_text = { enabled = true },
 
 			menu = {
 				border = "single",
 				draw = {
+					padding = 2,
+					gap = 1,
+					align_to = "label",
 					components = {
 						kind_icon = {
+							ellipsis = true,
 							text = function(ctx)
 								local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-								return kind_icon
+								return kind_icon .. ctx.icon_gap
 							end,
+
 							-- (optional) use highlights from mini.icons
 							highlight = function(ctx)
 								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
@@ -53,12 +65,11 @@ return {
 							end,
 						},
 					},
-
 					treesitter = { "lsp" },
 					columns = {
 						{ "kind_icon" },
-						{ "label", "label_description", gap = 1 },
-						{ "kind", gap = 1 },
+						{ "label", "label_description" },
+						{ "kind" },
 					},
 				},
 			},
@@ -69,9 +80,8 @@ return {
 				auto_show_delay_ms = 500,
 			},
 			accept = {
-				auto_brackets = {
-					enabled = true,
-				},
+				auto_brackets = { enabled = true },
+				create_undo_point = true,
 			},
 		},
 
